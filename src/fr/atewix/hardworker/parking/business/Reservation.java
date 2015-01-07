@@ -8,9 +8,9 @@ public class Reservation {
     private String nomproprietaire;
     private String immatriculation;
 
-    public Reservation(Vehicule V){
-        this.nomproprietaire=V.getNomproprietaire();
-        this.immatriculation=V.getImmatriculation();
+    public Reservation(Vehicule voiture){
+        this.nomproprietaire = voiture.getNomproprietaire();
+        this.immatriculation = voiture.getImmatriculation();
     }
 
     public String getImmatriculation() {

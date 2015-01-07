@@ -14,11 +14,11 @@ public class Facture {
     private Calendar datedebut;
     private Calendar datefin;
 
-    public Facture(Vehicule V, Calendar datedebut, int tarifhoraire){
-        this.vehiculeconcerne=V;
-        this.datedebut=datedebut;
-        this.datefin=new GregorianCalendar();
-        this.montantfacture=calculMontant(datedebut, datefin, tarifhoraire);
+    public Facture(Vehicule voiture, Calendar datedebut, int tarifhoraire){
+        this.vehiculeconcerne = voiture;
+        this.datedebut = datedebut;
+        this.datefin = new GregorianCalendar();
+        this.montantfacture = calculMontant(datedebut, datefin, tarifhoraire);
     }
 
     private double calculMontant(Calendar datedebut, Calendar datefin, int tarifhoraire){

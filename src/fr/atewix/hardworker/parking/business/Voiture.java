@@ -6,7 +6,7 @@ package fr.atewix.hardworker.parking.business;
 public class Voiture extends Vehicule{
 
     public Voiture(String immatriculation, String nomproprietaire, String marque, String modele) {
-        super(immatriculation, nomproprietaire, marque, modele);
+        super(immatriculation, nomproprietaire, marque, modele, "Voiture");
     }
 
     public String toString() {
@@ -17,7 +17,7 @@ public class Voiture extends Vehicule{
                 ", Modele : " + modele + "\n";
     }
 
-    public void garer(Place P){
-        P.parkPlace(this);
+    public void garer(Place place) {
+        place.parkPlace(this);
     }
 }

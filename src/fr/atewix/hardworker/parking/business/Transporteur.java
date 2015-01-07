@@ -11,15 +11,15 @@ public class Transporteur extends Place{
         return "Transporteur";
     }
 
-    public void parkPlace(Voiture V){
-        this.vehiculeparke=V;
+    public void parkPlace(Voiture voiture){
+        this.vehiculeparke = voiture;
     }
 
-    public void parkPlace(Moto M){
-        this.vehiculeparke=M;
+    public void parkPlace(Moto moto){
+        this.vehiculeparke = moto;
     }
 
-    public void parkPlace(Camion C){
-        this.vehiculeparke=C;
+    public void parkPlace(Camion camion){
+        this.vehiculeparke = camion;
     }
 }

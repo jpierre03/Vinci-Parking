@@ -9,15 +9,15 @@ public class Particulier extends Place{
         return "Particulier";
     }
 
-    public void parkPlace(Voiture V){
-        this.vehiculeparke=V;
+    public void parkPlace(Voiture voiture){
+        this.vehiculeparke = voiture;
     }
 
-    public void parkPlace(Moto M){
-        this.vehiculeparke=M;
+    public void parkPlace(Moto moto){
+        this.vehiculeparke = moto;
     }
 
-    public void parkPlace(Camion C){
+    public void parkPlace(Camion camion){
         System.out.println("Camion pas le droit sur place Particulier");
     }
 }

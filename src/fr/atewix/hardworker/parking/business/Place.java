@@ -35,8 +35,8 @@ abstract class Place {
         this.datedebut=datedebut;
     }
 
-    public void reserver(Vehicule V){
-        this.reservation = new Reservation(V);
+    public void reserver(Vehicule vehicule){
+        this.reservation = new Reservation(vehicule);
     }
 
     public void enleverReservation(){

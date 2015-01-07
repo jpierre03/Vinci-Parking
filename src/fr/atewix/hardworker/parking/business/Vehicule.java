@@ -27,6 +27,6 @@ abstract class Vehicule {
         return this.nomproprietaire;
     }
 
-    abstract void garer(Place P);
+    abstract void garer(Place place);
 
 }
