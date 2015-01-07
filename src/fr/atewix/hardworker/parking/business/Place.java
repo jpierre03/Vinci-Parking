@@ -9,13 +9,14 @@ abstract class Place {
 
     protected Vehicule vehiculeparke;
     protected Reservation reservation;
+    protected String type;
 
     private Calendar datedebut;
 
 
-    abstract public void parkPlace(Voiture V);
-    abstract public void parkPlace(Moto M);
-    abstract public void parkPlace(Camion C);
+    abstract public void parkPlace(Voiture vehicule);
+    abstract public void parkPlace(Moto moto);
+    abstract public void parkPlace(Camion camion);
 
     public Vehicule getVehiculeparke(){
 
