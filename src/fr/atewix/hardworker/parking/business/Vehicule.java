@@ -26,4 +26,8 @@ abstract class Vehicule {
     public String getNomproprietaire() {
         return this.nomproprietaire;
     }
+
+    public String getType() {
+        return type;
+    }
 }

@@ -14,15 +14,15 @@ import java.util.GregorianCalendar;
 public class Parking {
 
     private static Parking instance = new Parking();
-    private Collection<Place> ListeDesPlaces = new ArrayList<Place>();
+    private ArrayList<Place> listeDesPlaces = new ArrayList<Place>();
     private static final double NOMBREDEPLACES = 10;
     private static final int TARIFHORRAIRE = 2;
 
     private Parking() {
         for(double i = 0; i < 3*NOMBREDEPLACES/4; ++i)
-            ListeDesPlaces.add(new Particulier());
+            listeDesPlaces.add(new Particulier());
         for(double i = 3*NOMBREDEPLACES/4; i < NOMBREDEPLACES; ++i)
-            ListeDesPlaces.add(new Transporteur());
+            listeDesPlaces.add(new Transporteur());
     }
 
     public static Parking getInstance() {
@@ -35,6 +35,51 @@ public class Parking {
     }
 
     public boolean vehiculeExiste (Vehicule vehicule) {
-        return ListeDesPlaces.contains(vehicule);
+        return listeDesPlaces.contains(vehicule);
+    }
+
+    public void park (Vehicule vehicule, int numPlace) throws PlaceOccupeeException, PlusAucunePlaceException {
+        Place placeSouhaite = listeDesPlaces.get(numPlace);
+        boolean placeTrouver = false;
+
+        if(placeSouhaite.equals(null)) {
+            if (vehicule.getType() == "Camion" && placeSouhaite.getType() == "Particulier")
+                throw new PlaceOccupeeException();
+            placeSouhaite.setVehiculeparke(vehicule);
+            listeDesPlaces.set(numPlace, placeSouhaite);
+            placeTrouver = true;
+        } else if(vehicule.getType() == "Camion"){
+            for (int i = 0; i < NOMBREDEPLACES; i++) {
+                placeSouhaite = listeDesPlaces.get(i);
+                if (placeSouhaite.getType() == "Transporteur" && placeSouhaite.getVehiculeparke().equals(null)) {
+                    placeSouhaite.setVehiculeparke(vehicule);
+                    listeDesPlaces.set(i, placeSouhaite);
+                    placeTrouver = true;
+                    break;
+                }
+            }
+        } else {
+            for (int i = 0; i < NOMBREDEPLACES; i++) {
+                placeSouhaite = listeDesPlaces.get(i);
+                if (placeSouhaite.getType() == "Particulier" && placeSouhaite.getVehiculeparke().equals(null)) {
+                    placeSouhaite.setVehiculeparke(vehicule);
+                    listeDesPlaces.set(i, placeSouhaite);
+                    placeTrouver = true;
+                    break;
+                }
+            }
+            if(!placeTrouver)
+                for (int i = 0; i < NOMBREDEPLACES; i++) {
+                    placeSouhaite = listeDesPlaces.get(i);
+                    if (placeSouhaite.getVehiculeparke().equals(null)) {
+                        placeSouhaite.setVehiculeparke(vehicule);
+                        listeDesPlaces.set(i, placeSouhaite);
+                        placeTrouver = true;
+                        break;
+                    }
+                }
+        }
+        if(!placeTrouver)
+            throw new PlusAucunePlaceException();
     }
 }
