@@ -26,9 +26,4 @@ abstract class Vehicule {
     public String getNomproprietaire() {
         return this.nomproprietaire;
     }
-
-
-
-    abstract void garer(Place place);
-
 }

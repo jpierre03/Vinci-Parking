@@ -7,16 +7,16 @@ import java.util.Calendar;
  */
 abstract class Place {
 
+    private static int numPlaceCree = 1;
     protected Vehicule vehiculeparke;
     protected Reservation reservation;
     protected String type;
-
+    protected int numPlace;
     private Calendar datedebut;
 
-
-    abstract public void parkPlace(Voiture vehicule);
-    abstract public void parkPlace(Moto moto);
-    abstract public void parkPlace(Camion camion);
+    public Place (){
+        this.numPlace = numPlaceCree++;
+    }
 
     public Vehicule getVehiculeparke(){
 

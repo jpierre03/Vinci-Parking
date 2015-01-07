@@ -17,7 +17,4 @@ public class Camion extends Vehicule{
                 ", Modele : " + modele + "\n";
     }
 
-    public void garer(Place place){
-        place.parkPlace(this);
-    }
 }

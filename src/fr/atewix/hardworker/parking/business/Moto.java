@@ -16,8 +16,4 @@ public class Moto extends Vehicule {
                 ", Marque : " + marque +
                 ", Modele : " + modele + "\n";
     }
-
-    public void garer(Place place){
-        place.parkPlace(this);
-    }
 }
