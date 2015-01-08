@@ -5,6 +5,7 @@ import fr.atewix.hardworker.parking.exception.PlaceLibreException;
 import fr.atewix.hardworker.parking.exception.PlaceOccupeeException;
 import fr.atewix.hardworker.parking.exception.PlusAucunePlaceException;
 
+import java.lang.System;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Collection;
@@ -81,5 +82,52 @@ public class Parking {
         }
         if(!placeTrouver)
             throw new PlusAucunePlaceException();
+    }
+
+    public Vehicule unpark(int numPlace){
+        Place placeSouhaite = listeDesPlaces.get(numPlace);
+        if(placeSouhaite.getVehiculeparke().equals(null)){
+            throw new PlaceLibreException();
+        }
+        else {
+            Vehicule vehiculeparke = placeSouhaite.getVehiculeparke();
+            placeSouhaite.setVehiculeparke(null);
+            return Vehicule;
+        }
+    }
+
+
+
+    public function etatParking(){
+        for(int i = 0; i < NOMBREDEPLACES; ++i){
+            Place place = listeDesPlaces.get(i);
+            System.out.println("Numero de la place : " + i);
+            System.out.println("Type de la place : " + place.getType());
+            if(!place.getVehiculeparke().equals(null)){
+                System.out.println("Informations sur le vehicule garé : " + place.getVehiculeparke());
+            }
+            else {
+                System.out.println("Cette place est disponible");
+            }
+        }
+    }
+
+    public Place bookPlace(Vehicule vehicule){
+        for(int i = 0; i < NOMBREDEPLACES; ++i){
+            Place place = listeDesPlaces.get(i);
+            if(place.getReservation.equals(null)){
+                place.reserver(vehicule);
+                return place;
+            }
+        }
+        throw new PlusAucunePlaceException();
+    }
+
+    public void freePlace(int numPlace){
+        Place place = listeDesPlaces.get(numPlace);
+        if(place.getReservation.equals(null))
+            throw new PlaceDisponibleException();
+        else
+            place.enleverReservation();
     }
 }

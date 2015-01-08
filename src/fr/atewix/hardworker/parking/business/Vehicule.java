@@ -1,5 +1,8 @@
 package fr.atewix.hardworker.parking.business;
 
+import java.lang.Override;
+import java.lang.String;
+
 /**
  * Created by Kevin on 23/12/2014.
  */
@@ -25,6 +28,14 @@ abstract class Vehicule {
 
     public String getNomproprietaire() {
         return this.nomproprietaire;
+    }
+
+    public String toString() {
+        return "Immatriculation=" + immatriculation +
+               ", nomproprietaire=" + nomproprietaire +
+               ", marque=" + marque +
+               ", modele=" + modele +
+               ", type=" + type;
     }
 
     public String getType() {

@@ -13,11 +13,17 @@ abstract class Place {
     protected int numPlace;
 
     public Place (){
+
         this.numPlace = numPlaceCree++;
     }
 
     public void reserver(Vehicule vehicule){
+
         this.reservation = new Reservation(vehicule);
+    }
+
+    public void enleverReservation(){
+        this.reservation = null;
     }
 
     public void enleverReservation(){
@@ -37,6 +43,10 @@ abstract class Place {
     public Vehicule getVehiculeparke() {
 
         return vehiculeparke;
+    }
+
+    public Reservation getReservation(){
+        return this.reservation;
     }
 
     public void enleverVehicule(){
