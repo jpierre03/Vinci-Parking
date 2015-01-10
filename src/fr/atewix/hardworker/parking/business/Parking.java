@@ -84,7 +84,7 @@ public class Parking {
             throw new PlusAucunePlaceException();
     }
 
-    public Vehicule unpark(int numPlace){
+    public Vehicule unpark(int numPlace) throws PlaceLibreException {
         Place placeSouhaite = listeDesPlaces.get(numPlace);
         if(placeSouhaite.getVehiculeparke().equals(null)){
             throw new PlaceLibreException();
@@ -92,13 +92,13 @@ public class Parking {
         else {
             Vehicule vehiculeparke = placeSouhaite.getVehiculeparke();
             placeSouhaite.setVehiculeparke(null);
-            return Vehicule;
+            return vehiculeparke;
         }
     }
 
 
 
-    public function etatParking(){
+    public void etatParking(){
         for(int i = 0; i < NOMBREDEPLACES; ++i){
             Place place = listeDesPlaces.get(i);
             System.out.println("Numero de la place : " + i);
@@ -112,10 +112,10 @@ public class Parking {
         }
     }
 
-    public Place bookPlace(Vehicule vehicule){
+    public Place bookPlace(Vehicule vehicule) throws PlusAucunePlaceException {
         for(int i = 0; i < NOMBREDEPLACES; ++i){
             Place place = listeDesPlaces.get(i);
-            if(place.getReservation.equals(null)){
+            if(place.getReservation().equals(null)){
                 place.reserver(vehicule);
                 return place;
             }
@@ -123,9 +123,9 @@ public class Parking {
         throw new PlusAucunePlaceException();
     }
 
-    public void freePlace(int numPlace){
+    public void freePlace(int numPlace) throws PlaceDisponibleException {
         Place place = listeDesPlaces.get(numPlace);
-        if(place.getReservation.equals(null))
+        if(place.getReservation().equals(null))
             throw new PlaceDisponibleException();
         else
             place.enleverReservation();
