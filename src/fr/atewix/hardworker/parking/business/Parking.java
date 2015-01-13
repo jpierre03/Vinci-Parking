@@ -43,7 +43,7 @@ public class Parking {
         Place placeSouhaite = listeDesPlaces.get(numPlace);
         boolean placeTrouver = false;
 
-        if(placeSouhaite.equals(null)) {
+        if(placeSouhaite.getVehiculeparke() == null) {
             if (vehicule.getType() == "Camion" && placeSouhaite.getType() == "Particulier")
                 throw new PlaceOccupeeException();
             placeSouhaite.setVehiculeparke(vehicule);
@@ -52,7 +52,7 @@ public class Parking {
         } else if(vehicule.getType() == "Camion"){
             for (int i = 0; i < NOMBREDEPLACES; i++) {
                 placeSouhaite = listeDesPlaces.get(i);
-                if (placeSouhaite.getType() == "Transporteur" && placeSouhaite.getVehiculeparke().equals(null)) {
+                if (placeSouhaite.getType() == "Transporteur" && placeSouhaite.getVehiculeparke() == null) {
                     placeSouhaite.setVehiculeparke(vehicule);
                     listeDesPlaces.set(i, placeSouhaite);
                     placeTrouver = true;
@@ -62,7 +62,7 @@ public class Parking {
         } else {
             for (int i = 0; i < NOMBREDEPLACES; i++) {
                 placeSouhaite = listeDesPlaces.get(i);
-                if (placeSouhaite.getType() == "Particulier" && placeSouhaite.getVehiculeparke().equals(null)) {
+                if (placeSouhaite.getType() == "Particulier" && placeSouhaite.getVehiculeparke() == null) {
                     placeSouhaite.setVehiculeparke(vehicule);
                     listeDesPlaces.set(i, placeSouhaite);
                     placeTrouver = true;
@@ -72,7 +72,7 @@ public class Parking {
             if(!placeTrouver)
                 for (int i = 0; i < NOMBREDEPLACES; i++) {
                     placeSouhaite = listeDesPlaces.get(i);
-                    if (placeSouhaite.getVehiculeparke().equals(null)) {
+                    if (placeSouhaite.getVehiculeparke() == null) {
                         placeSouhaite.setVehiculeparke(vehicule);
                         listeDesPlaces.set(i, placeSouhaite);
                         placeTrouver = true;
@@ -84,9 +84,13 @@ public class Parking {
             throw new PlusAucunePlaceException();
     }
 
+    public void park(Vehicule vehicule){
+
+    }
+
     public Vehicule unpark(int numPlace) throws PlaceLibreException {
         Place placeSouhaite = listeDesPlaces.get(numPlace);
-        if(placeSouhaite.getVehiculeparke().equals(null)){
+        if(placeSouhaite.getVehiculeparke() == null){
             throw new PlaceLibreException();
         }
         else {
@@ -103,19 +107,24 @@ public class Parking {
             Place place = listeDesPlaces.get(i);
             System.out.println("Numero de la place : " + i);
             System.out.println("Type de la place : " + place.getType());
-            if(!place.getVehiculeparke().equals(null)){
+            if(place.getVehiculeparke() != null){
                 System.out.println("Informations sur le vehicule garé : " + place.getVehiculeparke());
+            }
+            else if (place.getReservation() != null){
+                System.out.println("Cette place est reservé");
             }
             else {
                 System.out.println("Cette place est disponible");
             }
+
+            System.out.println("\n");
         }
     }
 
     public Place bookPlace(Vehicule vehicule) throws PlusAucunePlaceException {
         for(int i = 0; i < NOMBREDEPLACES; ++i){
             Place place = listeDesPlaces.get(i);
-            if(place.getReservation().equals(null)){
+            if(place.getReservation() == null){
                 place.reserver(vehicule);
                 return place;
             }
@@ -125,9 +134,45 @@ public class Parking {
 
     public void freePlace(int numPlace) throws PlaceDisponibleException {
         Place place = listeDesPlaces.get(numPlace);
-        if(place.getReservation().equals(null))
+        if(place.getReservation() == null)
             throw new PlaceDisponibleException();
         else
             place.enleverReservation();
+    }
+
+    public int getLocation (String immatriculation){
+        for(int i=0; i < listeDesPlaces.size(); ++i){
+            Place place = listeDesPlaces.get(i);
+            if(place.getVehiculeparke().getImmatriculation() == immatriculation){
+                return i;
+            }
+        }
+        return -1;
+    }
+
+    public Vehicule retirerVehicule(String immatriculation){
+        int numPlace = this.getLocation(immatriculation);
+        if(numPlace == -1){
+            return null;
+        }
+        else {
+            Vehicule vehiculearetirer = listeDesPlaces.get(numPlace).getVehiculeparke();
+            listeDesPlaces.get(numPlace).setVehiculeparke(null);
+            return vehiculearetirer;
+        }
+
+    }
+
+    public void reorganiserPlaces(){
+        for(int i = 0; i < listeDesPlaces.size(); ++i){
+            Place place = listeDesPlaces.get(i);
+            if(place.getType() == "Transporteur"){
+                if(place.getVehiculeparke() != null && (place.getVehiculeparke().getType() == "Moto" || place.getVehiculeparke().getType() == "Voiture")){
+                    Vehicule vehicule = place.getVehiculeparke();
+                    this.retirerVehicule(vehicule.getImmatriculation());
+
+                }
+            }
+        }
     }
 }

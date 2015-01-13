@@ -23,13 +23,10 @@ abstract class Place {
     }
 
     public void enleverReservation(){
+
         this.reservation = null;
     }
 
-    public void enleverReservation(){
-
-        this.reservation=null;
-    }
 
     public void setVehiculeparke(Vehicule vehiculeparke) {
         this.vehiculeparke = vehiculeparke;
