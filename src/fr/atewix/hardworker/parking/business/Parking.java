@@ -72,14 +72,15 @@ public class Parking {
 
     }
 
-    public Vehicule unpark(int numPlace) throws PlaceLibreException {
+       public Vehicule unpark(int numPlace) throws PlaceLibreException {
         Place placeSouhaite = listeDesPlaces.get(numPlace);
-        if(placeSouhaite.getVehiculeparke() == null){
+        if(placeSouhaite.getVehiculeparke() == null)
             throw new PlaceLibreException();
-        }
         else {
             Vehicule vehiculeparke = placeSouhaite.getVehiculeparke();
             placeSouhaite.setVehiculeparke(null);
+            if(placeSouhaite.getType() == "Particulier")
+            	reorganiserPlaces(placeSouhaite); 
             return vehiculeparke;
         }
     }
@@ -147,14 +148,21 @@ public class Parking {
 
     }
 
-    public void reorganiserPlaces(){
+    public void reorganiserPlaces(Place placeSouhaite){
         for(int i = 0; i < listeDesPlaces.size(); ++i){
             Place place = listeDesPlaces.get(i);
             if(place.getType() == "Transporteur"){
-                if(place.getVehiculeparke() != null && (place.getVehiculeparke().getType() == "Moto" || place.getVehiculeparke().getType() == "Voiture")){
+                if(place.getVehiculeparke() != null && (place.getVehiculeparke().getType() != "Camion"))
+                {
                     Vehicule vehicule = place.getVehiculeparke();
                     this.retirerVehicule(vehicule.getImmatriculation());
-
+                    try {
+						this.park(vehicule,placeSouhaite.numPlace);
+					} catch (PlaceOccupeeException e) {
+						e.printStackTrace();
+					} catch (PlusAucunePlaceException e) {
+						e.printStackTrace();
+					}
                 }
             }
         }
