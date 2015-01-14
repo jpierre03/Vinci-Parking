@@ -21,6 +21,10 @@ abstract class Place {
 
         this.reservation = new Reservation(vehicule);
     }
+    
+    protected int getNumPlace(){
+    	return this.numPlace;
+    }
 
     public void enleverReservation(){
 

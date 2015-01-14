@@ -39,49 +39,33 @@ public class Parking {
         return listeDesPlaces.contains(vehicule);
     }
 
-    public void park (Vehicule vehicule, int numPlace) throws PlaceOccupeeException, PlusAucunePlaceException {
+    public void park (Vehicule vehicule, int numPlace){
         Place placeSouhaite = listeDesPlaces.get(numPlace);
-        boolean placeTrouver = false;
-
-        if(placeSouhaite.getVehiculeparke() == null) {
-            if (vehicule.getType() == "Camion" && placeSouhaite.getType() == "Particulier")
+        if(placeSouhaite.getVehiculeParke() == null && placeSouhaite.getReservation == null){
+            if(vehicule.getType() == "Camion" && placeSouhaite.getType() == "Particulier"){
                 throw new PlaceOccupeeException();
-            placeSouhaite.setVehiculeparke(vehicule);
-            listeDesPlaces.set(numPlace, placeSouhaite);
-            placeTrouver = true;
-        } else if(vehicule.getType() == "Camion"){
-            for (int i = 0; i < NOMBREDEPLACES; i++) {
-                placeSouhaite = listeDesPlaces.get(i);
-                if (placeSouhaite.getType() == "Transporteur" && placeSouhaite.getVehiculeparke() == null) {
-                    placeSouhaite.setVehiculeparke(vehicule);
-                    listeDesPlaces.set(i, placeSouhaite);
-                    placeTrouver = true;
-                    break;
-                }
             }
-        } else {
-            for (int i = 0; i < NOMBREDEPLACES; i++) {
-                placeSouhaite = listeDesPlaces.get(i);
-                if (placeSouhaite.getType() == "Particulier" && placeSouhaite.getVehiculeparke() == null) {
-                    placeSouhaite.setVehiculeparke(vehicule);
-                    listeDesPlaces.set(i, placeSouhaite);
-                    placeTrouver = true;
-                    break;
-                }
-            }
-            if(!placeTrouver)
-                for (int i = 0; i < NOMBREDEPLACES; i++) {
-                    placeSouhaite = listeDesPlaces.get(i);
-                    if (placeSouhaite.getVehiculeparke() == null) {
-                        placeSouhaite.setVehiculeparke(vehicule);
-                        listeDesPlaces.set(i, placeSouhaite);
+            else if(placeSouhaite.getType() == "Transporteur" && vehicule.getType() != "Camion"){
+                boolean placeTrouve = false;
+                for(int i = 0; i < listeDesPlaces.size(); ++i){
+                    Place place = listeDesPlaces.get(i);
+                    if(place.getType() == "Particulier" && place.getVehiculeParke() == null){
+                        place.setVehiculeParke(vehicule);
+                        listeDesPlaces.set(i, place);
                         placeTrouver = true;
                         break;
                     }
                 }
+                if(!placeTrouver){
+                    placeSouhaite.setVehiculeParke(vehicule);
+                    listeDesPlaces.set(numPlace, placeSouhaite);
+                }
+            }
+            else {
+                placeSouhaite.setVehiculeParke(vehicule);
+                listeDesPlaces.set(numPlace, placeSouhaite);
+            }
         }
-        if(!placeTrouver)
-            throw new PlusAucunePlaceException();
     }
 
     public void park(Vehicule vehicule){
