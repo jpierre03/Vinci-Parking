@@ -5,14 +5,14 @@ package fr.atewix.hardworker.parking.business;
  */
 public class Camion extends Vehicule{
 
-    public Camion(String immatriculation, String nomproprietaire, String marque, String modele) {
-        super(immatriculation, nomproprietaire, marque, modele, "Camion");
+    public Camion(String immatriculation, Client proprietaire, String marque, String modele) {
+        super(immatriculation, proprietaire, marque, modele, "Camion");
     }
 
     public String toString() {
         return "Camion : " +
                 "Immatriculation : " + immatriculation +
-                ", Nomproprietaire : " + nomproprietaire +
+               // ", Nomproprietaire : " + nomproprietaire +
                 ", Marque : " + marque +
                 ", Modele : " + modele + "\n";
     }

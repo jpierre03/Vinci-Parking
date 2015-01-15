@@ -180,9 +180,7 @@ public class Parking {
 						this.park(vehicule,placeSouhaite.numPlace);
 					} catch (PlaceOccupeeException e) {
 						e.printStackTrace();
-					} catch (PlusAucunePlaceException e) {
-						e.printStackTrace();
-					}
+					} 
                 }
             }
         }
