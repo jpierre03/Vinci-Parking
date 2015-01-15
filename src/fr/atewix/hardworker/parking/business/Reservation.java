@@ -5,11 +5,12 @@ package fr.atewix.hardworker.parking.business;
  */
 public class Reservation {
 
-    private String nomproprietaire;
+    private Client proprietaire;
     private String immatriculation;
 
     public Reservation(Vehicule voiture){
-        this.nomproprietaire = voiture.getNomproprietaire();
+    	
+        this.proprietaire = voiture.getproprietaire();
         this.immatriculation = voiture.getImmatriculation();
     }
 
@@ -17,12 +18,12 @@ public class Reservation {
         return immatriculation;
     }
 
-    public String getNomproprietaire() {
-        return nomproprietaire;
+    public Client getproprietaire() {
+        return proprietaire;
     }
 
     public String toString() {
-        return "Reservation : " + "Nomproprietaire= " + nomproprietaire  +
+        return "Reservation : " + "Nomproprietaire= " + "proprietaire"  +
                 ", Immatriculation= " + immatriculation + "\n" ;
     }
 

@@ -15,7 +15,11 @@ import java.util.GregorianCalendar;
 public class Parking {
 
     private static Parking instance = new Parking();
+    
     private ArrayList<Place> listeDesPlaces = new ArrayList<Place>();
+    private ArrayList<Facture> listeFacture = new ArrayList<Facture>();
+    private ArrayList<Client> listeClient = new ArrayList<Client>();
+    
     private static final double NOMBREDEPLACES = 10;
     private static final int TARIFHORRAIRE = 2;
 
@@ -39,9 +43,9 @@ public class Parking {
         return listeDesPlaces.contains(vehicule);
     }
 
-    public void park (Vehicule vehicule, int numPlace){
+    public void park (Vehicule vehicule, int numPlace) throws PlaceOccupeeException{
         Place placeSouhaite = listeDesPlaces.get(numPlace);
-        if(placeSouhaite.getVehiculeParke() == null && placeSouhaite.getReservation == null){
+        if(placeSouhaite.getVehiculeparke() == null && placeSouhaite.getReservation() == null){
             if(vehicule.getType() == "Camion" && placeSouhaite.getType() == "Particulier"){
                 throw new PlaceOccupeeException();
             }
@@ -49,38 +53,48 @@ public class Parking {
                 boolean placeTrouve = false;
                 for(int i = 0; i < listeDesPlaces.size(); ++i){
                     Place place = listeDesPlaces.get(i);
-                    if(place.getType() == "Particulier" && place.getVehiculeParke() == null){
-                        place.setVehiculeParke(vehicule);
+                    if(place.getType() == "Particulier" && place.getVehiculeparke() == null && place.getReservation() == null){
+                        place.setVehiculeparke(vehicule);
                         listeDesPlaces.set(i, place);
-                        placeTrouver = true;
+                        placeTrouve = true;
                         break;
                     }
                 }
-                if(!placeTrouver){
-                    placeSouhaite.setVehiculeParke(vehicule);
+                if(!placeTrouve){
+                    placeSouhaite.setVehiculeparke(vehicule);
                     listeDesPlaces.set(numPlace, placeSouhaite);
                 }
             }
             else {
-                placeSouhaite.setVehiculeParke(vehicule);
+                placeSouhaite.setVehiculeparke(vehicule);
                 listeDesPlaces.set(numPlace, placeSouhaite);
             }
         }
+        else if(placeSouhaite.getVehiculeparke() != null){
+            throw new PlaceOccupeeException();
+        }
+    }
+    
+    public void park(Vehicule vehicule, Place place){
+        int numPlaceReserve = place.getNumPlace();
+        Place placeReserve = listeDesPlaces.get(numPlaceReserve);
+        placeReserve.setVehiculeparke(vehicule);
+        listeDesPlaces.set(numPlaceReserve, placeReserve);
     }
 
-    public void park(Vehicule vehicule){
-
-    }
-
-       public Vehicule unpark(int numPlace) throws PlaceLibreException {
+    public Vehicule unpark(int numPlace) throws PlaceLibreException {
         Place placeSouhaite = listeDesPlaces.get(numPlace);
-        if(placeSouhaite.getVehiculeparke() == null)
+        if(placeSouhaite.getVehiculeparke() == null){
             throw new PlaceLibreException();
+        }
         else {
             Vehicule vehiculeparke = placeSouhaite.getVehiculeparke();
+            Facture facture = new Facture(vehiculeparke, placeSouhaite.getDateArrive(), TARIFHORRAIRE);
+            listeFacture.add(facture);
             placeSouhaite.setVehiculeparke(null);
-            if(placeSouhaite.getType() == "Particulier")
-            	reorganiserPlaces(placeSouhaite); 
+            listeDesPlaces.set(numPlace, placeSouhaite);
+            placeSouhaite.enleverReservation();
+            
             return vehiculeparke;
         }
     }
@@ -128,11 +142,15 @@ public class Parking {
     public int getLocation (String immatriculation){
         for(int i=0; i < listeDesPlaces.size(); ++i){
             Place place = listeDesPlaces.get(i);
-            if(place.getVehiculeparke().getImmatriculation() == immatriculation){
+            if(place.getVehiculeparke() != null && place.getVehiculeparke().getImmatriculation() == immatriculation){
                 return i;
             }
         }
         return -1;
+    }
+    
+    public void addClient(Client client){
+        this.listeClient.add(client);
     }
 
     public Vehicule retirerVehicule(String immatriculation){
@@ -143,6 +161,8 @@ public class Parking {
         else {
             Vehicule vehiculearetirer = listeDesPlaces.get(numPlace).getVehiculeparke();
             listeDesPlaces.get(numPlace).setVehiculeparke(null);
+            Facture facture = new Facture(vehiculearetirer, listeDesPlaces.get(numPlace).getDateArrive(), TARIFHORRAIRE);
+            listeFacture.add(facture);
             return vehiculearetirer;
         }
 
@@ -166,5 +186,8 @@ public class Parking {
                 }
             }
         }
+    }
+     public ArrayList<Facture> getListeFacture(){
+        return this.listeFacture;
     }
 }

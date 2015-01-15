@@ -1,5 +1,7 @@
 package fr.atewix.hardworker.parking.business;
 
+import java.util.Date;
+
 
 /**
  * Created by Kevin on 23/12/2014.
@@ -11,6 +13,7 @@ abstract class Place {
     protected Reservation reservation;
     protected String type;
     protected int numPlace;
+    protected Date datearrive;
 
     public Place (){
 
@@ -20,6 +23,14 @@ abstract class Place {
     public void reserver(Vehicule vehicule){
 
         this.reservation = new Reservation(vehicule);
+    }
+    
+    public Date getDateArrive(){
+    	return this.datearrive;
+    }
+    
+    public void setDateArrive(Date datearrivee){
+    	this.datearrive = datearrivee;
     }
     
     protected int getNumPlace(){
@@ -33,7 +44,10 @@ abstract class Place {
 
 
     public void setVehiculeparke(Vehicule vehiculeparke) {
-        this.vehiculeparke = vehiculeparke;
+    	if(vehiculeparke != null) {
+    		this.setDateArrive(new Date());
+    	}
+    	this.vehiculeparke = vehiculeparke;
     }
 
     public String getType() {

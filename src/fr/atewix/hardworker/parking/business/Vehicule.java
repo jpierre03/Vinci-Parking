@@ -9,14 +9,14 @@ import java.lang.String;
 abstract class Vehicule {
 
     protected String immatriculation;
-    protected String nomproprietaire;
+    protected Client proprietaire;
     protected String marque;
     protected String modele;
     protected String type;
 
-    public Vehicule (String immatriculation, String nomproprietaire, String marque, String modele, String type) {
+    public Vehicule (String immatriculation, Client proprietaire, String marque, String modele, String type) {
         this.immatriculation = immatriculation;
-        this.nomproprietaire = nomproprietaire;
+        this.proprietaire = proprietaire;
         this.marque = marque;
         this.modele = modele;
         this.type = type;
@@ -26,13 +26,13 @@ abstract class Vehicule {
         return this.immatriculation;
     }
 
-    public String getNomproprietaire() {
-        return this.nomproprietaire;
+    public Client getproprietaire() {
+        return this.proprietaire;
     }
 
     public String toString() {
         return "Immatriculation=" + immatriculation +
-               ", nomproprietaire=" + nomproprietaire +
+               ", nomproprietaire=" + proprietaire +
                ", marque=" + marque +
                ", modele=" + modele +
                ", type=" + type;

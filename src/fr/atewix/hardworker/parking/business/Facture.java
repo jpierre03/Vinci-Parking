@@ -2,28 +2,46 @@ package fr.atewix.hardworker.parking.business;
 
 
 import java.util.Calendar;
+import java.util.Date;
 import java.util.GregorianCalendar;
 
 /**
  * Created by Kevin on 23/12/2014.
  */
 public class Facture {
-
+	private static int numero =0;
+	private int numeroFacture;
     private Vehicule vehiculeconcerne;
     private double montantfacture;
-    private Calendar datedebut;
-    private Calendar datefin;
+    private Date datedebut;
+    private Date datefin;
 
-    public Facture(Vehicule voiture, Calendar datedebut, int tarifhoraire){
+	private double TVA = 0.196;
+
+    public Facture(Vehicule voiture, Date datedebut, int tarifhoraire){
+        ++this.numero;
+        this.numeroFacture = this.numero;
         this.vehiculeconcerne = voiture;
         this.datedebut = datedebut;
-        this.datefin = new GregorianCalendar();
-        this.montantfacture = calculMontant(datedebut, datefin, tarifhoraire);
+        this.datefin = new Date();
+        this.montantfacture = calculMontantTTC(datedebut, datefin, tarifhoraire, TVA);
     }
 
-    private double calculMontant(Calendar datedebut, Calendar datefin, int tarifhoraire){
-        return (datefin.get(Calendar.DAY_OF_MONTH) - datedebut.get(Calendar.DAY_OF_MONTH))*24*tarifhoraire
-                + (datefin.get(Calendar.HOUR)-datedebut.get(Calendar.HOUR))*tarifhoraire
-                + ((datefin.get(Calendar.MINUTE) + datedebut.get(Calendar.MINUTE))/60)*tarifhoraire;
+    private double calculMontantHT(Date datedebut, Date datefin, int tarifhoraire){
+        return (datefin.getDay() - datedebut.getDay())*24*tarifhoraire
+                + (datefin.getHours()-datedebut.getHours())*tarifhoraire
+                + ((datefin.getMinutes() + datedebut.getMinutes())/60)*tarifhoraire;
     }
+    
+    private double calculMontantTTC(Date datedebut, Date datefin, int tarifhoraire, double TVA){
+    	double resultatHT = calculMontantHT(datedebut, datefin, tarifhoraire);
+    	return (resultatHT*TVA)+resultatHT;
+    }
+    
+    public String toString() {
+		return "Facture [numeroFacture=" + numeroFacture
+				+ ", vehiculeconcerne=" + vehiculeconcerne
+				+ ", montantfacture=" + montantfacture + ", datedebut="
+				+ datedebut + ", datefin=" + datefin + ", TVA=" + TVA + "]";
+	}
 }
