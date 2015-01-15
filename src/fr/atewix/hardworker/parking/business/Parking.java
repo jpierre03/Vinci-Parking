@@ -103,7 +103,7 @@ public class Parking {
             placeSouhaite.setVehiculeparke(null);
             listeDesPlaces.set(numPlace, placeSouhaite);
             placeSouhaite.enleverReservation();
-            
+            reorganiserPlaces(placeSouhaite);
             return vehiculeparke;
         }
     }
@@ -187,6 +187,7 @@ public class Parking {
                     this.retirerVehicule(vehicule.getImmatriculation());
                     try {
 						this.park(vehicule,placeSouhaite.getNumPlace());
+						return;
 					} catch (PlaceOccupeeException e) {
 						e.printStackTrace();
 					}
