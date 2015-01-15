@@ -4,12 +4,14 @@ package fr.atewix.hardworker.parking.facture;
 import fr.atewix.hardworker.parking.Vehicule.Vehicule;
 
 import java.util.Date;
-
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
 /**
  * Created by Kevin on 23/12/2014.
  */
 public class Facture {
-	private static int numero =0;
+	private static int numero = 0;
 	private int numeroFacture;
     private Vehicule vehiculeconcerne;
     private double montantfacture;
@@ -44,4 +46,17 @@ public class Facture {
 				+ ", montantfacture=" + montantfacture + ", datedebut="
 				+ datedebut + ", datefin=" + datefin + ", TVA=" + TVA + "]";
 	}
+    
+    public void Enregistrer(){
+    	String nomFacture = "Facture n°" + this.numeroFacture+".txt"; 
+    	System.out.println(nomFacture);
+    	try {
+			FileOutputStream facout = new FileOutputStream(nomFacture);
+			facout.write(this.toString().getBytes());
+		} catch (FileNotFoundException e) {
+			e.printStackTrace();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+    }
 }
