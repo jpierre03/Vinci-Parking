@@ -1,4 +1,6 @@
-package fr.atewix.hardworker.parking.business;
+package fr.atewix.hardworker.parking.Vehicule;
+
+import fr.atewix.hardworker.parking.business.Client;
 
 import java.lang.Override;
 import java.lang.String;
@@ -6,7 +8,7 @@ import java.lang.String;
 /**
  * Created by Kevin on 23/12/2014.
  */
-abstract class Vehicule {
+public abstract class Vehicule {
 
     protected String immatriculation;
     protected Client proprietaire;

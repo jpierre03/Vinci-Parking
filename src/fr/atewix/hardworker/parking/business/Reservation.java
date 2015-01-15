@@ -1,5 +1,7 @@
 package fr.atewix.hardworker.parking.business;
 
+import fr.atewix.hardworker.parking.Vehicule.Vehicule;
+
 /**
  * Created by Kevin on 23/12/2014.
  */

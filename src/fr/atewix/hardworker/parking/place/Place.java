@@ -1,4 +1,7 @@
-package fr.atewix.hardworker.parking.business;
+package fr.atewix.hardworker.parking.place;
+
+import fr.atewix.hardworker.parking.Vehicule.Vehicule;
+import fr.atewix.hardworker.parking.business.Reservation;
 
 import java.util.Date;
 
@@ -6,7 +9,7 @@ import java.util.Date;
 /**
  * Created by Kevin on 23/12/2014.
  */
-abstract class Place {
+public abstract class Place {
 
     private static int numPlaceCree = 0;
     protected Vehicule vehiculeparke;
@@ -33,7 +36,7 @@ abstract class Place {
     	this.datearrive = datearrivee;
     }
     
-    protected int getNumPlace(){
+    public int getNumPlace(){
     	return this.numPlace;
     }
 

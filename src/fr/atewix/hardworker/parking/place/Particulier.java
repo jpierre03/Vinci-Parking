@@ -1,4 +1,8 @@
-package fr.atewix.hardworker.parking.business;
+package fr.atewix.hardworker.parking.place;
+
+import fr.atewix.hardworker.parking.Vehicule.Camion;
+import fr.atewix.hardworker.parking.Vehicule.Moto;
+import fr.atewix.hardworker.parking.Vehicule.Voiture;
 
 /**
  * Created by Kevin on 23/12/2014.

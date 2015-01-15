@@ -1,15 +1,19 @@
 package fr.atewix.hardworker.parking.business;
 
+import fr.atewix.hardworker.parking.Vehicule.Vehicule;
 import fr.atewix.hardworker.parking.exception.PlaceDisponibleException;
 import fr.atewix.hardworker.parking.exception.PlaceLibreException;
 import fr.atewix.hardworker.parking.exception.PlaceOccupeeException;
 import fr.atewix.hardworker.parking.exception.PlusAucunePlaceException;
+import fr.atewix.hardworker.parking.facture.Facture;
+import fr.atewix.hardworker.parking.place.Particulier;
+import fr.atewix.hardworker.parking.place.Place;
+import fr.atewix.hardworker.parking.place.Transporteur;
 
 import java.lang.System;
 import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.Collection;
-import java.util.GregorianCalendar;
+import java.util.HashMap;
+import java.util.Map;
 
 
 public class Parking {
@@ -17,7 +21,8 @@ public class Parking {
     private static Parking instance = new Parking();
     
     private ArrayList<Place> listeDesPlaces = new ArrayList<Place>();
-    private ArrayList<Facture> listeFacture = new ArrayList<Facture>();
+    private Map<Facture, Vehicule> listeFacture = new HashMap<Facture, Vehicule>();
+
     private ArrayList<Client> listeClient = new ArrayList<Client>();
     
     private static final double NOMBREDEPLACES = 10;
@@ -28,6 +33,10 @@ public class Parking {
             listeDesPlaces.add(new Particulier());
         for(double i = 3*NOMBREDEPLACES/4; i < NOMBREDEPLACES; ++i)
             listeDesPlaces.add(new Transporteur());
+    }
+
+    public ArrayList<Place> getListeDesPlaces(){
+        return this.listeDesPlaces;
     }
 
     public static Parking getInstance() {
@@ -90,7 +99,7 @@ public class Parking {
         else {
             Vehicule vehiculeparke = placeSouhaite.getVehiculeparke();
             Facture facture = new Facture(vehiculeparke, placeSouhaite.getDateArrive(), TARIFHORRAIRE);
-            listeFacture.add(facture);
+            listeFacture.put(facture, vehiculeparke);
             placeSouhaite.setVehiculeparke(null);
             listeDesPlaces.set(numPlace, placeSouhaite);
             placeSouhaite.enleverReservation();
@@ -162,7 +171,7 @@ public class Parking {
             Vehicule vehiculearetirer = listeDesPlaces.get(numPlace).getVehiculeparke();
             listeDesPlaces.get(numPlace).setVehiculeparke(null);
             Facture facture = new Facture(vehiculearetirer, listeDesPlaces.get(numPlace).getDateArrive(), TARIFHORRAIRE);
-            listeFacture.add(facture);
+            listeFacture.put(facture, vehiculearetirer);
             return vehiculearetirer;
         }
 
@@ -177,15 +186,16 @@ public class Parking {
                     Vehicule vehicule = place.getVehiculeparke();
                     this.retirerVehicule(vehicule.getImmatriculation());
                     try {
-						this.park(vehicule,placeSouhaite.numPlace);
+						this.park(vehicule,placeSouhaite.getNumPlace());
 					} catch (PlaceOccupeeException e) {
 						e.printStackTrace();
-					} 
+					}
                 }
             }
         }
     }
-     public ArrayList<Facture> getListeFacture(){
-        return this.listeFacture;
+     public Map<Facture, Vehicule> getListeFacture(){
+
+         return this.listeFacture;
     }
 }
