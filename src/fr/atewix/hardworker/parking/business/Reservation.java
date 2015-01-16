@@ -12,7 +12,7 @@ public class Reservation {
 
     public Reservation(Vehicule voiture){
     	
-        this.proprietaire = voiture.getproprietaire();
+        this.proprietaire = voiture.getProprietaire();
         this.immatriculation = voiture.getImmatriculation();
     }
 
