@@ -10,18 +10,10 @@ public class Reservation {
     private Client proprietaire;
     private String immatriculation;
 
-    public Reservation(Vehicule voiture){
-    	
+    public Reservation(Vehicule voiture) {
+
         this.proprietaire = voiture.getProprietaire();
         this.immatriculation = voiture.getImmatriculation();
-    }
-
-    public String getImmatriculation() {
-        return immatriculation;
-    }
-
-    public Client getproprietaire() {
-        return proprietaire;
     }
 
     public String toString() {
