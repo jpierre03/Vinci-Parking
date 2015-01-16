@@ -7,4 +7,9 @@ import javax.swing.*;
  */
 public class AffichagePlace extends JButton {
 
+    private int numPlace;
+
+    public AffichagePlace(int numPlace){
+        this.numPlace=numPlace;
+    }
 }

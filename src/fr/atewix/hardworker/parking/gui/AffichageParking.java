@@ -12,47 +12,45 @@ import fr.atewix.hardworker.parking.place.Place;
 
 import javax.swing.*;
 import java.awt.*;
-import java.util.Iterator;
-import java.util.Map;
-import java.util.Set;
+
 
 public class AffichageParking extends JPanel{
 
-	private JFrame fenetre = new JFrame("Vinci Parking");
+	private JFrame mainframe = new JFrame("Vinci Parking");
 	private JPanel parking = new JPanel();
 	private JPanel panel1;
 
 	public AffichageParking(){
 		super();
-		fenetre.setLocation(300, 100);
-		fenetre.setPreferredSize(new Dimension(800,600));
-		fenetre.setDefaultCloseOperation(fenetre.EXIT_ON_CLOSE);
+		mainframe.setLocation(300, 100);
+		mainframe.setPreferredSize(new Dimension(800, 600));
+		mainframe.setDefaultCloseOperation(mainframe.EXIT_ON_CLOSE);
 
-		fenetre.setLayout(new BorderLayout());
-		fenetre.setJMenuBar(new MenuParking());
+		mainframe.setLayout(new BorderLayout());
+		mainframe.setJMenuBar(new MenuParking());
 
-		fenetre.setContentPane(this);
+		mainframe.setContentPane(this);
 
-		parking.setPreferredSize(new Dimension(650,600));
+		parking.setPreferredSize(new Dimension(650, 600));
 
 
 		this.add(this.AffichagedesPlaces(), BorderLayout.CENTER);
 
-		fenetre.pack();
+		mainframe.pack();
 
-		fenetre.setVisible(true);
+		mainframe.setVisible(true);
 	}
 
 	public JPanel AffichagedesPlaces(){
 		parking.removeAll();
 		for (int i = 0; i < Parking.getInstance().getListeDesPlaces().size(); ++i) {
 			Place place = Parking.getInstance().getListeDesPlaces().get(i);
-			AffichagePlace placebutton = new AffichagePlace();
+			AffichagePlace placebutton = new AffichagePlace(i);
 
 			placebutton.setPreferredSize(new Dimension(200, 50));
 
 			if (place.getVehiculeparke() != null) {
-				placebutton.setText(place.getVehiculeparke().getType() + " : " + String.valueOf(place.getVehiculeparke().getImmatriculation()));
+				placebutton.setText(place.getVehiculeparke().getType() + " : " + place.getVehiculeparke().getImmatriculation());
 				placebutton.setBackground(Color.red);
 			}
 			else if (place.getReservation() != null) {
@@ -72,7 +70,6 @@ public class AffichageParking extends JPanel{
 
 	public void mettreAJour(){
 		parking = AffichagedesPlaces();
-
 		parking.revalidate();
 		parking.repaint();
 	}
@@ -86,18 +83,21 @@ public class AffichageParking extends JPanel{
 		P.addClient(client1);
 
 		Vehicule V = new Voiture("immatVoit", client1, "marque", "modele");
-		Vehicule V2 = new Voiture("immatVoit", client1, "marque", "modele");
+		Vehicule V2 = new Voiture("immatVoit2", client1, "marque", "modele");
 
 		client1.addVehicule(V);
 
 		try {
 			Place place = P.bookPlace(V);
 
+			AffichageParking tesdt = new AffichageParking();
+			
+			//P.unpark(0);
+			P.park(V2, 9);
 
 
-			P.park(V2, 1);
-
-
+			P.etatParking();
+			tesdt.mettreAJour();
 
 		} catch (PlusAucunePlaceException e) {
 
@@ -105,6 +105,6 @@ public class AffichageParking extends JPanel{
 		} catch (PlaceOccupeeException e) {
 			e.printStackTrace();
 		}
-		AffichageParking tesdt = new AffichageParking();
+
 	}
 }
