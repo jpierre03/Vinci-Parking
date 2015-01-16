@@ -2,14 +2,15 @@ package fr.atewix.hardworker.parking.facture;
 
 
 import fr.atewix.hardworker.parking.Vehicule.Vehicule;
-
 import java.util.Date;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
+
 /**
  * Created by Kevin on 23/12/2014.
  */
+
 public class Facture {
 	private static int numeroLastFacture = 0;
 	private int numeroFacture;
