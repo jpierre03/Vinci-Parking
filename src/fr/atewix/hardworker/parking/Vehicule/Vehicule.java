@@ -24,20 +24,20 @@ public abstract class Vehicule {
         this.type = type;
     }
 
-    public String getImmatriculation() {
-        return this.immatriculation;
-    }
-
-    public Client getproprietaire() {
-        return this.proprietaire;
-    }
-
     public String toString() {
         return "Immatriculation=" + immatriculation +
                ", nomproprietaire=" + proprietaire +
                ", marque=" + marque +
                ", modele=" + modele +
                ", type=" + type;
+    }
+
+    public String getImmatriculation() {
+        return this.immatriculation;
+    }
+
+    public Client getProprietaire() {
+        return this.proprietaire;
     }
 
     public String getType() {

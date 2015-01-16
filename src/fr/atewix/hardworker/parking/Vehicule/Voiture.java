@@ -1,6 +1,5 @@
 package fr.atewix.hardworker.parking.Vehicule;
 
-import fr.atewix.hardworker.parking.Vehicule.Vehicule;
 import fr.atewix.hardworker.parking.business.Client;
 
 /**
@@ -15,7 +14,6 @@ public class Voiture extends Vehicule {
     public String toString() {
         return "Voiture : " +
                 "Immatriculation : " + immatriculation +
-                //", Nomproprietaire : " + nomproprietaire +
                 ", Marque : " + marque +
                 ", Modele : " + modele + "\n";
     }

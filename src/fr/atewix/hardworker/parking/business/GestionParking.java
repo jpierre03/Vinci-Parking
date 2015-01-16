@@ -1,4 +1,3 @@
-
 package fr.atewix.hardworker.parking.business;
 
 import fr.atewix.hardworker.parking.Vehicule.Vehicule;
@@ -8,7 +7,6 @@ import fr.atewix.hardworker.parking.exception.PlaceOccupeeException;
 import fr.atewix.hardworker.parking.exception.PlusAucunePlaceException;
 import fr.atewix.hardworker.parking.facture.Facture;
 import fr.atewix.hardworker.parking.place.Place;
-
 import java.util.Iterator;
 import java.util.Map;
 import java.util.Set;
@@ -44,16 +42,13 @@ public class GestionParking {
             P.etatParking();
             Map<Facture, Vehicule> factures = P.getListeFacture();
 
-            Set listKeys=factures.keySet();  // Obtenir la liste des clés
-            Iterator iterateur=listKeys.iterator();
-            // Parcourir les clés et afficher les entrées de chaque clé;
-            while(iterateur.hasNext())
-            {
-                Object key= iterateur.next();
+            Set listKeys = factures.keySet();
+            Iterator iterator = listKeys.iterator();
+            while(iterator.hasNext()) {
+                Object key= iterator.next();
                 System.out.println (key+"=>"+factures.get(key));
             }
         } catch (PlusAucunePlaceException e) {
-
             e.printStackTrace();
         } catch (PlaceOccupeeException e) {
             e.printStackTrace();
