@@ -28,9 +28,9 @@ public class Parking {
     private static final int TARIFHORRAIRE = 2;
 
     private Parking() {
-        for(double i = 0; i < 3*NOMBREDEPLACES/4; ++i)
+        for(double i = 0; i < NOMBREDEPLACES-3; ++i)
             listeDesPlaces.add(new Particulier());
-        for(double i = 3*NOMBREDEPLACES/4; i < NOMBREDEPLACES; ++i)
+        for(double i = NOMBREDEPLACES-3; i < NOMBREDEPLACES; ++i)
             listeDesPlaces.add(new Transporteur());
     }
 
