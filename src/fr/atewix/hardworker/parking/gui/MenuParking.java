@@ -13,7 +13,8 @@ public class MenuParking extends JMenuBar{
 	public MenuParking() {
 		super();
 		add(menuFichier());
-		add(menuEditer());
+        add(menuEditer());
+        add(menuClient());
 	}
 	
 	public JMenu menuFichier(){
@@ -24,8 +25,15 @@ public class MenuParking extends JMenuBar{
     
     public JMenu menuEditer(){
     	JMenu Editer = new JMenu("Editer");
-    	Editer.add(menuItemAjouterVehicule());
+    	Editer.add(menuItemAjouterReservation());
     	return Editer;
+    }
+
+    public JMenu menuClient(){
+        JMenu Client = new JMenu("Client");
+        Client.add(menuItemAjouterClient());
+        Client.add(menuItemAjouterVehicule());
+        return Client;
     }
 
     public JMenuItem menuItemQuitter(){
@@ -37,9 +45,19 @@ public class MenuParking extends JMenuBar{
         });
         return Quitter;
     }
-    
+
+    public JMenuItem menuItemAjouterReservation(){
+        JMenuItem AjouterReservation = new JMenuItem("Ajouter Réservation");
+        return AjouterReservation;
+    }
+
     public JMenuItem menuItemAjouterVehicule(){
-    	JMenuItem AjouterVehicule = new JMenuItem("Ajouter Vehicule");
-    	return AjouterVehicule;
+        JMenuItem AjouterVehicule = new JMenuItem("Ajouter Vehicule");
+        return AjouterVehicule;
+    }
+
+    public JMenuItem menuItemAjouterClient(){
+        JMenuItem AjouterClient = new JMenuItem("Ajouter Client");
+        return AjouterClient;
     }
 }
