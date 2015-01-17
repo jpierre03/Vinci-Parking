@@ -14,31 +14,21 @@ import javax.swing.*;
 import java.awt.*;
 
 
-public class AffichageParking extends JPanel{
+public class AffichageParking extends JFrame{
 
 	private static AffichageParking VinciParking = new AffichageParking();
-	private JFrame mainframe = new JFrame("Vinci Parking");
 	private JPanel parking = new JPanel();
 
 	private AffichageParking(){
-		super();
-		mainframe.setLocation(300, 100);
-		mainframe.setPreferredSize(new Dimension(800, 600));
-		mainframe.setDefaultCloseOperation(mainframe.EXIT_ON_CLOSE);
-
-		mainframe.setLayout(new BorderLayout());
-		mainframe.setJMenuBar(new MenuParking());
-
-		mainframe.setContentPane(this);
-
-		parking.setPreferredSize(new Dimension(650, 600));
-
-
-		this.add(this.AffichagedesPlaces(), BorderLayout.CENTER);
-
-		mainframe.pack();
-
-		mainframe.setVisible(true);
+		super("Vinci Parking");
+		setLocation(300, 100);
+		setPreferredSize(new Dimension(800, 600));
+		setDefaultCloseOperation(EXIT_ON_CLOSE);
+		setJMenuBar(new MenuParking());
+		AffichagedesPlaces();
+		setContentPane(parking);
+		pack();
+		setVisible(true);
 	}
 
 	public static AffichageParking getInstance() {
@@ -50,10 +40,11 @@ public class AffichageParking extends JPanel{
 		return VinciParking;
 	}
 
-	public JPanel AffichagedesPlaces(){
-		parking.removeAll();
+	public void AffichagedesPlaces(){
 		for (int i = 0; i < Parking.getInstance().getListeDesPlaces().size(); ++i) {
+			
 			Place place = Parking.getInstance().getListeDesPlaces().get(i);
+			
 			AffichagePlace placebutton = new AffichagePlace(i);
 
 			placebutton.setPreferredSize(new Dimension(200, 50));
@@ -73,14 +64,13 @@ public class AffichageParking extends JPanel{
 
 			parking.add(placebutton);
 		}
-
-		return parking;
 	}
 
 	public void mettreAJour(){
-		parking = AffichagedesPlaces();
+		parking.removeAll();
+		AffichagedesPlaces();
 		parking.revalidate();
-		parking.repaint();
+//		/parking.repaint();
 	}
 
 	public static void main(String[] args) {
@@ -98,12 +88,10 @@ public class AffichageParking extends JPanel{
 
 		try {
 			Place place = P.bookPlace(V);
+
 			AffichageParking tesdt = AffichageParking.getInstance();
-			
 			//
 			P.park(V2, 9);
-
-
 			P.etatParking();
 			tesdt.mettreAJour();
 			P.unpark(1);
