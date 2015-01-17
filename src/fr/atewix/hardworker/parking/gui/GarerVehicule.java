@@ -81,13 +81,11 @@ public class GarerVehicule extends JFrame{
                     parking.park( (Vehicule) lvehicule.getSelectedItem(), Integer.parseInt((String) lplace.getSelectedItem()));
                     AffichageParking.getInstance().mettreAJour();
                 } catch (PlaceOccupeeException e1) {
-                	 String message = "Place Déjàs Occupée";
-                	 JOptionPane.showMessageDialog(new JFrame(), message, "Dialog",JOptionPane.ERROR_MESSAGE);
+                	 
                 } catch (NumberFormatException e1) {
-					e1.printStackTrace();
+
 				} catch (DejasGarerAilleur e1) {
-					String message = " Déjàs Garrer Ailleur";
-               	 	JOptionPane.showMessageDialog(new JFrame(), message, "Dialog",JOptionPane.ERROR_MESSAGE);
+
 				}
                 finally {
                     dispose();
