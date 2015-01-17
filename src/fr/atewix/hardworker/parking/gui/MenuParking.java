@@ -63,8 +63,12 @@ public class MenuParking extends JMenuBar{
 
     public JMenuItem menuItemAjouterClient(){
         JMenuItem AjouterClient = new JMenuItem("Ajouter Client");
+        AjouterClient.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                new AjouterClient();
+            }
+        });
         return AjouterClient;
-
     }
 
     public JMenuItem menuItemGarerVehicule(){
