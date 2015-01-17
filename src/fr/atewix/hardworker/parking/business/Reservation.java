@@ -17,7 +17,7 @@ public class Reservation {
     }
 
     public String toString() {
-        return "Reservation : " + "Nomproprietaire= " + "proprietaire"  +
+        return "Reservation : " + "Nomproprietaire= " + proprietaire.getPrenom() + " " + proprietaire.getNom()  +
                 ", Immatriculation= " + immatriculation + "\n" ;
     }
 

@@ -87,12 +87,12 @@ public class AffichageParking extends JPanel{
 
 		Parking P = Parking.getInstance();
 
-		Client client1 = new Client("Nom", "Prenom", "Adresse");
+		Client client1 = new Client("Kevin", "Duglue", "xx rue tata");
 
 		P.addClient(client1);
 
-		Vehicule V = new Voiture("immatVoit", client1, "marque", "modele");
-		Vehicule V2 = new Voiture("immatVoit2", client1, "marque", "modele");
+		Vehicule V = new Voiture("Petite voiture", client1, "Clio", "C3");
+		Vehicule V2 = new Voiture("Grande Voiture", client1, "Citroen", "406");
 
 		client1.addVehicule(V);
 

@@ -26,15 +26,20 @@ public class Client {
 				'}';
 	}
 
-	public String getNom() {
-		return nom;
-	}
-
 	public void addVehicule(Vehicule vehicule){
 		listeVehiculeClient.add(vehicule);
 	}
 
-	public ArrayList<Vehicule> getListeVehiculeClient(){
+
+	public ArrayList<Vehicule> getListeVehiculeClient() {
 		return this.listeVehiculeClient;
+	}
+
+	public String getPrenom() {
+		return prenom;
+	}
+
+	public String getNom() {
+		return nom;
 	}
 }

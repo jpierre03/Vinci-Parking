@@ -16,7 +16,7 @@ import java.util.Set;
  * Created by Kevin on 23/12/2014.
  */
 
-public class GestionParking {
+public class GestionParkingSansIHM {
 
     public static void main(String[] args) {
 
