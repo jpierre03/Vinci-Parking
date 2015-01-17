@@ -16,7 +16,6 @@ public class AffichagePlace extends JButton implements ActionListener{
         addActionListener(this);
     }
 
-
     public void actionPerformed(ActionEvent e) {
         InfosPlace infosPlace = new InfosPlace(this.numPlace);
     }

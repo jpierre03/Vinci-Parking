@@ -22,7 +22,7 @@ public class AffichageParking extends JFrame{
 	private AffichageParking(){
 		super("Vinci Parking");
 		setLocation(300, 100);
-		setPreferredSize(new Dimension(800, 600));
+		setPreferredSize(new Dimension(700,300));
 		setDefaultCloseOperation(EXIT_ON_CLOSE);
 		setJMenuBar(new MenuParking());
 		AffichagedesPlaces();
@@ -71,9 +71,6 @@ public class AffichageParking extends JFrame{
 	}
 
 	public static void main(String[] args) {
-		Parking P = Parking.getInstance();
-		Client client1 = new Client("Kevin", "Duglue", "xx rue tata");
-		P.addClient(client1);
-		AffichageParking tesdt = AffichageParking.getInstance();
+		AffichageParking parking = AffichageParking.getInstance();
 	}
 }

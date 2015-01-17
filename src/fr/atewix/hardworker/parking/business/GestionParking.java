@@ -1,3 +1,4 @@
+
 package fr.atewix.hardworker.parking.business;
 
 import fr.atewix.hardworker.parking.Vehicule.Vehicule;
@@ -18,7 +19,7 @@ import java.util.Set;
  * Created by Kevin on 23/12/2014.
  */
 
-public class GestionParkingSansIHM {
+public class GestionParking {
 
     public static void main(String[] args) {
 
@@ -44,13 +45,16 @@ public class GestionParkingSansIHM {
             P.etatParking();
             Map<Facture, Vehicule> factures = P.getListeFacture();
 
-            Set listKeys = factures.keySet();
-            Iterator iterator = listKeys.iterator();
-            while(iterator.hasNext()) {
-                Object key= iterator.next();
+            Set listKeys=factures.keySet();  // Obtenir la liste des clés
+            Iterator iterateur=listKeys.iterator();
+            // Parcourir les clés et afficher les entrées de chaque clé;
+            while(iterateur.hasNext())
+            {
+                Object key= iterateur.next();
                 System.out.println (key+"=>"+factures.get(key));
             }
         } catch (PlusAucunePlaceException e) {
+
             e.printStackTrace();
         } catch (PlaceOccupeeException e) {
             e.printStackTrace();

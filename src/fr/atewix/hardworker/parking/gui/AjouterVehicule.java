@@ -21,7 +21,7 @@ public class AjouterVehicule extends JFrame{
 
     public AjouterVehicule(){
         super("Ajouter Vehicule");
-        setLocation(0, 0);
+        setLocation(400,500);
         setPreferredSize(new Dimension(320, 250));
         setDefaultCloseOperation(this.DISPOSE_ON_CLOSE);
         BorderLayout borderLayout = new BorderLayout();
@@ -145,9 +145,6 @@ public class AjouterVehicule extends JFrame{
         main.add(top, BorderLayout.NORTH);
         main.add(center, BorderLayout.CENTER);
         main.add(bottom, BorderLayout.SOUTH);
-        //this.setContentPane(container);
-
-
         setContentPane(main);
         pack();
         setResizable(false);

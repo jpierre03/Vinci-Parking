@@ -1,6 +1,7 @@
 package fr.atewix.hardworker.parking.business;
 
 import fr.atewix.hardworker.parking.Vehicule.Vehicule;
+import fr.atewix.hardworker.parking.exception.DejasGarerAilleur;
 import fr.atewix.hardworker.parking.exception.PlaceDisponibleException;
 import fr.atewix.hardworker.parking.exception.PlaceLibreException;
 import fr.atewix.hardworker.parking.exception.PlaceOccupeeException;
@@ -9,6 +10,7 @@ import fr.atewix.hardworker.parking.facture.Facture;
 import fr.atewix.hardworker.parking.place.Particulier;
 import fr.atewix.hardworker.parking.place.Place;
 import fr.atewix.hardworker.parking.place.Transporteur;
+
 import java.lang.System;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -35,7 +37,10 @@ public class Parking {
             listeDesPlaces.add(new Transporteur());
     }
 
-    public void park (Vehicule vehicule, int numPlace) throws PlaceOccupeeException {
+    public void park (Vehicule vehicule, int numPlace) throws PlaceOccupeeException, DejasGarerAilleur {
+    	int dejasgarer = this.getLocation(vehicule.getImmatriculation());
+        if(dejasgarer != -1)
+             throw new DejasGarerAilleur();
         Place placeSouhaite = listeDesPlaces.get(numPlace);
         if(placeSouhaite.getVehiculeparke() == null && placeSouhaite.getReservation() == null) {
             if(vehicule.getType() == "Camion" && placeSouhaite.getType() == "Particulier")
@@ -63,11 +68,8 @@ public class Parking {
             throw new PlaceOccupeeException();
     }
     
-    public void park(Vehicule vehicule, Place place){
-        int numPlaceReserve = place.getNumPlace();
-        Place placeReserve = listeDesPlaces.get(numPlaceReserve);
-        placeReserve.setVehiculeparke(vehicule);
-        listeDesPlaces.set(numPlaceReserve, placeReserve);
+    public void park(Vehicule vehicule, Place place) throws PlaceOccupeeException, DejasGarerAilleur{
+        park(vehicule, place.getNumPlace());
     }
 
     public Vehicule unpark(int numPlace) throws PlaceLibreException {
@@ -165,6 +167,8 @@ public class Parking {
 						this.park(vehicule,placeSouhaite.getNumPlace());
 						return;
 					} catch (PlaceOccupeeException e) {
+						e.printStackTrace();
+					} catch (DejasGarerAilleur e) {
 						e.printStackTrace();
 					}
                 }

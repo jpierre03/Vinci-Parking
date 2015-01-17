@@ -19,9 +19,9 @@ public class InfosPlace extends JFrame{
     public InfosPlace(int numPlace){
         super("Informations Place " + numPlace);
         this.numPlace = numPlace;
-        JTextField textfieldinfo = new JTextField();
-        textfieldinfo.setText(this.getTextInfo());
-        panel.add(textfieldinfo, BorderLayout.CENTER);
+        JLabel Labelinfo = new JLabel();
+        Labelinfo.setText(this.getTextInfo());
+        panel.add(Labelinfo, BorderLayout.CENTER);
         setContentPane(panel);
         pack();
         setVisible(true);
