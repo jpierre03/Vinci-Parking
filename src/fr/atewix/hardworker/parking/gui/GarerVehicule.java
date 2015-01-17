@@ -63,11 +63,9 @@ public class GarerVehicule extends JFrame{
                 try {
                     parking.park( (Vehicule) lvehicule.getSelectedItem(), Integer.parseInt((String) lplace.getSelectedItem()));
                     AffichageParking.getInstance().mettreAJour();
-                } catch (PlaceOccupeeException e1) {
-                    e1.printStackTrace();
-                }
-                finally {
                     dispose();
+                } catch (PlaceOccupeeException e1) {
+
                 }
             }
         });
