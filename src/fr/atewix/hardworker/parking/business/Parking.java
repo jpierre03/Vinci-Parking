@@ -17,13 +17,14 @@ import java.util.Map;
 
 public class Parking {
 
-    private static final int NOMBREDEPLACES = 10;
+    private static final int NOMBREDEPLACES = 9;
     private static final int TARIFHORRAIRE = 2;
 
     private static Parking instance = new Parking();
 
     private ArrayList<Place> listeDesPlaces = new ArrayList<Place>();
     private ArrayList<Client> listeClient = new ArrayList<Client>();
+    private ArrayList<Reservation> listeReservation = new ArrayList<Reservation>();
     private Map<Facture, Vehicule> listeFacture = new HashMap<Facture, Vehicule>();
 
 
@@ -123,7 +124,9 @@ public class Parking {
         for(int i = 0; i < NOMBREDEPLACES; ++i) {
             Place place = listeDesPlaces.get(i);
             if(place.getReservation() == null) {
-                place.reserver(vehicule);
+                Reservation reservation = new Reservation(vehicule, listeDesPlaces.get(i));
+                place.reserver(reservation);
+                listeReservation.add(reservation);
                 return place;
             }
         }

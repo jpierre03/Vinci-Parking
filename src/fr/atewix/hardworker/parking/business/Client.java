@@ -2,6 +2,7 @@ package fr.atewix.hardworker.parking.business;
 
 import fr.atewix.hardworker.parking.Vehicule.Vehicule;
 import java.util.ArrayList;
+import java.util.HashMap;
 
 public class Client {
 	private String prenom;
@@ -9,6 +10,7 @@ public class Client {
 	private String adresse;
 	private int pointdefidelite;
 	private ArrayList<Vehicule> listeVehiculeClient;
+	private ArrayList<Reservation> listeReservation;
 
 	public Client(String prenom, String nom, String adresse) {
 		this.prenom = prenom;
@@ -18,12 +20,7 @@ public class Client {
 	}
 
 	public String toString() {
-		return "Client{" +
-				"pointdefidelite=" + pointdefidelite +
-				", prenom='" + prenom + '\'' +
-				", nom='" + nom + '\'' +
-				", adresse='" + adresse + '\'' +
-				'}';
+		return  nom + " " + prenom;
 	}
 
 	public void addVehicule(Vehicule vehicule){
@@ -41,5 +38,13 @@ public class Client {
 
 	public String getNom() {
 		return nom;
+	}
+
+	public ArrayList<Reservation> getListeReservation(){
+		return this.listeReservation;
+	}
+
+	public void addReservation(Reservation reservation){
+		listeReservation.add(reservation);
 	}
 }

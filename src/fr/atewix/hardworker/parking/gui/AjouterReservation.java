@@ -1,59 +1,47 @@
 package fr.atewix.hardworker.parking.gui;
 
-import fr.atewix.hardworker.parking.Vehicule.Camion;
-import fr.atewix.hardworker.parking.Vehicule.Moto;
 import fr.atewix.hardworker.parking.Vehicule.Vehicule;
-import fr.atewix.hardworker.parking.Vehicule.Voiture;
 import fr.atewix.hardworker.parking.business.Client;
 import fr.atewix.hardworker.parking.business.Parking;
 import fr.atewix.hardworker.parking.exception.PlaceOccupeeException;
+import fr.atewix.hardworker.parking.exception.PlusAucunePlaceException;
+import fr.atewix.hardworker.parking.place.Place;
 
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.util.ArrayList;
 
 /**
  * Created by Kevin on 17/01/2015.
  */
-public class GarerVehicule extends JFrame{
+public class AjouterReservation extends JFrame{
 
-    private Parking parking= Parking.getInstance();
+    private Parking parking = Parking.getInstance();
 
-    public GarerVehicule(){
+    public AjouterReservation(){
 
-        super("Garer un vehicule");
-        setSize(300, 300);
-        setLayout(new BorderLayout());
-        JPanel top = new JPanel();
-
-        JLabel labelClient = new JLabel("Client");
+        super("Reserver une place");
+        final JPanel panel = new JPanel();
+        final JLabel labelClient = new JLabel("Client");
         final JComboBox lclient = new JComboBox();
         for(int i = 0; i < parking.getListeClient().size(); ++i){
             lclient.addItem(parking.getListeClient().get(i));
         }
-        lclient.setPreferredSize(new Dimension(300, 20));
 
+        Client clientsouhaite = (Client) lclient.getSelectedItem();
+        JLabel labelvehicule = new JLabel("Vehicule");
         final JComboBox lvehicule = new JComboBox();
-        Client clientchoisi = (Client) lclient.getSelectedItem();
-        ArrayList<Vehicule> listevehicule = clientchoisi.getListeVehiculeClient();
-
-        for(int i = 0; i < listevehicule.size(); ++i){
-            lvehicule.addItem(listevehicule.get(i));
+        for(int i = 0; i < clientsouhaite.getListeVehiculeClient().size(); ++i){
+            lvehicule.addItem(clientsouhaite.getListeVehiculeClient().get(i));
         }
 
-        final JComboBox lplace = new JComboBox();
-        for(int i = 0; i < parking.getNombrePlace(); ++i){
-            lplace.addItem(""+i);
-        }
+        panel.add(labelvehicule);
+        panel.add(lvehicule);
+        panel.add(labelClient, BorderLayout.CENTER);
+        panel.add(lclient, BorderLayout.CENTER);
 
-
-        top.add(labelClient, BorderLayout.NORTH);
-        top.add(lclient, BorderLayout.NORTH);
-        top.add(lvehicule, BorderLayout.CENTER);
-        top.add(lplace, BorderLayout.SOUTH);
-        add(top);
+        setContentPane(panel);
 
         JButton Valider = new JButton();
         Valider.setText("Valider");
@@ -61,14 +49,12 @@ public class GarerVehicule extends JFrame{
         Valider.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 try {
-                    parking.park( (Vehicule) lvehicule.getSelectedItem(), Integer.parseInt((String) lplace.getSelectedItem()));
+                    Place placereserve = parking.bookPlace((Vehicule) lvehicule.getSelectedItem());
                     AffichageParking.getInstance().mettreAJour();
-                } catch (PlaceOccupeeException e1) {
+                } catch (PlusAucunePlaceException e1) {
                     e1.printStackTrace();
                 }
-                finally {
-                    dispose();
-                }
+                dispose();
             }
         });
         add(Valider, BorderLayout.WEST);
@@ -82,6 +68,8 @@ public class GarerVehicule extends JFrame{
             }
         });
         add(Annuler, BorderLayout.EAST);
+        pack();
         setVisible(true);
+
     }
 }

@@ -20,8 +20,8 @@ public abstract class Place {
         this.numPlace = numPlaceCree++;
     }
 
-    public void reserver(Vehicule vehicule){
-        this.reservation = new Reservation(vehicule);
+    public void reserver(Reservation reservation){
+        this.reservation = reservation;
     }
 
     public void enleverReservation(){

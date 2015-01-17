@@ -58,7 +58,7 @@ public class AjouterClient extends JFrame {
         panel.add(boutonvalider);
         panel.add(boutonannuler);
         setContentPane(panel);
-        pack();
+        setSize(new Dimension(350, 300));
         setVisible(true);
     }
 
