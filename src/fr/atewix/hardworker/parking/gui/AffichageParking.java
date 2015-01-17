@@ -41,12 +41,11 @@ public class AffichageParking extends JFrame{
 	}
 
 	public void AffichagedesPlaces(){
-		for (int i = 0; i < Parking.getInstance().getListeDesPlaces().size(); ++i) {
-			
+		for (int i = 0; i < Parking.getInstance().getListeDesPlaces().size(); ++i) {		
 			Place place = Parking.getInstance().getListeDesPlaces().get(i);
 			
 			AffichagePlace placebutton = new AffichagePlace(i);
-
+			
 			placebutton.setPreferredSize(new Dimension(200, 50));
 
 			if (place.getVehiculeparke() != null) {
@@ -61,7 +60,6 @@ public class AffichageParking extends JFrame{
 				placebutton.setText(place.getType());
 				placebutton.setBackground(Color.green);
 			}
-
 			parking.add(placebutton);
 		}
 	}
@@ -70,41 +68,12 @@ public class AffichageParking extends JFrame{
 		parking.removeAll();
 		AffichagedesPlaces();
 		parking.revalidate();
-//		/parking.repaint();
 	}
 
 	public static void main(String[] args) {
-
 		Parking P = Parking.getInstance();
-
 		Client client1 = new Client("Kevin", "Duglue", "xx rue tata");
-
 		P.addClient(client1);
-
-		Vehicule V = new Voiture("Petite voiture", client1, "Clio", "C3");
-		Vehicule V2 = new Voiture("Grande Voiture", client1, "Citroen", "406");
-
-		client1.addVehicule(V);
-
-		try {
-			Place place = P.bookPlace(V);
-
-			AffichageParking tesdt = AffichageParking.getInstance();
-			//
-			P.park(V2, 9);
-			P.etatParking();
-			tesdt.mettreAJour();
-			P.unpark(1);
-			tesdt.mettreAJour();
-
-		} catch (PlusAucunePlaceException e) {
-
-			e.printStackTrace();
-		} catch (PlaceOccupeeException e) {
-			e.printStackTrace();
-		} catch (PlaceLibreException e) {
-			e.printStackTrace();
-		}
-
+		AffichageParking tesdt = AffichageParking.getInstance();
 	}
 }
