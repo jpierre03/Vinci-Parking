@@ -98,8 +98,7 @@ public class AffichageParking extends JPanel{
 
 		try {
 			Place place = P.bookPlace(V);
-
-			AffichageParking tesdt = new AffichageParking();
+			AffichageParking tesdt = AffichageParking.getInstance();
 			
 			//
 			P.park(V2, 9);
