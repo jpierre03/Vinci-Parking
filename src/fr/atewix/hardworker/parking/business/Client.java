@@ -20,4 +20,12 @@ public class Client {
 	public void addVehicule(Vehicule vehicule){
 		listeVehiculeClient.add(vehicule);
 	}
+
+	public String getPrenom() {
+		return prenom;
+	}
+
+	public String getNom() {
+		return nom;
+	}
 }
