@@ -16,11 +16,11 @@ import java.awt.*;
 
 public class AffichageParking extends JPanel{
 
+	private static AffichageParking VinciParking = new AffichageParking();
 	private JFrame mainframe = new JFrame("Vinci Parking");
 	private JPanel parking = new JPanel();
-	private JPanel panel1;
 
-	public AffichageParking(){
+	private AffichageParking(){
 		super();
 		mainframe.setLocation(300, 100);
 		mainframe.setPreferredSize(new Dimension(800, 600));
@@ -39,6 +39,15 @@ public class AffichageParking extends JPanel{
 		mainframe.pack();
 
 		mainframe.setVisible(true);
+	}
+
+	public static AffichageParking getInstance() {
+		if(VinciParking == null)
+			synchronized (Parking.class) {
+				if(VinciParking == null)
+					VinciParking = new AffichageParking();
+			}
+		return VinciParking;
 	}
 
 	public JPanel AffichagedesPlaces(){
@@ -92,17 +101,21 @@ public class AffichageParking extends JPanel{
 
 			AffichageParking tesdt = new AffichageParking();
 			
-			//P.unpark(0);
+			//
 			P.park(V2, 9);
 
 
 			P.etatParking();
+			tesdt.mettreAJour();
+			P.unpark(1);
 			tesdt.mettreAJour();
 
 		} catch (PlusAucunePlaceException e) {
 
 			e.printStackTrace();
 		} catch (PlaceOccupeeException e) {
+			e.printStackTrace();
+		} catch (PlaceLibreException e) {
 			e.printStackTrace();
 		}
 

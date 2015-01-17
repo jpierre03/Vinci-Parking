@@ -16,8 +16,25 @@ public class Client {
 		this.adresse = adresse;
 		listeVehiculeClient = new ArrayList<Vehicule>();
 	}
-	
+
+	public String toString() {
+		return "Client{" +
+				"pointdefidelite=" + pointdefidelite +
+				", prenom='" + prenom + '\'' +
+				", nom='" + nom + '\'' +
+				", adresse='" + adresse + '\'' +
+				'}';
+	}
+
+	public String getNom() {
+		return nom;
+	}
+
 	public void addVehicule(Vehicule vehicule){
 		listeVehiculeClient.add(vehicule);
+	}
+
+	public ArrayList<Vehicule> getListeVehiculeClient(){
+		return this.listeVehiculeClient;
 	}
 }

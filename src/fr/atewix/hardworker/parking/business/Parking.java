@@ -17,7 +17,7 @@ import java.util.Map;
 
 public class Parking {
 
-    private static final double NOMBREDEPLACES = 10;
+    private static final int NOMBREDEPLACES = 10;
     private static final int TARIFHORRAIRE = 2;
 
     private static Parking instance = new Parking();
@@ -185,5 +185,9 @@ public class Parking {
     public ArrayList<Place> getListeDesPlaces(){
         return this.listeDesPlaces;
     }
+
+    public ArrayList<Client> getListeClient() {return this.listeClient ;}
+
+    public int getNombrePlace() { return this.NOMBREDEPLACES;}
 
 }
