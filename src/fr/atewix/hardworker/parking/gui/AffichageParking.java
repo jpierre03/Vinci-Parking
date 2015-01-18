@@ -1,9 +1,7 @@
 package fr.atewix.hardworker.parking.gui;
 
-import fr.atewix.hardworker.parking.Vehicule.FabriqueVehicule;
-import fr.atewix.hardworker.parking.Vehicule.Voiture;
-import fr.atewix.hardworker.parking.business.Client;
 import fr.atewix.hardworker.parking.business.Parking;
+import fr.atewix.hardworker.parking.gui.ihm.MenuParking;
 import fr.atewix.hardworker.parking.place.Place;
 
 import javax.swing.*;
@@ -17,13 +15,15 @@ public class AffichageParking extends JFrame{
 
 	private AffichageParking(){
 		super("Vinci Parking");
-		setLocation(300, 100);
 		setPreferredSize(new Dimension(700,300));
 		setDefaultCloseOperation(EXIT_ON_CLOSE);
+
 		setJMenuBar(new MenuParking());
 		AffichagedesPlaces();
 		setContentPane(parking);
+
 		pack();
+		setLocationRelativeTo(null);
 		setVisible(true);
 	}
 
