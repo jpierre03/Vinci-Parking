@@ -29,7 +29,7 @@ public class MenuRapide extends JPanel implements ActionListener {
     private JButton newButon(String text) {
         JButton bouton = new JButton(text);
         bouton.setMargin(new Insets(0, 0, 0, 0));
-        bouton.setPreferredSize(new Dimension(90, 25));
+        bouton.setPreferredSize(new Dimension(160, 25));
         bouton.addActionListener(this);
         return bouton;
     }

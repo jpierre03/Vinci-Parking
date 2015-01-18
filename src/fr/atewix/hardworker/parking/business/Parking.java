@@ -12,9 +12,9 @@ import java.util.Stack;
 
 public class Parking {
 
-    private final int NOMBREDEPLACESPARTICULIER = 6;
-    private final int NOMBREDEPLACESTRANSPORTEUR = 3;
-    private final int TARIFHORRAIRE = 2;
+    private static final int NOMBREDEPLACESPARTICULIER = 12;
+    private static final int NOMBREDEPLACESTRANSPORTEUR = 6;
+    private static final int TARIFHORRAIRE = 2;
 
     private static Parking instance = new Parking();
 

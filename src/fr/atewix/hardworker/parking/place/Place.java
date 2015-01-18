@@ -57,4 +57,8 @@ public abstract class Place {
     public Reservation getReservation() {
         return this.reservation;
     }
+
+    public static int getNumPlaceCree() {
+        return numPlaceCree;
+    }
 }
