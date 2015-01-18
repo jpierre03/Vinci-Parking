@@ -2,6 +2,11 @@ package fr.atewix.hardworker.parking.exception;
 
 import javax.swing.*;
 
+/**
+ * Class PlusAucunePlaceException qui est une exception levé lorsqu'aucune place est disponible
+ * @see java.lang.Exception
+ * @author Lucas Debiasi, Micheal Gileta, Sylvain De Barros, Kevin Duglue
+ */
 public class PlusAucunePlaceException extends Exception {
     public PlusAucunePlaceException(){
         JFrame exception = new JFrame();
