@@ -6,6 +6,8 @@ import fr.atewix.hardworker.parking.Vehicule.Vehicule;
 import fr.atewix.hardworker.parking.Vehicule.Voiture;
 import fr.atewix.hardworker.parking.business.Client;
 import fr.atewix.hardworker.parking.business.Parking;
+import fr.atewix.hardworker.parking.exception.DonneesNonValides;
+import fr.atewix.hardworker.parking.exception.ImmatriculationDejaUtilise;
 
 import javax.swing.*;
 import java.awt.*;
@@ -114,20 +116,34 @@ public class AjouterVehicule extends JFrame{
                 String marque = Marque.getText();
                 Client proprietaire = (Client) lclient.getSelectedItem();
                 String type = (String) typeVehicule.getSelectedItem();
-                if(type == "Voiture") {
-                    Vehicule vehiculeAajouter = new Voiture(immatriculation, proprietaire, marque, modele);
-                    proprietaire.addVehicule(vehiculeAajouter);
-                }
-                else if(type == "Moto") {
-                    Vehicule vehiculeAajouter = new Moto(immatriculation, proprietaire, marque, modele);
-                    proprietaire.addVehicule(vehiculeAajouter);
-                }
-                else  {
-                    Vehicule vehiculeAajouter = new Camion(immatriculation, proprietaire, marque, modele);
-                    proprietaire.addVehicule(vehiculeAajouter);
-                }
+                try {
+                    if (type == "Voiture") {
+                        Vehicule vehiculeAajouter = new Voiture(immatriculation, proprietaire, marque, modele);
+                        if (verifierDonneeVehicule(vehiculeAajouter)) {
+                            proprietaire.addVehicule(vehiculeAajouter);
+                            dispose();
+                        }
 
-                dispose();
+                    } else if (type == "Moto") {
+                        Vehicule vehiculeAajouter = new Moto(immatriculation, proprietaire, marque, modele);
+                        if (verifierDonneeVehicule(vehiculeAajouter)) {
+                            proprietaire.addVehicule(vehiculeAajouter);
+                            dispose();
+                        }
+
+                    } else {
+                        Vehicule vehiculeAajouter = new Camion(immatriculation, proprietaire, marque, modele);
+                        if (verifierDonneeVehicule(vehiculeAajouter)) {
+                            proprietaire.addVehicule(vehiculeAajouter);
+                            dispose();
+                        }
+
+                    }
+                }
+                catch (DonneesNonValides e1){}
+                catch (ImmatriculationDejaUtilise e2){}
+
+
             }
         });
         bottom.add(Valider, BorderLayout.WEST);
@@ -150,5 +166,30 @@ public class AjouterVehicule extends JFrame{
         setResizable(false);
         setVisible(true);
     }
+
+    private boolean verifierDonneeVehicule(Vehicule vehicule) throws DonneesNonValides, ImmatriculationDejaUtilise {
+        String immatriculation = vehicule.getImmatriculation();
+        String modele = vehicule.getModele();
+        String marque = vehicule.getMarque();
+
+        if(parking.isImmatriculationExiste(immatriculation)){
+            throw new ImmatriculationDejaUtilise();
+        }
+
+        if (!immatriculation.matches("[A-Z]{2}[0-9]{3}[A-Z]{2}")) {
+            throw new DonneesNonValides("immatriculation");
+        }
+
+        if (!modele.matches("[a-zA-Z0-9]{2,10}")) {
+            throw new DonneesNonValides("modele");
+        }
+
+        if (!marque.matches("[a-zA-Z_0-9]{2,10}")) {
+            throw new DonneesNonValides("marque");
+        }
+        return true;
+    }
+
+
 
 }

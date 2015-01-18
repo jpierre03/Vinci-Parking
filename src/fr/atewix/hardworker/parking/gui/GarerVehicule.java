@@ -8,6 +8,7 @@ import fr.atewix.hardworker.parking.business.Client;
 import fr.atewix.hardworker.parking.business.Parking;
 import fr.atewix.hardworker.parking.business.Reservation;
 import fr.atewix.hardworker.parking.exception.DejasGarerAilleur;
+import fr.atewix.hardworker.parking.exception.DonneesNonValides;
 import fr.atewix.hardworker.parking.exception.PlaceOccupeeException;
 import fr.atewix.hardworker.parking.place.Place;
 
@@ -163,6 +164,7 @@ public class GarerVehicule extends JFrame{
                          parking.enleveruneReservation(reservationselectionne);
                          parking.park((Vehicule) lvehicule.getSelectedItem(), placereserve);
                          AffichageParking.getInstance().mettreAJour();
+
                      }
                      else {
                          parking.park((Vehicule) lvehicule.getSelectedItem(), Integer.parseInt((String) lplace.getSelectedItem()));
@@ -179,4 +181,5 @@ public class GarerVehicule extends JFrame{
          });
     	return valider;
     }
+
 }

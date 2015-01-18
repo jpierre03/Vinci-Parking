@@ -221,4 +221,16 @@ public class Parking {
         }
         return false;
     }
+
+    public boolean isImmatriculationExiste(String immatriculation){
+        for(int i = 0; i < listeClient.size(); ++i){
+            Client client = listeClient.get(i);
+            for(int j = 0; j < client.getListeVehiculeClient().size(); ++j){
+                Vehicule vehicule = client.getListeVehiculeClient().get(j);
+                if(vehicule.getImmatriculation().equals(immatriculation))
+                    return true;
+            }
+        }
+        return false;
+    }
 }
