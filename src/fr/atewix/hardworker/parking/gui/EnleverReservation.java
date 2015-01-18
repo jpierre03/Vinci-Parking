@@ -17,69 +17,98 @@ import java.util.ArrayList;
 
 public class EnleverReservation extends JFrame{
 
-    private Parking parking = Parking.getInstance();
+    private Parking parking 		= Parking.getInstance();
+    private JComboBox lclient 		= new JComboBox();
+    private JComboBox lvehicule 	= new JComboBox();
+    private JComboBox lreservation	= new JComboBox();
+    
     public EnleverReservation(){
         super("Enlever Reservation");
-
-        final JPanel panel = new JPanel();
-
-        JLabel labelClient = new JLabel("Client");
-        final JComboBox lclient = new JComboBox();
+        JPanel main = new JPanel();
+        main.setLayout(new BorderLayout());
+        main.add(HautPanel(),BorderLayout.NORTH);
+        main.add(Center(),BorderLayout.CENTER);
+        setContentPane(main);
+        pack();
+        setVisible(true);
+    }
+    
+    private JPanel HautPanel(){
+    	JPanel hautpanel = new JPanel();
+    	hautpanel.setLayout(new BorderLayout());
+    	hautpanel.add(ClientPanel(),BorderLayout.NORTH);
+    	hautpanel.add(VoiturePanel(),BorderLayout.CENTER);
+    	return hautpanel;
+    }
+    private JPanel ClientPanel(){
+    	JPanel client = new JPanel();
+    	client.setLayout(new BorderLayout());
+    	JLabel labelClient = new JLabel("Client");
         for(int i = 0; i < parking.getListeClient().size(); ++i){
             lclient.addItem(parking.getListeClient().get(i));
         }
         lclient.setPreferredSize(new Dimension(300, 20));
+    	client.add(labelClient,BorderLayout.NORTH);
+    	client.add(lclient,BorderLayout.CENTER);
+        return client;
+    }
+    
+    private JPanel Center(){
+    	JPanel center = new JPanel();
+    	center.setLayout(new BorderLayout());
+    	center.add(ReservationPanel(),BorderLayout.NORTH);
+    	center.add(ValiderAnnuler(),BorderLayout.CENTER);
+    	return center;
+    }
+    
+    private JPanel VoiturePanel(){
+    	  JPanel vehicule = new JPanel();
+    	  vehicule.setLayout(new BorderLayout());
+    	  JLabel labelvehicule = new JLabel("Vehicule");
+          lvehicule.addPopupMenuListener(new PopupMenuListener() {
+        	  public void popupMenuWillBecomeVisible(PopupMenuEvent e) {
+                  lvehicule.removeAllItems();
+                  Client clientchoisi = (Client) lclient.getSelectedItem();
+                  ArrayList<Vehicule> listevehicule = clientchoisi.getListeVehiculeClient();
+                  for(int i = 0; i < listevehicule.size(); ++i){
+                      lvehicule.addItem(listevehicule.get(i));
+                  }
+              }
+              public void popupMenuWillBecomeInvisible(PopupMenuEvent e) {}
+              public void popupMenuCanceled(PopupMenuEvent e) {}
+          });
+          vehicule.add(labelvehicule,BorderLayout.NORTH);
+          vehicule.add(lvehicule,BorderLayout.CENTER);
+          return vehicule; 
+    }
+    
+    private JPanel ReservationPanel(){
+    	 JPanel reservation = new JPanel();
+    	 reservation.setLayout(new BorderLayout());
+    	 JLabel lreservationlabel = new JLabel("Reservation");
+         lreservation.addPopupMenuListener(new PopupMenuListener() {
+             public void popupMenuWillBecomeVisible(PopupMenuEvent e) {
+                 lreservation.removeAllItems();
+                 Vehicule vehiculechoisi = (Vehicule) lvehicule.getSelectedItem();
+                 Reservation reservation = parking.getReservationParVehicule(vehiculechoisi);
+                 lreservation.addItem(reservation);
+             }
+             public void popupMenuWillBecomeInvisible(PopupMenuEvent e) {}
 
-        JLabel labelvehicule = new JLabel("vehicule");
-        final JComboBox lvehicule = new JComboBox();
-        lvehicule.addPopupMenuListener(new PopupMenuListener() {
-            public void popupMenuWillBecomeVisible(PopupMenuEvent e) {
-                lvehicule.removeAllItems();
-                Client clientchoisi = (Client) lclient.getSelectedItem();
-                ArrayList<Vehicule> listevehicule = clientchoisi.getListeVehiculeClient();
-                for(int i = 0; i < listevehicule.size(); ++i){
-                    lvehicule.addItem(listevehicule.get(i));
-                }
-            }
-
-            public void popupMenuWillBecomeInvisible(PopupMenuEvent e) {
-
-            }
-
-            public void popupMenuCanceled(PopupMenuEvent e) {
-
-            }
-        });
-
-        JLabel lreservationlabel = new JLabel("Reservation");
-        final JComboBox lReservation = new JComboBox();
-        lReservation.addPopupMenuListener(new PopupMenuListener() {
-            public void popupMenuWillBecomeVisible(PopupMenuEvent e) {
-                lReservation.removeAllItems();
-                Vehicule vehiculechoisi = (Vehicule) lvehicule.getSelectedItem();
-                Reservation reservation = parking.getReservationParVehicule(vehiculechoisi);
-                lReservation.addItem(reservation);
-            }
-
-            public void popupMenuWillBecomeInvisible(PopupMenuEvent e) {}
-
-            public void popupMenuCanceled(PopupMenuEvent e) {}
-
-        });
-
-        panel.add(labelClient);
-        panel.add(lclient);
-        panel.add(labelvehicule);
-        panel.add(lvehicule);
-        panel.add(lreservationlabel);
-        panel.add(lReservation);
-
-        JButton Valider = new JButton();
+             public void popupMenuCanceled(PopupMenuEvent e) {}
+         });
+         reservation.add(lreservationlabel,BorderLayout.NORTH);
+         reservation.add(lreservation,BorderLayout.CENTER);
+         return reservation;
+   }
+    private JPanel ValiderAnnuler(){
+    	JPanel validerannuler = new JPanel();
+    	JButton Valider = new JButton();
         Valider.setText("Valider");
         Valider.setPreferredSize(new Dimension(140, 40));
         Valider.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-                Reservation reservationselectionnee = (Reservation) lReservation.getSelectedItem();
+                Reservation reservationselectionnee = (Reservation) lreservation.getSelectedItem();
                 parking.enleveruneReservation(reservationselectionnee);
                 int numPlace = reservationselectionnee.getPlace().getNumPlace();
 
@@ -90,7 +119,7 @@ public class EnleverReservation extends JFrame{
                 dispose();
             }
         });
-
+        
         JButton Annuler = new JButton();
         Annuler.setText("Annuler");
         Annuler.setPreferredSize(new Dimension(140, 40));
@@ -99,12 +128,9 @@ public class EnleverReservation extends JFrame{
                 dispose();
             }
         });
-        setLocation(300, 400);
-        panel.add(Valider);
-        panel.add(Annuler);
-        setContentPane(panel);
-        pack();
-        setVisible(true);
-
+        validerannuler.add(Valider,BorderLayout.EAST);
+        validerannuler.add(Annuler,BorderLayout.WEST);
+        return validerannuler;
     }
+    
 }
