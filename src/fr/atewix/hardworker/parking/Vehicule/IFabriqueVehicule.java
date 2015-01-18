@@ -1,8 +1,7 @@
 package fr.atewix.hardworker.parking.Vehicule;
 
-/**
- * Created by michael on 18/01/2015.
- */
+import fr.atewix.hardworker.parking.business.Client;
+
 public interface IFabriqueVehicule {
-    public Vehicule Creer(String nomVehicule) throws ClassNotFoundException, IllegalAccessException, InstantiationException;
+    public Vehicule Creer(String typeVehicule, String immatriculation, Client proprietaire, String marque, String modele);
 }

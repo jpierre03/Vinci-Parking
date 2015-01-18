@@ -1,9 +1,6 @@
 package fr.atewix.hardworker.parking.gui;
 
-import fr.atewix.hardworker.parking.Vehicule.Camion;
-import fr.atewix.hardworker.parking.Vehicule.Moto;
-import fr.atewix.hardworker.parking.Vehicule.Vehicule;
-import fr.atewix.hardworker.parking.Vehicule.Voiture;
+import fr.atewix.hardworker.parking.Vehicule.*;
 import fr.atewix.hardworker.parking.business.Client;
 import fr.atewix.hardworker.parking.business.Parking;
 import fr.atewix.hardworker.parking.exception.DonneesNonValides;
@@ -115,31 +112,15 @@ public class AjouterVehicule extends JFrame{
                 Client proprietaire = (Client) lclient.getSelectedItem();
                 String type = (String) typeVehicule.getSelectedItem();
                 try {
-                    if (type == "Voiture") {
-                        Vehicule vehiculeAajouter = new Voiture(immatriculation, proprietaire, marque, modele);
-                        if (verifierDonneeVehicule(vehiculeAajouter)) {
-                            proprietaire.addVehicule(vehiculeAajouter);
-                            dispose();
-                        }
-
-                    } else if (type == "Moto") {
-                        Vehicule vehiculeAajouter = new Moto(immatriculation, proprietaire, marque, modele);
-                        if (verifierDonneeVehicule(vehiculeAajouter)) {
-                            proprietaire.addVehicule(vehiculeAajouter);
-                            dispose();
-                        }
-
-                    } else {
-                        Vehicule vehiculeAajouter = new Camion(immatriculation, proprietaire, marque, modele);
-                        if (verifierDonneeVehicule(vehiculeAajouter)) {
-                            proprietaire.addVehicule(vehiculeAajouter);
-                            dispose();
-                        }
-
+                    FabriqueVehicule fabriqueVehicule = new FabriqueVehicule();
+                    Vehicule vehiculeAajouter = fabriqueVehicule.Creer(type, immatriculation, proprietaire, marque, modele);
+                    if (verifierDonneeVehicule(vehiculeAajouter)) {
+                        proprietaire.addVehicule(vehiculeAajouter);
+                        dispose();
                     }
                 }
-                catch (DonneesNonValides e1){}
-                catch (ImmatriculationDejaUtilise e2){}
+                catch (DonneesNonValides e1) {}
+                catch (ImmatriculationDejaUtilise e2) {}
 
 
             }
