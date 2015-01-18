@@ -12,6 +12,7 @@ import fr.atewix.hardworker.parking.place.Place;
 import java.util.Iterator;
 import java.util.Map;
 import java.util.Set;
+import java.util.Stack;
 
 
 /**
@@ -33,33 +34,6 @@ public class GestionParkingSansIHM {
 
         client1.addVehicule(V);
 
-        try {
-            Place place = P.bookPlace(V);
-            P.park(V, place);
-            P.unpark(0);
-
-            P.park(V2, 1);
-
-            P.unpark(1);
-            P.etatParking();
-            Map<Facture, Vehicule> factures = P.getListeFacture();
-
-            Set listKeys = factures.keySet();
-            Iterator iterator = listKeys.iterator();
-            while(iterator.hasNext()) {
-                Object key= iterator.next();
-                System.out.println (key+"=>"+factures.get(key));
-            }
-        } catch (PlusAucunePlaceException e) {
-            e.printStackTrace();
-        } catch (PlaceOccupeeException e) {
-            e.printStackTrace();
-        } catch (PlaceLibreException e) {
-            e.printStackTrace();
-        } catch (DejasGarerAilleur e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
     }
 }
 

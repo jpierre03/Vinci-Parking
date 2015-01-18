@@ -27,7 +27,7 @@ public class Parking {
     private ArrayList<Place> listeDesPlaces = new ArrayList<Place>();
     private ArrayList<Client> listeClient = new ArrayList<Client>();
     private ArrayList<Reservation> listeReservation = new ArrayList<Reservation>();
-    private Stack listeFacture = new HashMap<Facture, Vehicule>();
+    private Stack listeFacture = new Stack();
 
 
     private Parking() {
@@ -79,7 +79,7 @@ public class Parking {
         else {
             Vehicule vehiculeparke = placeSouhaite.getVehiculeparke();
             Facture facture = new Facture(vehiculeparke, placeSouhaite.getDateArrive(), TARIFHORRAIRE);
-            listeFacture.push(facture, vehiculeparke);
+            listeFacture.push(facture);
             placeSouhaite.setVehiculeparke(null);
             listeDesPlaces.set(numPlace, placeSouhaite);
             placeSouhaite.enleverReservation();
@@ -96,7 +96,7 @@ public class Parking {
             Vehicule vehiculearetirer = listeDesPlaces.get(numPlace).getVehiculeparke();
             listeDesPlaces.get(numPlace).setVehiculeparke(null);
             Facture facture = new Facture(vehiculearetirer, listeDesPlaces.get(numPlace).getDateArrive(), TARIFHORRAIRE);
-            listeFacture.push(facture, vehiculearetirer);
+            listeFacture.push(facture);
             return vehiculearetirer;
         }
 
@@ -187,7 +187,7 @@ public class Parking {
         return instance;
     }
 
-    public Map<Facture, Vehicule> getListeFacture() {
+    public Stack getListeFacture() {
         return this.listeFacture;
     }
 
