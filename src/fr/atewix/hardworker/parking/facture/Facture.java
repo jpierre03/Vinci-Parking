@@ -28,7 +28,7 @@ public class Facture {
         this.numeroFacture = this.numero;
         this.vehiculeconcerne = voiture;
         this.datedebut = datedebut;
-        this.datefin = new GregorianCalendar(2015, 01, 27);
+        this.datefin = new GregorianCalendar();
         this.montantfacture = calculMontantTTC(datedebut, datefin, tarifhoraire, TVA);
     }
 
