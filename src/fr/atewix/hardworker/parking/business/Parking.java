@@ -15,8 +15,9 @@ import java.util.Stack;
 
 public class Parking {
 
-    private static final int NOMBREDEPLACES = 9;
-    private static final int TARIFHORRAIRE = 2;
+    private final int NOMBREDEPLACESPARTICULIER = 6;
+    private final int NOMBREDEPLACESTRANSPORTEUR = 3;
+    private final int TARIFHORRAIRE = 2;
 
     private static Parking instance = new Parking();
 
@@ -27,9 +28,9 @@ public class Parking {
 
 
     private Parking() {
-        for(double i = 0; i < NOMBREDEPLACES-3; ++i)
+        for(double i = 0; i < NOMBREDEPLACESPARTICULIER; ++i)
             listeDesPlaces.add(new Particulier());
-        for(double i = NOMBREDEPLACES-3; i < NOMBREDEPLACES; ++i)
+        for(double i = 0; i < NOMBREDEPLACESTRANSPORTEUR; ++i)
             listeDesPlaces.add(new Transporteur());
     }
 
@@ -98,18 +99,18 @@ public class Parking {
 
     public String etatParking(){
         String etatParking = "";
-        for(int i = 0; i < NOMBREDEPLACES; ++i){
+        for(int i = 0; i < listeDesPlaces.size(); ++i){
             Place place = listeDesPlaces.get(i);
-            etatParking +="Numero de la place : " + i + "\n";
-            etatParking +="Type de la place : " + place.getType()+ "\n";
+            etatParking +="Numero de la place : " + i + "\n\r";
+            etatParking +="Type de la place : " + place.getType()+ "\n\r";
             if(place.getVehiculeparke() != null)
                 etatParking +="Informations sur le vehicule garé : " + place.getVehiculeparke()+ "\n";
             else if (place.getReservation() != null)
-                etatParking +="Cette place est reservé" + "\n";
+                etatParking +="Cette place est reservé" + "\n\r";
             else
-            etatParking +="Cette place est disponible" + "\n";
+            etatParking +="Cette place est disponible" + "\n\r";
 
-            etatParking +="\n";
+            etatParking +="\n\r";
         }
         return etatParking;
     }
@@ -122,7 +123,7 @@ public class Parking {
         if(aDejaReserve(vehicule))
             throw new DejaReserveAilleurs();
         else {
-            for (int i = 0; i < NOMBREDEPLACES; ++i) {
+            for (int i = 0; i < listeDesPlaces.size(); ++i) {
                 Place place = listeDesPlaces.get(i);
                 if (place.getReservation() == null && place.getVehiculeparke() == null) {
                     Reservation reservation = new Reservation(vehicule, listeDesPlaces.get(i));
@@ -195,7 +196,7 @@ public class Parking {
 
     public ArrayList<Client> getListeClient() {return this.listeClient ;}
 
-    public int getNombrePlace() { return this.NOMBREDEPLACES;}
+    public int getNombrePlace() { return this.listeDesPlaces.size();}
 
     public Reservation getReservationParVehicule(Vehicule vehicule) {
 
