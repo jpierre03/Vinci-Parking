@@ -19,17 +19,17 @@ public class Parking {
     /**
      * Variable constante du nombre de places de type Particulier
      */
-    private final int NOMBREDEPLACESPARTICULIER = 6;
+    private static final int NOMBREDEPLACESPARTICULIER = 12;
 
     /**
      * Variable constante du nombre de places de type Transporteur
      */
-    private final int NOMBREDEPLACESTRANSPORTEUR = 3;
+    private static final int NOMBREDEPLACESTRANSPORTEUR = 6;
 
     /**
      * Variable constante du tarif horaire d'une place de parking
      */
-    private final int TARIFHORRAIRE = 2;
+    private static final int TARIFHORRAIRE = 2;
 
     /**
      * Instance du singleton de la classe parking

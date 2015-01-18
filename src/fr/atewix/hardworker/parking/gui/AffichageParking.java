@@ -1,6 +1,8 @@
 package fr.atewix.hardworker.parking.gui;
 
 import fr.atewix.hardworker.parking.business.Parking;
+import fr.atewix.hardworker.parking.gui.ihm.MenuParking;
+import fr.atewix.hardworker.parking.gui.ihm.MenuRapide;
 import fr.atewix.hardworker.parking.place.Place;
 
 import javax.swing.*;
@@ -9,18 +11,24 @@ import java.awt.*;
 
 public class AffichageParking extends JFrame{
 
+	private static final int PLACE_HEIGHT = 50;
+
 	private static AffichageParking VinciParking = new AffichageParking();
 	private JPanel parking = new JPanel();
 
 	private AffichageParking(){
 		super("Vinci Parking");
-		setLocation(300, 100);
-		setPreferredSize(new Dimension(700,300));
+		setResizable(false);
 		setDefaultCloseOperation(EXIT_ON_CLOSE);
+
 		setJMenuBar(new MenuParking());
+		parking.add(new MenuRapide());
 		AffichagedesPlaces();
 		setContentPane(parking);
+
+		setPreferredSize(new Dimension(700,taille()));
 		pack();
+		setLocationRelativeTo(null);
 		setVisible(true);
 	}
 
@@ -33,32 +41,40 @@ public class AffichageParking extends JFrame{
 		return VinciParking;
 	}
 
-	public void AffichagedesPlaces(){
+	private int taille() {
+		int tailleMenuRapidePlusMenu = 90;
+		int taillePlaceButton = PLACE_HEIGHT + 12;
+		int nbLignePlace = (int) Math.ceil(Place.getNumPlaceCree() / 3);
+		return tailleMenuRapidePlusMenu + nbLignePlace*taillePlaceButton + taillePlaceButton;
+	}
+
+	private void AffichagedesPlaces(){
 		for (int i = 0; i < Parking.getInstance().getListeDesPlaces().size(); ++i) {		
 			Place place = Parking.getInstance().getListeDesPlaces().get(i);
 			
-			AffichagePlace placebutton = new AffichagePlace(i);
-			
-			placebutton.setPreferredSize(new Dimension(200, 50));
+			AffichagePlace placeButton = new AffichagePlace(i);
+
+			placeButton.setPreferredSize(new Dimension(200, PLACE_HEIGHT));
 
 			if (place.getVehiculeparke() != null) {
-				placebutton.setText(i + " : " + place.getVehiculeparke().getType() + " : " + place.getVehiculeparke().getImmatriculation());
-				placebutton.setBackground(Color.red);
+				placeButton.setText(i + " : " + place.getVehiculeparke().getType() + " : " + place.getVehiculeparke().getImmatriculation());
+				placeButton.setBackground(Color.red);
 			}
 			else if (place.getReservation() != null) {
-				placebutton.setText(i + " : " + place.getType());
-				placebutton.setBackground(Color.orange);
+				placeButton.setText(i + " : " + place.getType());
+				placeButton.setBackground(Color.orange);
 			}
 			else {
-				placebutton.setText(i + " : " + place.getType());
-				placebutton.setBackground(Color.green);
+				placeButton.setText(i + " : " + place.getType());
+				placeButton.setBackground(Color.green);
 			}
-			parking.add(placebutton);
+			parking.add(placeButton);
 		}
 	}
 
 	public void mettreAJour(){
 		parking.removeAll();
+		parking.add(new MenuRapide());
 		AffichagedesPlaces();
 		parking.revalidate();
 	}

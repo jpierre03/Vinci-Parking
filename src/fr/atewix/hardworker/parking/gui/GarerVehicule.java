@@ -7,6 +7,7 @@ import fr.atewix.hardworker.parking.business.Parking;
 import fr.atewix.hardworker.parking.business.Reservation;
 import fr.atewix.hardworker.parking.exception.DejasGarerAilleur;
 import fr.atewix.hardworker.parking.exception.PlaceOccupeeException;
+import fr.atewix.hardworker.parking.gui.ihm.Fenetre;
 import fr.atewix.hardworker.parking.place.Place;
 
 import javax.swing.*;
@@ -19,25 +20,27 @@ import java.awt.event.ActionListener;
 import java.util.ArrayList;
 
 
-public class GarerVehicule extends JFrame{
+public class GarerVehicule extends Fenetre implements ActionListener{
 
     private  Parking parking= Parking.getInstance();
+    private  JPanel main = new JPanel();
     private  JComboBox lvehicule    = new JComboBox();
     private  JComboBox lclient      = new JComboBox();
     private  JComboBox lreservation = new JComboBox();
     private  JComboBox lplace       = new JComboBox();
-    
-    public GarerVehicule(){
-        super("Garer un vehicule");
-        JPanel main = new JPanel();
+
+    public GarerVehicule() {
+        super("Garer un vehicule", new Dimension(350, 300));
+        generateVue();
+        add(main);
+        setVisible(true);
+    }
+
+    private void generateVue() {
         main.setLayout(new BorderLayout());
         main.add(HautPanel(),BorderLayout.NORTH);
-        main.add(CenterPanel(),BorderLayout.CENTER);
+        main.add(CenterPanel(), BorderLayout.CENTER);
         setContentPane(main);
-        pack();
-        setLocation(300, 400);
-        setSize(new Dimension(350, 300));
-        setVisible(true);
     }
     
     private JPanel HautPanel(){
@@ -138,43 +141,42 @@ public class GarerVehicule extends JFrame{
     	JButton annuler = new JButton();
         annuler.setText("Annuler");
         annuler.setPreferredSize(new Dimension(140, 40));
-        annuler.addActionListener(new ActionListener() {
-	        public void actionPerformed(ActionEvent e) {
-	        	dispose();
-	        }
-        });
-     return annuler;
+        annuler.addActionListener(this);
+        return annuler;
     }
     
     private JButton Valider(){
     	JButton valider = new JButton(); 
     	valider.setText("Valider");
-         valider.setPreferredSize(new Dimension(140, 40));
-         valider.addActionListener(new ActionListener() {
-             public void actionPerformed(ActionEvent e) {
-                 try {
-                     if(lreservation.getSelectedItem() != null){
-                         Reservation reservationselectionne = (Reservation) lreservation.getSelectedItem();
-                         Place placereserve = reservationselectionne.getPlace();
-                         parking.enleveruneReservation(reservationselectionne);
-                         parking.park((Vehicule) lvehicule.getSelectedItem(), placereserve);
-                         AffichageParking.getInstance().mettreAJour();
-
-                     }
-                     else {
-                         parking.park((Vehicule) lvehicule.getSelectedItem(), Integer.parseInt((String) lplace.getSelectedItem()));
-                         AffichageParking.getInstance().mettreAJour();
-                     }
-                 }
-                 catch (PlaceOccupeeException e1) {}
-                 catch (NumberFormatException e1) {}
-                 catch (DejasGarerAilleur e1) {}
-                 finally {
-                     dispose();
-                 }
-             }
-         });
+        valider.setPreferredSize(new Dimension(140, 40));
+        valider.addActionListener(this);
     	return valider;
     }
 
+    @Override
+    public void actionPerformed(ActionEvent e) {
+        String commande = e.getActionCommand();
+        if(commande.equals("Valider")) {
+            try {
+                if (lreservation.getSelectedItem() != null) {
+                    Reservation reservationselectionne = (Reservation) lreservation.getSelectedItem();
+                    Place placereserve = reservationselectionne.getPlace();
+                    parking.enleveruneReservation(reservationselectionne);
+                    parking.park((Vehicule) lvehicule.getSelectedItem(), placereserve);
+                    AffichageParking.getInstance().mettreAJour();
+
+                } else {
+                    parking.park((Vehicule) lvehicule.getSelectedItem(), Integer.parseInt((String) lplace.getSelectedItem()));
+                    AffichageParking.getInstance().mettreAJour();
+                }
+            } catch (PlaceOccupeeException e1) {
+            } catch (NumberFormatException e1) {
+            } catch (DejasGarerAilleur e1) {
+            } finally {
+                dispose();
+            }
+        } else if (commande.equals("Annuler")) {
+            dispose();
+        }
+    }
 }

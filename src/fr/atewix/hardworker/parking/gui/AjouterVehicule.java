@@ -5,6 +5,7 @@ import fr.atewix.hardworker.parking.business.Client;
 import fr.atewix.hardworker.parking.business.Parking;
 import fr.atewix.hardworker.parking.exception.DonneesNonValides;
 import fr.atewix.hardworker.parking.exception.ImmatriculationDejaUtilise;
+import fr.atewix.hardworker.parking.gui.ihm.Fenetre;
 
 import javax.swing.*;
 import java.awt.*;
@@ -12,44 +13,62 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 
-public class AjouterVehicule extends JFrame{
+public class AjouterVehicule extends Fenetre implements ActionListener {
 
     private Parking parking = Parking.getInstance();
+    private JPanel main = new JPanel();
+    private JTextField Immatriculation = new JTextField();
+    private JTextField Modele = new JTextField();
+    private JTextField Marque = new JTextField();
+    private JComboBox lclient = new JComboBox();
+    private JComboBox typeVehicule = new JComboBox();
 
     public AjouterVehicule(){
-        super("Ajouter Vehicule");
-        setLocation(400,500);
-        setPreferredSize(new Dimension(320, 250));
-        setDefaultCloseOperation(this.DISPOSE_ON_CLOSE);
+        super("Ajouter Vehicule", new Dimension(320, 250));
+        generateVue();
+        add(main);
+        setVisible(true);
+    }
+
+    private void generateVue() {
         BorderLayout borderLayout = new BorderLayout();
         setLayout(borderLayout);
-        JPanel main = new JPanel();
-
 
         JPanel top = new JPanel();
+        JPanel topClient = new JPanel();
+        JPanel topVehicule = new JPanel();
+        JPanel center = new JPanel();
+        JPanel topCenter = new JPanel();
+        JPanel midCenter = new JPanel();
+        JPanel midCenterRight = new JPanel();
+        JPanel midCenterLeft = new JPanel();
+        JPanel bottom = new JPanel();
+
         top.setLayout(new BorderLayout());
+        topClient.setLayout(new BorderLayout());
+        center.setLayout(new BorderLayout());
+        topCenter.setLayout(new BorderLayout());
+        midCenter.setLayout(new BorderLayout());
+        midCenterLeft.setLayout(new BorderLayout());
+        midCenterRight.setLayout(new BorderLayout());
+        bottom.setLayout(new BorderLayout());
+
 
         JLabel labelClient = new JLabel("Client");
-        final JComboBox lclient = new JComboBox();
         for(int i = 0; i < parking.getListeClient().size(); ++i){
             lclient.addItem(parking.getListeClient().get(i));
         }
         lclient.setPreferredSize(new Dimension(300, 20));
 
-        JPanel topClient = new JPanel();
-        topClient.setLayout(new BorderLayout());
         topClient.add(labelClient, BorderLayout.NORTH);
         topClient.add(lclient, BorderLayout.CENTER);
 
-
         JLabel labelTypeVehicule = new JLabel("Type de véhicule");
-        final JComboBox typeVehicule = new JComboBox();
         typeVehicule.addItem("Voiture");
         typeVehicule.addItem("Moto");
         typeVehicule.addItem("Camion");
         typeVehicule.setPreferredSize(new Dimension(300, 20));
 
-        JPanel topVehicule = new JPanel();
         topVehicule.setLayout(new BorderLayout());
         topVehicule.add(labelTypeVehicule, BorderLayout.NORTH);
         topVehicule.add(typeVehicule, BorderLayout.CENTER);
@@ -57,37 +76,18 @@ public class AjouterVehicule extends JFrame{
         top.add(topClient, BorderLayout.NORTH);
         top.add(topVehicule, BorderLayout.CENTER);
 
-        JPanel center = new JPanel();
-        center.setLayout(new BorderLayout());
-
-        JPanel topCenter = new JPanel();
-        topCenter.setLayout(new BorderLayout());
-
         JLabel labelImmatriculation = new JLabel("Immatriculation");
-        final JTextField Immatriculation = new JTextField();
         Immatriculation.setPreferredSize(new Dimension(300, 20));
-
-
 
         topCenter.add(labelImmatriculation, BorderLayout.NORTH);
         topCenter.add(Immatriculation, BorderLayout.CENTER);
 
-
-        JPanel midCenter = new JPanel();
-        midCenter.setLayout(new BorderLayout());
-
-        JPanel midCenterLeft = new JPanel();
-        midCenterLeft.setLayout(new BorderLayout());
         JLabel labelMarque = new JLabel("Marque");
-        final JTextField Marque = new JTextField();
         Marque.setPreferredSize(new Dimension(140, 20));
         midCenterLeft.add(labelMarque, BorderLayout.NORTH);
         midCenterLeft.add(Marque, BorderLayout.CENTER);
 
-        JPanel midCenterRight = new JPanel();
-        midCenterRight.setLayout(new BorderLayout());
         JLabel labelModele = new JLabel("Modele");
-        final JTextField Modele = new JTextField();
         Modele.setPreferredSize(new Dimension(140, 20));
         midCenterRight.add(labelModele, BorderLayout.NORTH);
         midCenterRight.add(Modele, BorderLayout.CENTER);
@@ -98,53 +98,21 @@ public class AjouterVehicule extends JFrame{
         center.add(topCenter, BorderLayout.NORTH);
         center.add(midCenter, BorderLayout.CENTER);
 
-        JPanel bottom = new JPanel();
-        bottom.setLayout(new BorderLayout());
-
         JButton Valider = new JButton();
         Valider.setText("Valider");
         Valider.setPreferredSize(new Dimension(140, 40));
-        Valider.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent e) {
-                String immatriculation = Immatriculation.getText();
-                String modele = Modele.getText();
-                String marque = Marque.getText();
-                Client proprietaire = (Client) lclient.getSelectedItem();
-                String type = (String) typeVehicule.getSelectedItem();
-                try {
-                    FabriqueVehicule fabriqueVehicule = new FabriqueVehicule();
-                    Vehicule vehiculeAajouter = fabriqueVehicule.Creer(type, immatriculation, proprietaire, marque, modele);
-                    if (verifierDonneeVehicule(vehiculeAajouter)) {
-                        proprietaire.addVehicule(vehiculeAajouter);
-                        dispose();
-                    }
-                }
-                catch (DonneesNonValides e1) {}
-                catch (ImmatriculationDejaUtilise e2) {}
-
-
-            }
-        });
+        Valider.addActionListener(this);
         bottom.add(Valider, BorderLayout.WEST);
 
         JButton Annuler = new JButton();
         Annuler.setText("Annuler");
         Annuler.setPreferredSize(new Dimension(140, 40));
-        Annuler.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent e) {
-                dispose();
-            }
-        });
+        Annuler.addActionListener(this);
         bottom.add(Annuler, BorderLayout.EAST);
 
         main.add(top, BorderLayout.NORTH);
         main.add(center, BorderLayout.CENTER);
         main.add(bottom, BorderLayout.SOUTH);
-        setContentPane(main);
-        setLocation(300, 400);
-        pack();
-        setResizable(false);
-        setVisible(true);
     }
 
     private boolean verifierDonneeVehicule(Vehicule vehicule) throws DonneesNonValides, ImmatriculationDejaUtilise {
@@ -152,24 +120,38 @@ public class AjouterVehicule extends JFrame{
         String modele = vehicule.getModele();
         String marque = vehicule.getMarque();
 
-        if(parking.isImmatriculationExiste(immatriculation)){
+        if(parking.isImmatriculationExiste(immatriculation))
             throw new ImmatriculationDejaUtilise();
-        }
-
-        if (!immatriculation.matches("[A-Z]{2}[0-9]{3}[A-Z]{2}")) {
+        if (!immatriculation.matches("[A-Z]{2}[0-9]{3}[A-Z]{2}"))
             throw new DonneesNonValides("immatriculation");
-        }
-
-        if (!modele.matches("[a-zA-Z0-9]{2,10}")) {
+        if (!modele.matches("[a-zA-Z0-9]{2,10}"))
             throw new DonneesNonValides("modele");
-        }
-
-        if (!marque.matches("[a-zA-Z_0-9]{2,10}")) {
+        if (!marque.matches("[a-zA-Z_0-9]{2,10}"))
             throw new DonneesNonValides("marque");
-        }
         return true;
     }
 
-
-
+    @Override
+    public void actionPerformed(ActionEvent e) {
+        String commande = e.getActionCommand();
+        if(commande.equals("Valider")) {
+            String immatriculation = Immatriculation.getText();
+            String modele = Modele.getText();
+            String marque = Marque.getText();
+            Client proprietaire = (Client) lclient.getSelectedItem();
+            String type = (String) typeVehicule.getSelectedItem();
+            try {
+                FabriqueVehicule fabriqueVehicule = new FabriqueVehicule();
+                Vehicule vehiculeAajouter = fabriqueVehicule.Creer(type, immatriculation, proprietaire, marque, modele);
+                if (verifierDonneeVehicule(vehiculeAajouter)) {
+                    proprietaire.addVehicule(vehiculeAajouter);
+                    dispose();
+                }
+            }
+            catch (DonneesNonValides e1) {}
+            catch (ImmatriculationDejaUtilise e2) {}
+        } else if (commande.equals("Annuler")) {
+            dispose();
+        }
+    }
 }

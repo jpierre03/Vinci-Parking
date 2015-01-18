@@ -6,6 +6,7 @@ import fr.atewix.hardworker.parking.business.Parking;
 import fr.atewix.hardworker.parking.exception.DejaReserveAilleurs;
 import fr.atewix.hardworker.parking.exception.DejasGarerAilleur;
 import fr.atewix.hardworker.parking.exception.PlusAucunePlaceException;
+import fr.atewix.hardworker.parking.gui.ihm.Fenetre;
 import fr.atewix.hardworker.parking.place.Place;
 
 import javax.swing.*;
@@ -15,24 +16,32 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-public class AjouterReservation extends JFrame{
+public class AjouterReservation extends Fenetre implements ActionListener {
 
     private Parking parking = Parking.getInstance();
+    private JPanel panel = new JPanel();
+    private JComboBox lvehicule = new JComboBox();
+    private JComboBox lclient = new JComboBox();
 
-    public AjouterReservation(){
+    public AjouterReservation() {
+        super("Reserver une place", new Dimension(400, 160));
+        generateVue();
+        setVisible(true);
+    }
 
-        super("Reserver une place");
-        final JPanel panel = new JPanel();
-        final JLabel labelClient = new JLabel("Client");
-        final JComboBox lclient = new JComboBox();
+    private void generateVue() {
+
+        JPanel top = new JPanel();
+        JPanel bot = new JPanel();
+
+        JLabel labelClient = new JLabel("Client");
         for(int i = 0; i < parking.getListeClient().size(); ++i){
             lclient.addItem(parking.getListeClient().get(i));
         }
 
-
         JLabel labelvehicule = new JLabel("Vehicule");
-        final JComboBox lvehicule = new JComboBox();
         lvehicule.addPopupMenuListener(new PopupMenuListener() {
+            @Override
             public void popupMenuWillBecomeVisible(PopupMenuEvent e) {
                 lvehicule.removeAllItems();
                 Client cliensouhaite = (Client) lclient.getSelectedItem();
@@ -41,54 +50,60 @@ public class AjouterReservation extends JFrame{
                 }
             }
 
+            @Override
             public void popupMenuWillBecomeInvisible(PopupMenuEvent e) {
 
             }
 
+            @Override
             public void popupMenuCanceled(PopupMenuEvent e) {
 
             }
         });
 
-        panel.add(labelvehicule);
-        panel.add(lvehicule);
-        panel.add(labelClient, BorderLayout.CENTER);
-        panel.add(lclient, BorderLayout.CENTER);
+        top.add(labelClient);
+        top.add(lclient);
+        top.add(labelvehicule);
+        top.add(lvehicule);
 
-        setContentPane(panel);
 
         JButton Valider = new JButton();
         Valider.setText("Valider");
         Valider.setPreferredSize(new Dimension(140, 40));
-        Valider.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent e) {
-                try {
-                    if(parking.vehiculeExiste((Vehicule) lvehicule.getSelectedItem()))
-                        throw new DejasGarerAilleur();
-                    Place placereserve = parking.bookPlace((Vehicule) lvehicule.getSelectedItem());
-                    AffichageParking.getInstance().mettreAJour();
-                    dispose();
-                }
-                catch (PlusAucunePlaceException e1) {dispose();}
-                catch (DejaReserveAilleurs dejaReserveAilleurs) {}
-                catch (DejasGarerAilleur dejasGarerAilleur) {}
 
-            }
-        });
-        add(Valider, BorderLayout.WEST);
+        Valider.addActionListener(this);
 
         JButton Annuler = new JButton();
         Annuler.setText("Annuler");
         Annuler.setPreferredSize(new Dimension(140, 40));
-        Annuler.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent e) {
+        Annuler.addActionListener(this);
+
+        bot.add(Valider);
+        bot.add(Annuler);
+
+        panel.add(top);
+        panel.add(bot);
+        setContentPane(panel);
+
+    }
+
+    @Override
+    public void actionPerformed(ActionEvent e) {
+        String commande = e.getActionCommand();
+        if(commande.equals("Valider")) {
+            try {
+                if(parking.vehiculeExiste((Vehicule) lvehicule.getSelectedItem()))
+                    throw new DejasGarerAilleur();
+                Place placereserve = parking.bookPlace((Vehicule) lvehicule.getSelectedItem());
+                AffichageParking.getInstance().mettreAJour();
                 dispose();
             }
-        });
-        add(Annuler, BorderLayout.EAST);
-        setLocation(300, 400);
-        pack();
-        setVisible(true);
-
+            catch (PlusAucunePlaceException e1) {dispose();}
+            catch (DejaReserveAilleurs dejaReserveAilleurs) {}
+            catch (DejasGarerAilleur dejasGarerAilleur) {}
+            dispose();
+        } else if (commande.equals("Annuler")) {
+            dispose();
+        }
     }
 }
