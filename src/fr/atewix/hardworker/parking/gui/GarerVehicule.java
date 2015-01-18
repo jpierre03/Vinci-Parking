@@ -131,8 +131,8 @@ public class GarerVehicule extends JFrame{
     	 validerannuler.setLayout(new BorderLayout());
     	 JButton Valider = Valider();
          JButton annuler = Annuler();
-         validerannuler.add(Valider,BorderLayout.EAST);
-         validerannuler.add(annuler,BorderLayout.WEST);
+         validerannuler.add(Valider,BorderLayout.WEST);
+         validerannuler.add(annuler,BorderLayout.EAST);
          JPanel validerannuler1 = new JPanel();
          validerannuler1.add(validerannuler,BorderLayout.CENTER);
          return validerannuler1;
