@@ -41,15 +41,24 @@ public class Facture {
     }
     
     public String toString() {
-		return "Facture [numeroFacture=" + numeroFacture
-				+ ", vehiculeconcerne=" + vehiculeconcerne
-				+ ", montantfacture=" + montantfacture + ", datedebut="
-				+ datedebut + ", datefin=" + datefin + ", TVA=" + TVA + "]";
+		return "Facture numero = " + numeroFacture + "\r\n"
+			    + vehiculeconcerne.getProprietaire().getNom()+ " " + vehiculeconcerne.getProprietaire().getPrenom()+ "\r\n"  
+				+ "Vehicule Concerne \r\n" 
+			    + "imatriculation "+ vehiculeconcerne.getImmatriculation()+ "\r\n"
+				+  vehiculeconcerne.getMarque() + " " + vehiculeconcerne.getModele() + "\r\n"
+				+ "Tarif = A faire en fct des different tarif " + "\r\n"
+				+ "Date d' Arriver:"+ "\r\n"
+				+ datedebut.getDay()+ '/' + datedebut.getMonth() +  "\r\n" 
+				+ "A : " +datedebut.getHours() + ':' + datedebut.getMinutes()+ ':'+ datedebut.getSeconds()+"\r\n" 
+				+ "Date de depart:" +  "\r\n"
+				+ datefin.getDay() + "/" + datefin.getMonth() +  "\r\n"
+				+"A : " + datefin.getHours() + ':' + datefin.getMinutes()+ ':'+ datefin.getSeconds() + "\r\n"
+				+ "TVA=" + TVA + "\r\n"
+				+ "Total :" + montantfacture + "€";
 	}
     
     public void Enregistrer(){
     	String nomFacture = "Facture n°" + this.numeroFacture+".txt"; 
-    	System.out.println(nomFacture);
     	try {
 			FileOutputStream facout = new FileOutputStream(nomFacture);
 			facout.write(this.toString().getBytes());
