@@ -5,6 +5,7 @@ import fr.atewix.hardworker.parking.business.Parking;
 import fr.atewix.hardworker.parking.exception.ClientDejaCree;
 import fr.atewix.hardworker.parking.exception.DonneesNonValides;
 import fr.atewix.hardworker.parking.exception.ImmatriculationDejaUtilise;
+import fr.atewix.hardworker.parking.gui.ihm.Fenetre;
 
 import javax.swing.*;
 import java.awt.*;
@@ -12,23 +13,28 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 
-public class AjouterClient extends JFrame {
+public class AjouterClient extends Fenetre implements ActionListener {
 
     private Parking parking = Parking.getInstance();
-    public AjouterClient(){
-        super("Ajouter un client");
-        JPanel panel = new JPanel();
+    private JPanel panel = new JPanel();
+    private JTextField nomtext = new JTextField();
+    private JTextField prenomtext = new JTextField();
+    private JTextField adressetext = new JTextField();
 
+    public AjouterClient() {
+        super("Ajouter un client", new Dimension(310, 210));
+        generateVue();
+        add(panel);
+        setVisible(true);
+    }
+
+    private void generateVue() {
         JLabel nom = new JLabel("Nom");
-        final JTextField nomtext = new JTextField();
-        nomtext.setPreferredSize(new Dimension(300, 20));
-
         JLabel prenom = new JLabel("Prenom");
-        final JTextField prenomtext = new JTextField();
-        prenomtext.setPreferredSize(new Dimension(300, 20));
-
         JLabel adresse = new JLabel("Adresse");
-        final JTextField adressetext = new JTextField();
+
+        nomtext.setPreferredSize(new Dimension(300, 20));
+        prenomtext.setPreferredSize(new Dimension(300, 20));
         adressetext.setPreferredSize(new Dimension(300, 20));
 
         panel.add(nom);
@@ -41,36 +47,13 @@ public class AjouterClient extends JFrame {
         panel.add(adressetext);
 
         JButton boutonvalider = new JButton("Valider");
-        boutonvalider.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent e) {
-                String nom = nomtext.getText();
-                String prenom = prenomtext.getText();
-                String adresse = adressetext.getText();
-                Client nouveauClient = new Client(nom, prenom, adresse);
-                try {
-                    if(verifierValeursClient(nouveauClient)) {
-                        parking.addClient(nouveauClient);
-                        dispose();
-                    }
-                }
-                catch (DonneesNonValides donneesNonValides) {}
-                catch (ClientDejaCree clientDejaCree) {}
-            }
-        });
-
         JButton boutonannuler = new JButton("Annuler");
-        boutonannuler.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent e) {
-                dispose();
-            }
-        });
+
+        boutonvalider.addActionListener(this);
+        boutonannuler.addActionListener(this);
 
         panel.add(boutonvalider);
         panel.add(boutonannuler);
-        setContentPane(panel);
-        setSize(new Dimension(350, 300));
-        setLocation(300, 400);
-        setVisible(true);
     }
 
     private boolean verifierValeursClient(Client client) throws DonneesNonValides, ClientDejaCree {
@@ -80,20 +63,34 @@ public class AjouterClient extends JFrame {
 
         if(parking.isNomPrenomExiste(nom, prenom))
             throw new ClientDejaCree();
-
-        if (!nom.matches("[a-zA-Z]{2,10}")) {
+        if (!nom.matches("[a-zA-Z]{2,10}"))
             throw new DonneesNonValides("nom");
-        }
-
-        if (!prenom.matches("[a-zA-Z]{2,10}")) {
+        if (!prenom.matches("[a-zA-Z]{2,10}"))
             throw new DonneesNonValides("prenom");
-        }
-
-        if (!adresse.matches("[a-zA-Z_0-9]{10,32}")) {
+        if (!adresse.matches("[a-zA-Z_0-9\\s]{10,32}"))
             throw new DonneesNonValides("adresse");
-        }
         return true;
     }
 
 
+    @Override
+    public void actionPerformed(ActionEvent e) {
+        String commande = e.getActionCommand();
+        if(commande.equals("Valider")) {
+            String nom = nomtext.getText();
+            String prenom = prenomtext.getText();
+            String adresse = adressetext.getText();
+            Client nouveauClient = new Client(nom, prenom, adresse);
+            try {
+                if(verifierValeursClient(nouveauClient)) {
+                    parking.addClient(nouveauClient);
+                    dispose();
+                }
+            }
+            catch (DonneesNonValides donneesNonValides) {}
+            catch (ClientDejaCree clientDejaCree) {}
+        } else if (commande.equals("Annuler")) {
+            dispose();
+        }
+    }
 }

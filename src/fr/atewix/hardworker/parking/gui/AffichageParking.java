@@ -42,34 +42,33 @@ public class AffichageParking extends JFrame{
 	}
 
 	private int taille() {
-		int tailleMenuRapide = 90;
+		int tailleMenuRapidePlusMenu = 90;
 		int taillePlaceButton = PLACE_HEIGHT + 12;
 		int nbLignePlace = (int) Math.ceil(Place.getNumPlaceCree() / 3);
-		System.out.println(tailleMenuRapide + nbLignePlace*taillePlaceButton + taillePlaceButton);
-		return tailleMenuRapide + nbLignePlace*taillePlaceButton + taillePlaceButton;
+		return tailleMenuRapidePlusMenu + nbLignePlace*taillePlaceButton + taillePlaceButton;
 	}
 
 	private void AffichagedesPlaces(){
 		for (int i = 0; i < Parking.getInstance().getListeDesPlaces().size(); ++i) {		
 			Place place = Parking.getInstance().getListeDesPlaces().get(i);
 			
-			AffichagePlace placebutton = new AffichagePlace(i);
-			
-			placebutton.setPreferredSize(new Dimension(200, PLACE_HEIGHT));
+			AffichagePlace placeButton = new AffichagePlace(i);
+
+			placeButton.setPreferredSize(new Dimension(200, PLACE_HEIGHT));
 
 			if (place.getVehiculeparke() != null) {
-				placebutton.setText(i + " : " + place.getVehiculeparke().getType() + " : " + place.getVehiculeparke().getImmatriculation());
-				placebutton.setBackground(Color.red);
+				placeButton.setText(i + " : " + place.getVehiculeparke().getType() + " : " + place.getVehiculeparke().getImmatriculation());
+				placeButton.setBackground(Color.red);
 			}
 			else if (place.getReservation() != null) {
-				placebutton.setText(i + " : " + place.getType());
-				placebutton.setBackground(Color.orange);
+				placeButton.setText(i + " : " + place.getType());
+				placeButton.setBackground(Color.orange);
 			}
 			else {
-				placebutton.setText(i + " : " + place.getType());
-				placebutton.setBackground(Color.green);
+				placeButton.setText(i + " : " + place.getType());
+				placeButton.setBackground(Color.green);
 			}
-			parking.add(placebutton);
+			parking.add(placeButton);
 		}
 	}
 
