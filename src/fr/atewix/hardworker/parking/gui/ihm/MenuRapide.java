@@ -3,6 +3,7 @@ package fr.atewix.hardworker.parking.gui.ihm;
 import fr.atewix.hardworker.parking.gui.AjouterClient;
 import fr.atewix.hardworker.parking.gui.AjouterReservation;
 import fr.atewix.hardworker.parking.gui.AjouterVehicule;
+import fr.atewix.hardworker.parking.gui.GarerVehicule;
 
 import javax.swing.*;
 import java.awt.*;
@@ -44,6 +45,6 @@ public class MenuRapide extends JPanel implements ActionListener {
         else if (commande.equals(CREER_RESERVATION))
             new AjouterReservation();
         else if (commande.equals(GARER_VEHICULE))
-            new AjouterVehicule();
+            new GarerVehicule();
     }
 }
