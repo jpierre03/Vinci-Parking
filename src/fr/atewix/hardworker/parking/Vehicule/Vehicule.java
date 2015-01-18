@@ -43,12 +43,4 @@ public abstract class Vehicule {
     public String getType() {
         return type;
     }
-    
-    public String getModele() {
-    	return modele;
-    }
-    
-    public String getMarque(){
-    	return marque;
-    }
 }
