@@ -33,7 +33,7 @@ public class Facture {
     }
 
     private double calculMontantHT(Calendar datedebut, Calendar datefin, int tarifhoraire){
-        return (datefin.get(Calendar.DAY_OF_MONTH) - datedebut.get(Calendar.DAY_OF_MONTH))*24*tarifhoraire
+        return tarifhoraire + (datefin.get(Calendar.DAY_OF_MONTH) - datedebut.get(Calendar.DAY_OF_MONTH))*24*tarifhoraire
                 + (datefin.get(Calendar.HOUR_OF_DAY)-datedebut.get(Calendar.HOUR_OF_DAY))*tarifhoraire
                 + ((datefin.get(Calendar.MINUTE) + datedebut.get(Calendar.MINUTE))/60)*tarifhoraire;
     }
@@ -57,7 +57,7 @@ public class Facture {
 				+ datefin.get(Calendar.DAY_OF_MONTH) + "/" + datefin.get(Calendar.MONTH) + "/" + datefin.get(Calendar.YEAR) + "\r\n"
 				+"A : " + datefin.get(Calendar.HOUR_OF_DAY) + ':' + datefin.get(Calendar.MINUTE)+ ':'+ datefin.get(Calendar.SECOND) + "\r\n"
 				+ "TVA=" + TVA*100 + "%" + "\r\n"
-				+ "Total :" + montantfacture + "�";
+				+ "Total :" + arrondirMontant(montantfacture) + " euros";
 	}
     
     public void Enregistrer(){
@@ -71,4 +71,8 @@ public class Facture {
 			e.printStackTrace();
 		}
     }
+
+	public double arrondirMontant(double val) {
+		return (Math.floor(val*100.0))/100;
+	}
 }
