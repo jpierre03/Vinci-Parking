@@ -1,14 +1,14 @@
 Facture numero = 1
 Nemar Jean
 Vehicule Concerne 
-imatriculation abcd
-test test
+imatriculation AB234AB
+az aze
 Tarif = A faire en fct des different tarif 
 Date d' Arriver:
-0/0
-A : 14:12:25
+18/02015
+A : 20:24:16
 Date de depart:
-0/0
-A : 14:12:28
-TVA=0.196
-Total :0.0�
+18/0/2015
+A : 20:24:21
+TVA=19.6%
+Total :2.39 euros
