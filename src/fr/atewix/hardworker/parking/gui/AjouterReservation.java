@@ -3,6 +3,7 @@ package fr.atewix.hardworker.parking.gui;
 import fr.atewix.hardworker.parking.Vehicule.Vehicule;
 import fr.atewix.hardworker.parking.business.Client;
 import fr.atewix.hardworker.parking.business.Parking;
+import fr.atewix.hardworker.parking.exception.DejaReserveAilleurs;
 import fr.atewix.hardworker.parking.exception.PlaceOccupeeException;
 import fr.atewix.hardworker.parking.exception.PlusAucunePlaceException;
 import fr.atewix.hardworker.parking.place.Place;
@@ -67,9 +68,9 @@ public class AjouterReservation extends JFrame{
                 try {
                     Place placereserve = parking.bookPlace((Vehicule) lvehicule.getSelectedItem());
                     AffichageParking.getInstance().mettreAJour();
-                } catch (PlusAucunePlaceException e1) {
-                    e1.printStackTrace();
                 }
+                catch (PlusAucunePlaceException e1) {}
+                catch (DejaReserveAilleurs dejaReserveAilleurs) {}
                 dispose();
             }
         });

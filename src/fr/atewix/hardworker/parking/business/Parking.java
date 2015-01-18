@@ -1,11 +1,7 @@
 package fr.atewix.hardworker.parking.business;
 
 import fr.atewix.hardworker.parking.Vehicule.Vehicule;
-import fr.atewix.hardworker.parking.exception.DejasGarerAilleur;
-import fr.atewix.hardworker.parking.exception.PlaceDisponibleException;
-import fr.atewix.hardworker.parking.exception.PlaceLibreException;
-import fr.atewix.hardworker.parking.exception.PlaceOccupeeException;
-import fr.atewix.hardworker.parking.exception.PlusAucunePlaceException;
+import fr.atewix.hardworker.parking.exception.*;
 import fr.atewix.hardworker.parking.facture.Facture;
 import fr.atewix.hardworker.parking.place.Particulier;
 import fr.atewix.hardworker.parking.place.Place;
@@ -124,17 +120,21 @@ public class Parking {
         return listeDesPlaces.contains(vehicule);
     }
 
-    public Place bookPlace(Vehicule vehicule) throws PlusAucunePlaceException {
-        for(int i = 0; i < NOMBREDEPLACES; ++i) {
-            Place place = listeDesPlaces.get(i);
-            if(place.getReservation() == null) {
-                Reservation reservation = new Reservation(vehicule, listeDesPlaces.get(i));
-                place.reserver(reservation);
-                listeReservation.add(reservation);
-                return place;
+    public Place bookPlace(Vehicule vehicule) throws PlusAucunePlaceException, DejaReserveAilleurs {
+        if(aDejaReserve(vehicule))
+            throw new DejaReserveAilleurs();
+        else {
+            for (int i = 0; i < NOMBREDEPLACES; ++i) {
+                Place place = listeDesPlaces.get(i);
+                if (place.getReservation() == null) {
+                    Reservation reservation = new Reservation(vehicule, listeDesPlaces.get(i));
+                    place.reserver(reservation);
+                    listeReservation.add(reservation);
+                    return place;
+                }
             }
+            throw new PlusAucunePlaceException();
         }
-        throw new PlusAucunePlaceException();
     }
 
     public void freePlace(int numPlace) throws PlaceDisponibleException {
@@ -212,5 +212,14 @@ public class Parking {
 
     public void enleveruneReservation(Reservation reservation){
         listeReservation.remove(reservation);
+    }
+
+    public boolean aDejaReserve(Vehicule vehicule){
+        for(int i = 0; i < listeReservation.size(); ++i){
+            if(listeReservation.get(i).getVehicule() == vehicule){
+                return true;
+            }
+        }
+        return false;
     }
 }
