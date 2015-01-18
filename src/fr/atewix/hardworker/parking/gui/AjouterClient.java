@@ -2,6 +2,9 @@ package fr.atewix.hardworker.parking.gui;
 
 import fr.atewix.hardworker.parking.business.Client;
 import fr.atewix.hardworker.parking.business.Parking;
+import fr.atewix.hardworker.parking.exception.ClientDejaCree;
+import fr.atewix.hardworker.parking.exception.DonneesNonValides;
+import fr.atewix.hardworker.parking.exception.ImmatriculationDejaUtilise;
 
 import javax.swing.*;
 import java.awt.*;
@@ -44,8 +47,14 @@ public class AjouterClient extends JFrame {
                 String prenom = prenomtext.getText();
                 String adresse = adressetext.getText();
                 Client nouveauClient = new Client(nom, prenom, adresse);
-                parking.addClient(nouveauClient);
-                dispose();
+                try {
+                    if(verifierValeursClient(nouveauClient)) {
+                        parking.addClient(nouveauClient);
+                        dispose();
+                    }
+                }
+                catch (DonneesNonValides donneesNonValides) {}
+                catch (ClientDejaCree clientDejaCree) {}
             }
         });
 
@@ -62,6 +71,28 @@ public class AjouterClient extends JFrame {
         setSize(new Dimension(350, 300));
         setLocation(300, 400);
         setVisible(true);
+    }
+
+    private boolean verifierValeursClient(Client client) throws DonneesNonValides, ClientDejaCree {
+        String nom = client.getNom();
+        String prenom = client.getPrenom();
+        String adresse = client.getAdresse();
+
+        if(parking.isNomPrenomExiste(nom, prenom))
+            throw new ClientDejaCree();
+
+        if (!nom.matches("[a-zA-Z]{2,10}")) {
+            throw new DonneesNonValides("nom");
+        }
+
+        if (!prenom.matches("[a-zA-Z]{2,10}")) {
+            throw new DonneesNonValides("prenom");
+        }
+
+        if (!adresse.matches("[a-zA-Z_0-9]{10,32}")) {
+            throw new DonneesNonValides("adresse");
+        }
+        return true;
     }
 
 

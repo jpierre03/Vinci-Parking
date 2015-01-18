@@ -232,4 +232,13 @@ public class Parking {
         }
         return false;
     }
+
+    public boolean isNomPrenomExiste(String nom, String prenom){
+        for (int i = 0; i < listeClient.size(); ++i){
+            Client client = listeClient.get(i);
+            if(client.getNom().equals(nom) && client.getPrenom().equals(prenom))
+                return true;
+        }
+        return false;
+    }
 }

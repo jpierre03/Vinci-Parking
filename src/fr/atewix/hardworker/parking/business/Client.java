@@ -39,6 +39,8 @@ public class Client {
 		return nom;
 	}
 
+	public String getAdresse() { return adresse;}
+
 	public ArrayList<Reservation> getListeReservation(){
 		return this.listeReservation;
 	}
