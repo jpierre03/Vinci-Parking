@@ -21,7 +21,7 @@ public class Reservation {
     }
 
     public String toString() {
-        return " Immatriculation : " + immatriculation + "Place n° :" + place.getNumPlace() + "\n" ;
+        return " Immatriculation : " + immatriculation + " - Place n° :" + place.getNumPlace() + "\n" ;
     }
 
     public Vehicule getVehicule(){
