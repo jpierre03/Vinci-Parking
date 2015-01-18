@@ -26,12 +26,12 @@ public class EtatParking extends JFrame {
     }
 
     public JButton imprimerEtat(){
-        JButton imprimerEtat = new JButton("Imprimer Etat du parking");
+        JButton imprimerEtat = new JButton("Exporter Etat du parking");
         imprimerEtat.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 DataOutputStream dos = null;
                 try {
-                    dos = new DataOutputStream( new BufferedOutputStream(new FileOutputStream(new File("etatParking.etat"))));
+                    dos = new DataOutputStream( new BufferedOutputStream(new FileOutputStream(new File("etatParking.txt"))));
                     dos.writeBytes(Parking.getInstance().etatParking());
                     dos.close();
                 } catch (FileNotFoundException e1) {
