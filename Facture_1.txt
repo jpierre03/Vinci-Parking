@@ -1,0 +1,14 @@
+Facture numero = 1
+Nemar Jean
+Vehicule Concerne 
+imatriculation abcd
+test test
+Tarif = A faire en fct des different tarif 
+Date d' Arriver:
+0/0
+A : 14:12:25
+Date de depart:
+0/0
+A : 14:12:28
+TVA=0.196
+Total :0.0�

@@ -56,6 +56,7 @@ public class EnleverVehicule extends JFrame{
     			public void actionPerformed(ActionEvent e) {
     			try {
     				parking.unpark(Integer.parseInt((String) lplace.getSelectedItem()));
+					new FactureView();
     				AffichageParking.getInstance().mettreAJour();
     				
     			} catch (NumberFormatException e1) {

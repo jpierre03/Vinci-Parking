@@ -12,6 +12,9 @@ import fr.atewix.hardworker.parking.place.Place;
 
 import javax.swing.*;
 import java.awt.*;
+import java.util.Calendar;
+import java.util.Date;
+import java.util.GregorianCalendar;
 
 
 public class AffichageParking extends JFrame{
@@ -75,7 +78,8 @@ public class AffichageParking extends JFrame{
 		Client test = new Client("Jean", "Nemar", "ABCD");
 		parkingr.addClient(test);
 		test.addVehicule(new Voiture("abcd", test, "test", "test"));
-
+		Calendar date = new GregorianCalendar();
+		System.out.println(date.get(Calendar.DAY_OF_MONTH));
 		AffichageParking parking = AffichageParking.getInstance();
 	}
 }

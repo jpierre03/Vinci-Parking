@@ -3,7 +3,10 @@ package fr.atewix.hardworker.parking.place;
 import fr.atewix.hardworker.parking.Vehicule.Vehicule;
 import fr.atewix.hardworker.parking.business.Parking;
 import fr.atewix.hardworker.parking.business.Reservation;
+
+import java.util.Calendar;
 import java.util.Date;
+import java.util.GregorianCalendar;
 
 /**
  * Created by Kevin on 23/12/2014.
@@ -15,7 +18,7 @@ public abstract class Place {
     protected Reservation reservation;
     protected String type;
     protected int numPlace;
-    protected Date datearrive;
+    protected Calendar datearrive;
 
     public Place (){
         this.numPlace = numPlaceCree++;
@@ -29,18 +32,16 @@ public abstract class Place {
         this.reservation = null;
     }
     
-    public void setDateArrive(Date datearrivee) {
+    public void setDateArrive(Calendar datearrivee) {
     	this.datearrive = datearrivee;
     }
 
     public void setVehiculeparke(Vehicule vehiculeparke) {
-    	if(vehiculeparke != null) {
-    		this.setDateArrive(new Date());
-    	}
+        this.setDateArrive(new GregorianCalendar());
     	this.vehiculeparke = vehiculeparke;
     }
 
-    public Date getDateArrive() {
+    public Calendar getDateArrive() {
         return this.datearrive;
     }
 
