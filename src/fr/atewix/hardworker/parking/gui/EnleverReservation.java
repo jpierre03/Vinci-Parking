@@ -88,9 +88,10 @@ public class EnleverReservation extends JFrame{
                 Reservation reservationselectionnee = (Reservation) lReservation.getSelectedItem();
                 parking.enleveruneReservation(reservationselectionnee);
                 int numPlace = reservationselectionnee.getPlace().getNumPlace();
-                AffichageParking.getInstance().mettreAJour();
+
                 try {
                     parking.freePlace(numPlace);
+                    AffichageParking.getInstance().mettreAJour();
                 } catch (PlaceDisponibleException e1) {}
                 dispose();
             }
