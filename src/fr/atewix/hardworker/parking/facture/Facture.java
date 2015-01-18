@@ -46,7 +46,7 @@ public class Facture {
 				+ "Vehicule Concerne \r\n" 
 			    + "imatriculation "+ vehiculeconcerne.getImmatriculation()+ "\r\n"
 				+  vehiculeconcerne.getMarque() + " " + vehiculeconcerne.getModele() + "\r\n"
-				+ "Tarif = A faire en fct des different tarif " + "\r\n"
+				+ "Tarif \r\n"
 				+ "Date d' Arriver:"+ "\r\n"
 				+ datedebut.get(Calendar.DAY_OF_MONTH)+ '/' + datedebut.get(Calendar.MONTH) +  datedebut.get(Calendar.YEAR) +"\r\n"
 				+ "A : " +datedebut.get(Calendar.HOUR_OF_DAY) + ':' + datedebut.get(Calendar.MINUTE)+ ':'+ datedebut.get(Calendar.SECOND)+"\r\n"

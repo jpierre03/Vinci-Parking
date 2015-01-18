@@ -7,7 +7,6 @@ public class Client {
 	private String prenom;
 	private String nom;
 	private String adresse;
-	private int pointdefidelite;
 	private ArrayList<Vehicule> listeVehiculeClient;
 	private ArrayList<Reservation> listeReservation;
 
