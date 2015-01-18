@@ -123,10 +123,18 @@ public class Parking {
             for (int i = 0; i < listeDesPlaces.size(); ++i) {
                 Place place = listeDesPlaces.get(i);
                 if (place.getReservation() == null && place.getVehiculeparke() == null) {
-                    Reservation reservation = new Reservation(vehicule, listeDesPlaces.get(i));
-                    place.reserver(reservation);
-                    listeReservation.add(reservation);
-                    return place;
+                    if(place.getType() == "Particulier" && vehicule.getType() != "Camion") {
+                        Reservation reservation = new Reservation(vehicule, listeDesPlaces.get(i));
+                        place.reserver(reservation);
+                        listeReservation.add(reservation);
+                        return place;
+                    }
+                    else if(place.getType() == "Transporteur"){
+                        Reservation reservation = new Reservation(vehicule, listeDesPlaces.get(i));
+                        place.reserver(reservation);
+                        listeReservation.add(reservation);
+                        return place;
+                    }
                 }
             }
             throw new PlusAucunePlaceException();
