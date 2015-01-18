@@ -3,8 +3,15 @@ package fr.atewix.hardworker.parking.business;
 import fr.atewix.hardworker.parking.Vehicule.Vehicule;
 import fr.atewix.hardworker.parking.place.Place;
 
+/**
+ * Class Reservation, qui est un objet representant une reservation avec l'ensemble des informations necéssaires à une reservation
+ * @author Lucas Debiasi, Micheal Gileta, Sylvain De Barros, Kevin Duglue
+ */
 public class Reservation {
 
+    /**
+     * 
+     */
     private Client proprietaire;
     private Vehicule vehicule;
     private String immatriculation;

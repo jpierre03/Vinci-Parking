@@ -9,21 +9,56 @@ import fr.atewix.hardworker.parking.place.Transporteur;
 import java.util.ArrayList;
 import java.util.Stack;
 
-
+/**
+ * Class Parking : Classe principale du programme, c'est la classe qui crée un objet Parking et qui possède toutes les méthodes
+ * utiles à un Parking
+ * @author Lucas Debiasi, Micheal Gileta, Sylvain De Barros, Kevin Duglue
+ */
 public class Parking {
 
+    /**
+     * Variable constante du nombre de places de type Particulier
+     */
     private final int NOMBREDEPLACESPARTICULIER = 6;
+
+    /**
+     * Variable constante du nombre de places de type Transporteur
+     */
     private final int NOMBREDEPLACESTRANSPORTEUR = 3;
+
+    /**
+     * Variable constante du tarif horaire d'une place de parking
+     */
     private final int TARIFHORRAIRE = 2;
 
+    /**
+     * Instance du singleton de la classe parking
+     */
     private static Parking instance = new Parking();
 
+    /**
+     * Liste des places du Parking
+     */
     private ArrayList<Place> listeDesPlaces = new ArrayList<Place>();
+
+    /**
+     * Liste des clients du parking
+     */
     private ArrayList<Client> listeClient = new ArrayList<Client>();
+
+    /**
+     * Liste des reservations du parking
+     */
     private ArrayList<Reservation> listeReservation = new ArrayList<Reservation>();
+
+    /**
+     * Pile representant la liste des factures
+     */
     private Stack listeFacture = new Stack();
 
-
+    /**
+     * Constructeur de la classe Parking
+     */
     private Parking() {
         for(double i = 0; i < NOMBREDEPLACESPARTICULIER; ++i)
             listeDesPlaces.add(new Particulier());
@@ -31,6 +66,13 @@ public class Parking {
             listeDesPlaces.add(new Transporteur());
     }
 
+    /**
+     * Methode permettant de garer à un vehicule donné à un place donnée
+     * @param vehicule
+     * @param numPlace
+     * @throws PlaceOccupeeException
+     * @throws DejasGarerAilleur
+     */
     public void park (Vehicule vehicule, int numPlace) throws PlaceOccupeeException, DejasGarerAilleur {
     	int dejasgarer = this.getLocation(vehicule.getImmatriculation());
         if(dejasgarer != -1)
@@ -61,11 +103,25 @@ public class Parking {
         } else if(placeSouhaite.getVehiculeparke() != null)
             throw new PlaceOccupeeException();
     }
-    
-    public void park(Vehicule vehicule, Place place) throws PlaceOccupeeException, DejasGarerAilleur{
+
+    /**
+     * Methode permettant de garer un vehicule donné à une place donné. Cette méthode est utilisé uniquement
+     * pour un vehicule qui a reservé une place.
+     * @param vehicule
+     * @param place
+     * @throws PlaceOccupeeException
+     * @throws DejasGarerAilleur
+     */
+    public void park(Vehicule vehicule, Place place){
         place.setVehiculeparke(vehicule);
     }
 
+    /**
+     * Methode qui retire un vehicule d'une place, dont on donne le numéro
+     * @param numPlace
+     * @return Vehicule enlevé
+     * @throws PlaceLibreException
+     */
     public Vehicule unpark(int numPlace) throws PlaceLibreException {
         Place placeSouhaite = listeDesPlaces.get(numPlace);
         if(placeSouhaite.getVehiculeparke() == null)
@@ -82,6 +138,11 @@ public class Parking {
         }
     }
 
+    /**
+     * Methode qui retire un vehicule du parking à partir de sa plaque d'immatriculation
+     * @param immatriculation
+     * @return Vehicule enlevé
+     */
     public Vehicule retirerVehicule(String immatriculation){
         int numPlace = this.getLocation(immatriculation);
         if(numPlace == -1)
@@ -94,6 +155,10 @@ public class Parking {
 
     }
 
+    /**
+     * Methode permettant de renvoyer dans une String l'état du parking
+     * @return Etat du parking dans une String
+     */
     public String etatParking(){
         String etatParking = "";
         for(int i = 0; i < listeDesPlaces.size(); ++i){
@@ -112,6 +177,11 @@ public class Parking {
         return etatParking;
     }
 
+    /**
+     * Methode permettant de savoir si un vehicule est garé sur une place du parking ou non
+     * @param vehicule
+     * @return True ou false en fonction si un vehicule existe ou non
+     */
     public boolean vehiculeExiste(Vehicule vehicule){
         for(int i = 0 ; i < listeDesPlaces.size(); ++i){
             Place place = listeDesPlaces.get(i);
@@ -121,6 +191,13 @@ public class Parking {
         return false;
     }
 
+    /**
+     * Methode permettant de reserver une place, pour un vehicule
+     * @param vehicule
+     * @return
+     * @throws PlusAucunePlaceException
+     * @throws DejaReserveAilleurs
+     */
     public Place bookPlace(Vehicule vehicule) throws PlusAucunePlaceException, DejaReserveAilleurs {
         if(aDejaReserve(vehicule))
             throw new DejaReserveAilleurs();
@@ -140,6 +217,11 @@ public class Parking {
         }
     }
 
+    /**
+     * Methode permettant d'enlever une reservation pour le numéro d'une place donné
+     * @param numPlace
+     * @throws PlaceDisponibleException
+     */
     public void freePlace(int numPlace) throws PlaceDisponibleException {
         Place place = listeDesPlaces.get(numPlace);
         if(place.getReservation() == null)
@@ -148,6 +230,11 @@ public class Parking {
             place.enleverReservation();
     }
 
+    /**
+     * Methode permettant de recuperer la location d'un vehicule au sein du parking
+     * @param immatriculation
+     * @return Le numero de la place où est le vehicule, -1 sinon
+     */
     public int getLocation (String immatriculation){
         for(int i=0; i < listeDesPlaces.size(); ++i){
             Place place = listeDesPlaces.get(i);
@@ -156,11 +243,19 @@ public class Parking {
         }
         return -1;
     }
-    
+
+    /**
+     * Methode permettant d'ajouter un client à la liste des clients du parking
+     * @param client
+     */
     public void addClient(Client client){
         this.listeClient.add(client);
     }
 
+    /**
+     * Methode permettant de réorganiser les place à chaques sorties d'un véhicule
+     * @param placeSouhaite
+     */
     public void reorganiserPlaces(Place placeSouhaite){
         for(int i = 0; i < listeDesPlaces.size(); ++i) {
             Place place = listeDesPlaces.get(i);
@@ -181,6 +276,10 @@ public class Parking {
         }
     }
 
+    /**
+     * Methode permettant de récuperer l'instance de la classe Parking, ou dans crée une si elle n'existe pas
+     * @return Instance de la classe Parking
+     */
     public static Parking getInstance() {
         if(instance == null)
             synchronized (Parking.class) {
@@ -190,18 +289,39 @@ public class Parking {
         return instance;
     }
 
+    /**
+     * Methode permettant de recuperer la liste des factures
+     * @return Liste des factures
+     */
     public Stack getListeFacture() {
         return this.listeFacture;
     }
 
+    /**
+     * Methode permettant de recuperer la liste des places du parking
+     * @return Liste des places du parking
+     */
     public ArrayList<Place> getListeDesPlaces(){
         return this.listeDesPlaces;
     }
 
+    /**
+     * Methode permettant de recuperer la liste des clients du parking
+     * @return Liste des clients du parking
+     */
     public ArrayList<Client> getListeClient() {return this.listeClient ;}
 
+    /**
+     * Methode permettant de recuperer le nombres de places du parking
+     * @return
+     */
     public int getNombrePlace() { return this.listeDesPlaces.size();}
 
+    /**
+     * Methode permettant de recuperer une reservation (si elle existe) pour un véhicule
+     * @param vehicule
+     * @return Reservation d'une place pour un vehicule (si elle existe), sinon null
+     */
     public Reservation getReservationParVehicule(Vehicule vehicule) {
 
         for(int i = 0; i < listeReservation.size(); ++i){
@@ -213,10 +333,19 @@ public class Parking {
 
     }
 
+    /**
+     * Methode permettant d'enlever une reservation de la liste des reservations
+     * @param reservation
+     */
     public void enleveruneReservation(Reservation reservation){
         listeReservation.remove(reservation);
     }
 
+    /**
+     * Methode permettant de savoir si un vehicule a déjà reservé une place au même instant
+     * @param vehicule
+     * @return Vrai si il a déjà reservé, Faux sinon
+     */
     public boolean aDejaReserve(Vehicule vehicule){
         for(int i = 0; i < listeReservation.size(); ++i){
             if(listeReservation.get(i).getVehicule() == vehicule){
@@ -226,6 +355,11 @@ public class Parking {
         return false;
     }
 
+    /**
+     * Methode permettant de savoir si une immatriculation existe déjà parmi la liste des vehicules des clients
+     * @param immatriculation
+     * @return Vrai si l'immatriculation existe déjà, Faux sinon
+     */
     public boolean isImmatriculationExiste(String immatriculation){
         for(int i = 0; i < listeClient.size(); ++i){
             Client client = listeClient.get(i);
@@ -238,6 +372,12 @@ public class Parking {
         return false;
     }
 
+    /**
+     * Methode permettant de savoir si une combinaisons Nom/Prenom existe déjà dans la liste des clients inscrits.
+     * @param nom
+     * @param prenom
+     * @return Vrai si la combinaison Nom/Prenom existe déjà, Faux sinon
+     */
     public boolean isNomPrenomExiste(String nom, String prenom){
         for (int i = 0; i < listeClient.size(); ++i){
             Client client = listeClient.get(i);
