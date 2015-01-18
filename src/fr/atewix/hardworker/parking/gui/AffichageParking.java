@@ -65,14 +65,4 @@ public class AffichageParking extends JFrame{
 		AffichagedesPlaces();
 		parking.revalidate();
 	}
-
-	public static void main(String[] args) {
-		FabriqueVehicule fabriqueVehicule = new FabriqueVehicule();
-		Parking parkingr = Parking.getInstance();
-		Client test = new Client("Jean", "Nemar", "ABCD");
-		parkingr.addClient(test);
-		test.addVehicule(fabriqueVehicule.Creer("Voiture", "abcd", test, "test", "test"));
-
-		AffichageParking parking = AffichageParking.getInstance();
-	}
 }
