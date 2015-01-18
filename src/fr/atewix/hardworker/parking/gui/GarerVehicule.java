@@ -45,7 +45,6 @@ public class GarerVehicule extends Fenetre implements ActionListener{
         main.setLayout(new BorderLayout());
         main.add(HautPanel(),BorderLayout.NORTH);
         main.add(CenterPanel(), BorderLayout.CENTER);
-        setContentPane(main);
     }
     
     private JPanel HautPanel(){
