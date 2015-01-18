@@ -52,7 +52,7 @@ public class FactureView extends JFrame {
 	    	 });
 	    	 
 	    	JButton Quiter = new JButton();
-	        Quiter.setText("Quiter");
+	        Quiter.setText("Quitter");
 	        Quiter.setPreferredSize(new Dimension(140, 40));
 	        Quiter.addActionListener(new ActionListener() {
 	              public void actionPerformed(ActionEvent e) {

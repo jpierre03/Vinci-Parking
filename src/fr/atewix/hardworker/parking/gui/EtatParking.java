@@ -34,6 +34,11 @@ public class EtatParking extends JFrame {
                     dos = new DataOutputStream( new BufferedOutputStream(new FileOutputStream(new File("etatParking.txt"))));
                     dos.writeBytes(Parking.getInstance().etatParking());
                     dos.close();
+                    JFrame information = new JFrame();
+                    JOptionPane.showMessageDialog(information,
+                            "Etat du parking exporter !",
+                            "Information",
+                            JOptionPane.INFORMATION_MESSAGE);
                 } catch (FileNotFoundException e1) {
                     e1.printStackTrace();
                 } catch (IOException e1) {

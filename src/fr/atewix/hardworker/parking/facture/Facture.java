@@ -56,7 +56,7 @@ public class Facture {
 				+ "Date de depart:" +  "\r\n"
 				+ datefin.get(Calendar.DAY_OF_MONTH) + "/" + datefin.get(Calendar.MONTH) + "/" + datefin.get(Calendar.YEAR) + "\r\n"
 				+"A : " + datefin.get(Calendar.HOUR_OF_DAY) + ':' + datefin.get(Calendar.MINUTE)+ ':'+ datefin.get(Calendar.SECOND) + "\r\n"
-				+ "TVA=" + TVA + "\r\n"
+				+ "TVA=" + TVA*100 + "%" + "\r\n"
 				+ "Total :" + montantfacture + "�";
 	}
     

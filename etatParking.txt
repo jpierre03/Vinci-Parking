@@ -1,6 +1,6 @@
 Numero de la place : 0
 Type de la place : Particulier
-Cette place est disponible
+Informations sur le vehicule garé : abcd test test
 
 Numero de la place : 1
 Type de la place : Particulier
