@@ -69,7 +69,7 @@ public class Parking {
     }
     
     public void park(Vehicule vehicule, Place place) throws PlaceOccupeeException, DejasGarerAilleur{
-        park(vehicule, place.getNumPlace());
+        place.setVehiculeparke(vehicule);
     }
 
     public Vehicule unpark(int numPlace) throws PlaceLibreException {
@@ -199,4 +199,18 @@ public class Parking {
 
     public int getNombrePlace() { return this.NOMBREDEPLACES;}
 
+    public Reservation getReservationParVehicule(Vehicule vehicule) {
+
+        for(int i = 0; i < listeReservation.size(); ++i){
+            if(listeReservation.get(i).getVehicule() == vehicule){
+                return listeReservation.get(i);
+            }
+        }
+        return null;
+
+    }
+
+    public void enleveruneReservation(Reservation reservation){
+        listeReservation.remove(reservation);
+    }
 }

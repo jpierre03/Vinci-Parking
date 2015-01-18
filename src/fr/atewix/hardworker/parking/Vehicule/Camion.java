@@ -12,10 +12,9 @@ public class Camion extends Vehicule {
     }
 
     public String toString() {
-        return "Camion : " +
-                "Immatriculation : " + immatriculation +
-                ", Marque : " + marque +
-                ", Modele : " + modele + "\n";
+        return  immatriculation +
+                " " + marque +
+                " " + modele ;
     }
 
 }

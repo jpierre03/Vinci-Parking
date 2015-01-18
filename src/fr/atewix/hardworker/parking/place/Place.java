@@ -1,6 +1,7 @@
 package fr.atewix.hardworker.parking.place;
 
 import fr.atewix.hardworker.parking.Vehicule.Vehicule;
+import fr.atewix.hardworker.parking.business.Parking;
 import fr.atewix.hardworker.parking.business.Reservation;
 import java.util.Date;
 

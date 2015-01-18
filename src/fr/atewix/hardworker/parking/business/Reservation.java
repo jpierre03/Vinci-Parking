@@ -9,18 +9,27 @@ import fr.atewix.hardworker.parking.place.Place;
 public class Reservation {
 
     private Client proprietaire;
+    private Vehicule vehicule;
     private String immatriculation;
     private Place place;
 
-    public Reservation(Vehicule voiture, Place place) {
+    public Reservation(Vehicule vehicule, Place place) {
         this.place=place;
-        this.proprietaire = voiture.getProprietaire();
-        this.immatriculation = voiture.getImmatriculation();
+        this.vehicule=vehicule;
+        this.proprietaire = vehicule.getProprietaire();
+        this.immatriculation = vehicule.getImmatriculation();
     }
 
     public String toString() {
-        return "Reservation : " + "Nomproprietaire= " + proprietaire.getPrenom() + " " + proprietaire.getNom()  +
-                ", Immatriculation= " + immatriculation + "\n" ;
+        return " Immatriculation : " + immatriculation + "Place n° :" + place.getNumPlace() + "\n" ;
+    }
+
+    public Vehicule getVehicule(){
+        return this.vehicule;
+    }
+
+    public Place getPlace() {
+        return this.place;
     }
 
 }

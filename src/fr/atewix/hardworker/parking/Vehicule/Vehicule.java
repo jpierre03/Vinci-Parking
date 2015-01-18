@@ -25,11 +25,9 @@ public abstract class Vehicule {
     }
 
     public String toString() {
-        return "Immatriculation=" + immatriculation +
-               ", nomproprietaire=" + proprietaire +
-               ", marque=" + marque +
-               ", modele=" + modele +
-               ", type=" + type;
+        return  immatriculation +
+                " " + marque +
+                " " + modele ;
     }
 
     public String getImmatriculation() {

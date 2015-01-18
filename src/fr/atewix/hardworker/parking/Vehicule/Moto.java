@@ -12,9 +12,8 @@ public class Moto extends Vehicule {
     }
 
     public String toString() {
-        return "Moto : " +
-                "Immatriculation : " + immatriculation +
-                ", Marque : " + marque +
-                ", Modele : " + modele + "\n";
+        return  immatriculation +
+                " " + marque +
+                " " + modele ;
     }
 }

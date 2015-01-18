@@ -27,6 +27,7 @@ public class MenuParking extends JMenuBar{
     public JMenu menuEditer(){
     	JMenu Editer = new JMenu("Editer");
     	Editer.add(menuItemAjouterReservation());
+        Editer.add(menuItemEnleverReservation());
         Editer.add(menuItemGarerVehicule());
         Editer.add(menuItemEnleverVehicule());
     	return Editer;
@@ -67,6 +68,16 @@ public class MenuParking extends JMenuBar{
             }
         });
         return AjouterReservation;
+    }
+
+    public JMenuItem menuItemEnleverReservation(){
+        JMenuItem enleverReservation = new JMenuItem("Enlever une Reservation");
+        enleverReservation.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                new EnleverReservation();
+            }
+        });
+        return enleverReservation;
     }
 
     public JMenuItem menuItemAjouterVehicule(){

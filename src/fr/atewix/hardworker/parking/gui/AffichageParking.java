@@ -71,6 +71,11 @@ public class AffichageParking extends JFrame{
 	}
 
 	public static void main(String[] args) {
+		Parking parkingr = Parking.getInstance();
+		Client test = new Client("Jean", "Nemar", "ABCD");
+		parkingr.addClient(test);
+		test.addVehicule(new Voiture("abcd", test, "test", "test"));
+
 		AffichageParking parking = AffichageParking.getInstance();
 	}
 }
