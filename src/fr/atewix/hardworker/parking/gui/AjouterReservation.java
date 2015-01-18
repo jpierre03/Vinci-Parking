@@ -4,6 +4,7 @@ import fr.atewix.hardworker.parking.Vehicule.Vehicule;
 import fr.atewix.hardworker.parking.business.Client;
 import fr.atewix.hardworker.parking.business.Parking;
 import fr.atewix.hardworker.parking.exception.DejaReserveAilleurs;
+import fr.atewix.hardworker.parking.exception.DejasGarerAilleur;
 import fr.atewix.hardworker.parking.exception.PlusAucunePlaceException;
 import fr.atewix.hardworker.parking.place.Place;
 
@@ -62,12 +63,16 @@ public class AjouterReservation extends JFrame{
         Valider.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 try {
+                    if(parking.vehiculeExiste((Vehicule) lvehicule.getSelectedItem()))
+                        throw new DejasGarerAilleur();
                     Place placereserve = parking.bookPlace((Vehicule) lvehicule.getSelectedItem());
                     AffichageParking.getInstance().mettreAJour();
+                    dispose();
                 }
-                catch (PlusAucunePlaceException e1) {}
+                catch (PlusAucunePlaceException e1) {dispose();}
                 catch (DejaReserveAilleurs dejaReserveAilleurs) {}
-                dispose();
+                catch (DejasGarerAilleur dejasGarerAilleur) {}
+
             }
         });
         add(Valider, BorderLayout.WEST);

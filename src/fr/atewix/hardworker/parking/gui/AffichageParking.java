@@ -1,8 +1,5 @@
 package fr.atewix.hardworker.parking.gui;
 
-import fr.atewix.hardworker.parking.Vehicule.FabriqueVehicule;
-import fr.atewix.hardworker.parking.Vehicule.Voiture;
-import fr.atewix.hardworker.parking.business.Client;
 import fr.atewix.hardworker.parking.business.Parking;
 import fr.atewix.hardworker.parking.place.Place;
 

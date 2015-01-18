@@ -112,8 +112,13 @@ public class Parking {
         return etatParking;
     }
 
-    public boolean vehiculeExiste(Vehicule vehicule) {
-        return listeDesPlaces.contains(vehicule);
+    public boolean vehiculeExiste(Vehicule vehicule){
+        for(int i = 0 ; i < listeDesPlaces.size(); ++i){
+            Place place = listeDesPlaces.get(i);
+            if(place.getVehiculeparke() == vehicule)
+                return true;
+        }
+        return false;
     }
 
     public Place bookPlace(Vehicule vehicule) throws PlusAucunePlaceException, DejaReserveAilleurs {

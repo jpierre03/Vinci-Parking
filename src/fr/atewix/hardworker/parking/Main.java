@@ -12,10 +12,9 @@ public class Main {
     public Main() {
         FabriqueVehicule fabriqueVehicule = new FabriqueVehicule();
         Parking parkingr = Parking.getInstance();
-        Client test = new Client("Jean", "Nemar", "ABCD");
-        parkingr.addClient(test);
-        test.addVehicule(fabriqueVehicule.Creer("Voiture", "abcd", test, "test", "test"));
-
+        Client premierclient = new Client("Jean", "Nemar", "22 Rue Gaston Berger");
+        parkingr.addClient(premierclient);
+        premierclient.addVehicule(fabriqueVehicule.Creer("Voiture", "AB123CD", premierclient, "Ferrari", "LaFerrari"));
         AffichageParking parking = AffichageParking.getInstance();
     }
 
