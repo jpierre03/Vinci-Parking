@@ -9,7 +9,7 @@ import fr.atewix.hardworker.parking.gui.AffichageParking;
  * Created by michael on 18/01/2015.
  */
 public class Main {
-    public void main() {
+    public Main() {
         FabriqueVehicule fabriqueVehicule = new FabriqueVehicule();
         Parking parkingr = Parking.getInstance();
         Client test = new Client("Jean", "Nemar", "ABCD");

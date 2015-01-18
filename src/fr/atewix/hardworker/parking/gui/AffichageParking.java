@@ -65,4 +65,5 @@ public class AffichageParking extends JFrame{
 		AffichagedesPlaces();
 		parking.revalidate();
 	}
+
 }
