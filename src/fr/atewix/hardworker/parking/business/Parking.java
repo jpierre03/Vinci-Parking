@@ -14,7 +14,7 @@ import fr.atewix.hardworker.parking.place.Transporteur;
 import java.lang.System;
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.Map;
+import java.util.Stack;
 
 
 public class Parking {
@@ -27,7 +27,7 @@ public class Parking {
     private ArrayList<Place> listeDesPlaces = new ArrayList<Place>();
     private ArrayList<Client> listeClient = new ArrayList<Client>();
     private ArrayList<Reservation> listeReservation = new ArrayList<Reservation>();
-    private Map<Facture, Vehicule> listeFacture = new HashMap<Facture, Vehicule>();
+    private Stack listeFacture = new HashMap<Facture, Vehicule>();
 
 
     private Parking() {
@@ -79,7 +79,7 @@ public class Parking {
         else {
             Vehicule vehiculeparke = placeSouhaite.getVehiculeparke();
             Facture facture = new Facture(vehiculeparke, placeSouhaite.getDateArrive(), TARIFHORRAIRE);
-            listeFacture.put(facture, vehiculeparke);
+            listeFacture.push(facture, vehiculeparke);
             placeSouhaite.setVehiculeparke(null);
             listeDesPlaces.set(numPlace, placeSouhaite);
             placeSouhaite.enleverReservation();
@@ -96,7 +96,7 @@ public class Parking {
             Vehicule vehiculearetirer = listeDesPlaces.get(numPlace).getVehiculeparke();
             listeDesPlaces.get(numPlace).setVehiculeparke(null);
             Facture facture = new Facture(vehiculearetirer, listeDesPlaces.get(numPlace).getDateArrive(), TARIFHORRAIRE);
-            listeFacture.put(facture, vehiculearetirer);
+            listeFacture.push(facture, vehiculearetirer);
             return vehiculearetirer;
         }
 
