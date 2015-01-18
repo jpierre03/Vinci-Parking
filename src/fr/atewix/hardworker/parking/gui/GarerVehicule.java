@@ -124,7 +124,7 @@ public class GarerVehicule extends JFrame{
         
         setContentPane(main);
         pack();
-        setResizable(false);
+        //setResizable(false);
         setLocation(400,500);
         setVisible(true);
     }

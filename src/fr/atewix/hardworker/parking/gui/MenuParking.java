@@ -19,6 +19,7 @@ public class MenuParking extends JMenuBar{
 	
 	public JMenu menuFichier(){
         JMenu Fichier = new JMenu("Fichier");
+        Fichier.add(menuItemImprimerEtat());
         Fichier.add(menuItemQuitter());
         return Fichier;
     }
@@ -46,6 +47,16 @@ public class MenuParking extends JMenuBar{
             }
         });
         return Quitter;
+    }
+
+    public JMenuItem menuItemImprimerEtat(){
+        JMenuItem imprimerEtat = new JMenuItem("Visualiser Etat du Parking");
+        imprimerEtat.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                new EtatParking();
+            }
+        });
+        return imprimerEtat;
     }
 
     public JMenuItem menuItemAjouterReservation(){

@@ -102,20 +102,22 @@ public class Parking {
 
     }
 
-    public void etatParking(){
+    public String etatParking(){
+        String etatParking = "";
         for(int i = 0; i < NOMBREDEPLACES; ++i){
             Place place = listeDesPlaces.get(i);
-            System.out.println("Numero de la place : " + i);
-            System.out.println("Type de la place : " + place.getType());
+            etatParking +="Numero de la place : " + i + "\n";
+            etatParking +="Type de la place : " + place.getType()+ "\n";
             if(place.getVehiculeparke() != null)
-                System.out.println("Informations sur le vehicule garé : " + place.getVehiculeparke());
+                etatParking +="Informations sur le vehicule garé : " + place.getVehiculeparke()+ "\n";
             else if (place.getReservation() != null)
-                System.out.println("Cette place est reservé");
+                etatParking +="Cette place est reservé" + "\n";
             else
-                System.out.println("Cette place est disponible");
+            etatParking +="Cette place est disponible" + "\n";
 
-            System.out.println("\n");
+            etatParking +="\n";
         }
+        return etatParking;
     }
 
     public boolean vehiculeExiste(Vehicule vehicule) {
