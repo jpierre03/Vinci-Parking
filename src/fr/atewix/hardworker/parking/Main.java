@@ -6,9 +6,12 @@ import fr.atewix.hardworker.parking.business.Parking;
 import fr.atewix.hardworker.parking.gui.AffichageParking;
 
 /**
- * Created by michael on 18/01/2015.
+ * Class Main, qui représente la classe de départ d'application
  */
 public class Main {
+    /**
+     * Constructeur de la classe Main
+     */
     public Main() {
         FabriqueVehicule fabriqueVehicule = new FabriqueVehicule();
         Parking parkingr = Parking.getInstance();
@@ -18,6 +21,10 @@ public class Main {
         AffichageParking parking = AffichageParking.getInstance();
     }
 
+    /**
+     * Methode main, qui reprensente la méthode appelé lors de l'execution de l'application
+     * @param args
+     */
     public static void main(String[] args) {
         Main main = new Main();
     }
