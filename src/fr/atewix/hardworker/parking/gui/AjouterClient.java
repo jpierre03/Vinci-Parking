@@ -12,15 +12,28 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-
+/**
+ * Class AjouterClient
+ * @see fr.atewix.hardworker.parking.gui.ihm.Fenetre
+ * @see java.awt.event.ActionListener
+ * @author Lucas Debiasi, Micheal Gileta, Sylvain De Barros, Kevin Duglue
+ */
 public class AjouterClient extends Fenetre implements ActionListener {
 
+    /**
+     * instance parking
+     */
     private Parking parking = Parking.getInstance();
+
     private JPanel panel = new JPanel();
+
     private JTextField nomtext = new JTextField();
     private JTextField prenomtext = new JTextField();
     private JTextField adressetext = new JTextField();
 
+    /**
+     * Methode pour ajouter un client
+     */
     public AjouterClient() {
         super("Ajouter un client", new Dimension(310, 210));
         generateVue();
@@ -28,6 +41,9 @@ public class AjouterClient extends Fenetre implements ActionListener {
         setVisible(true);
     }
 
+    /**
+     * Methode qui genere la vue
+     */
     private void generateVue() {
         JLabel nom = new JLabel("Nom");
         JLabel prenom = new JLabel("Prenom");
@@ -56,6 +72,13 @@ public class AjouterClient extends Fenetre implements ActionListener {
         panel.add(boutonannuler);
     }
 
+    /**
+     * methode qui verifier les valeurs entrées
+     * @param client
+     * @return
+     * @throws DonneesNonValides
+     * @throws ClientDejaCree
+     */
     private boolean verifierValeursClient(Client client) throws DonneesNonValides, ClientDejaCree {
         String nom = client.getNom();
         String prenom = client.getPrenom();
@@ -73,6 +96,10 @@ public class AjouterClient extends Fenetre implements ActionListener {
     }
 
 
+    /**
+     * ActionPerformed pour chaque boutons
+     * @param e
+     */
     @Override
     public void actionPerformed(ActionEvent e) {
         String commande = e.getActionCommand();

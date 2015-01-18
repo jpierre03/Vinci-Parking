@@ -8,14 +8,31 @@ import fr.atewix.hardworker.parking.place.Place;
 import javax.swing.*;
 import java.awt.*;
 
-
+/**
+ * Class AffichageParking, qui represente la fenetre principale du programme : les places de parking
+ * @see javax.swing.JFrame
+ * @author Lucas Debiasi, Micheal Gileta, Sylvain De Barros, Kevin Duglue
+ */
 public class AffichageParking extends JFrame{
 
+	/**
+	 * Largeur de la place
+	 */
 	private static final int PLACE_HEIGHT = 50;
 
+	/**
+	 * Instance du singleton AffichageParking
+	 */
 	private static AffichageParking VinciParking = new AffichageParking();
+
+	/**
+	 * Jpanel principal
+	 */
 	private JPanel parking = new JPanel();
 
+	/**
+	 * Constructeur privé AffichageParking
+	 */
 	private AffichageParking(){
 		super("Vinci Parking");
 		setResizable(false);
@@ -32,6 +49,10 @@ public class AffichageParking extends JFrame{
 		setVisible(true);
 	}
 
+	/**
+	 * On recupere l'instance de la classe
+	 * @return
+	 */
 	public static AffichageParking getInstance() {
 		if(VinciParking == null)
 			synchronized (Parking.class) {
@@ -41,6 +62,10 @@ public class AffichageParking extends JFrame{
 		return VinciParking;
 	}
 
+	/**
+	 * Taille bouton
+	 * @return taille
+	 */
 	private int taille() {
 		int tailleMenuRapidePlusMenu = 90;
 		int taillePlaceButton = PLACE_HEIGHT + 12;
@@ -48,6 +73,9 @@ public class AffichageParking extends JFrame{
 		return tailleMenuRapidePlusMenu + nbLignePlace*taillePlaceButton + taillePlaceButton;
 	}
 
+	/**
+	 * Affichage des places sous forme de bouton
+	 */
 	private void AffichagedesPlaces(){
 		for (int i = 0; i < Parking.getInstance().getListeDesPlaces().size(); ++i) {		
 			Place place = Parking.getInstance().getListeDesPlaces().get(i);
@@ -72,6 +100,9 @@ public class AffichageParking extends JFrame{
 		}
 	}
 
+	/**
+	 * Mettre à jour la fenetre
+	 */
 	public void mettreAJour(){
 		parking.removeAll();
 		parking.add(new MenuRapide());
