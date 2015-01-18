@@ -22,7 +22,7 @@ public class Main {
 		
         parkingr.addClient(premierclient);
 		parkingr.addClient(deuxiemeclient);
-		parkingr.addClient(troisemeclient);
+		parkingr.addClient(troisiemeclient);
 		parkingr.addClient(quatriemeclient);
         premierclient.addVehicule(fabriqueVehicule.Creer("Voiture", "AB123CD", premierclient, "Ferrari", "LaFerrari"));
 		deuxiemeclient.addVehicule(fabriqueVehicule.Creer("Voiture", "CB123CD",deuxiemeclient, "Peugeot", "205"));
