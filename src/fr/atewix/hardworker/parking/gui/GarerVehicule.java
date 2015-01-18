@@ -160,7 +160,7 @@ public class GarerVehicule extends JFrame{
                      if(lreservation.getSelectedItem() != null){
                          Reservation reservationselectionne = (Reservation) lreservation.getSelectedItem();
                          Place placereserve = reservationselectionne.getPlace();
-
+                         parking.enleveruneReservation(reservationselectionne);
                          parking.park((Vehicule) lvehicule.getSelectedItem(), placereserve);
                          AffichageParking.getInstance().mettreAJour();
                      }
