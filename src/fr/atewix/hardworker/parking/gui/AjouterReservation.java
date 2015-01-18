@@ -8,6 +8,8 @@ import fr.atewix.hardworker.parking.exception.PlusAucunePlaceException;
 import fr.atewix.hardworker.parking.place.Place;
 
 import javax.swing.*;
+import javax.swing.event.PopupMenuEvent;
+import javax.swing.event.PopupMenuListener;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -29,12 +31,26 @@ public class AjouterReservation extends JFrame{
             lclient.addItem(parking.getListeClient().get(i));
         }
 
-        Client clientsouhaite = (Client) lclient.getSelectedItem();
+
         JLabel labelvehicule = new JLabel("Vehicule");
         final JComboBox lvehicule = new JComboBox();
-        for(int i = 0; i < clientsouhaite.getListeVehiculeClient().size(); ++i){
-            lvehicule.addItem(clientsouhaite.getListeVehiculeClient().get(i));
-        }
+        lvehicule.addPopupMenuListener(new PopupMenuListener() {
+            public void popupMenuWillBecomeVisible(PopupMenuEvent e) {
+                lvehicule.removeAllItems();
+                Client cliensouhaite = (Client) lclient.getSelectedItem();
+                for(int i = 0; i < cliensouhaite.getListeVehiculeClient().size(); ++i){
+                    lvehicule.addItem(cliensouhaite.getListeVehiculeClient().get(i));
+                }
+            }
+
+            public void popupMenuWillBecomeInvisible(PopupMenuEvent e) {
+
+            }
+
+            public void popupMenuCanceled(PopupMenuEvent e) {
+
+            }
+        });
 
         panel.add(labelvehicule);
         panel.add(lvehicule);

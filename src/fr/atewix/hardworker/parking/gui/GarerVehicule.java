@@ -10,6 +10,8 @@ import fr.atewix.hardworker.parking.exception.DejasGarerAilleur;
 import fr.atewix.hardworker.parking.exception.PlaceOccupeeException;
 
 import javax.swing.*;
+import javax.swing.event.PopupMenuEvent;
+import javax.swing.event.PopupMenuListener;
 
 import java.awt.*;
 import java.awt.event.ActionEvent;
@@ -47,12 +49,27 @@ public class GarerVehicule extends JFrame{
         JPanel vehiculepan = new JPanel();
         vehiculepan.setLayout(new BorderLayout());
         JLabel labelvehicule = new JLabel("vehicule");
+
         final JComboBox lvehicule = new JComboBox();
-        Client clientchoisi = (Client) lclient.getSelectedItem();
-        ArrayList<Vehicule> listevehicule = clientchoisi.getListeVehiculeClient();
-        for(int i = 0; i < listevehicule.size(); ++i){
-            lvehicule.addItem(listevehicule.get(i));
-        }
+        lvehicule.addPopupMenuListener(new PopupMenuListener() {
+            public void popupMenuWillBecomeVisible(PopupMenuEvent e) {
+                lvehicule.removeAllItems();
+                Client clientchoisi = (Client) lclient.getSelectedItem();
+                ArrayList<Vehicule> listevehicule = clientchoisi.getListeVehiculeClient();
+                for(int i = 0; i < listevehicule.size(); ++i){
+                    lvehicule.addItem(listevehicule.get(i));
+                }
+            }
+
+            public void popupMenuWillBecomeInvisible(PopupMenuEvent e) {
+
+            }
+
+            public void popupMenuCanceled(PopupMenuEvent e) {
+
+            }
+        });
+
         vehiculepan.add(labelvehicule,BorderLayout.WEST);
         vehiculepan.add(lvehicule,BorderLayout.CENTER);
           
@@ -80,13 +97,10 @@ public class GarerVehicule extends JFrame{
                 try {
                     parking.park( (Vehicule) lvehicule.getSelectedItem(), Integer.parseInt((String) lplace.getSelectedItem()));
                     AffichageParking.getInstance().mettreAJour();
-                } catch (PlaceOccupeeException e1) {
-                	 
-                } catch (NumberFormatException e1) {
-
-				} catch (DejasGarerAilleur e1) {
-
-				}
+                }
+                catch (PlaceOccupeeException e1) {}
+                catch (NumberFormatException e1) {}
+                catch (DejasGarerAilleur e1) {}
                 finally {
                     dispose();
                 }
