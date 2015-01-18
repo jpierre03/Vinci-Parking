@@ -15,7 +15,6 @@ import java.lang.System;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
-import java.util.Stack;
 
 
 public class Parking {
@@ -28,7 +27,7 @@ public class Parking {
     private ArrayList<Place> listeDesPlaces = new ArrayList<Place>();
     private ArrayList<Client> listeClient = new ArrayList<Client>();
     private ArrayList<Reservation> listeReservation = new ArrayList<Reservation>();
-    private Stack listeFacture = new Stack();
+    private Map<Facture, Vehicule> listeFacture = new HashMap<Facture, Vehicule>();
 
 
     private Parking() {
@@ -80,7 +79,7 @@ public class Parking {
         else {
             Vehicule vehiculeparke = placeSouhaite.getVehiculeparke();
             Facture facture = new Facture(vehiculeparke, placeSouhaite.getDateArrive(), TARIFHORRAIRE);
-            listeFacture.push(facture);
+            listeFacture.put(facture, vehiculeparke);
             placeSouhaite.setVehiculeparke(null);
             listeDesPlaces.set(numPlace, placeSouhaite);
             placeSouhaite.enleverReservation();
@@ -97,26 +96,28 @@ public class Parking {
             Vehicule vehiculearetirer = listeDesPlaces.get(numPlace).getVehiculeparke();
             listeDesPlaces.get(numPlace).setVehiculeparke(null);
             Facture facture = new Facture(vehiculearetirer, listeDesPlaces.get(numPlace).getDateArrive(), TARIFHORRAIRE);
-            listeFacture.push(facture);
+            listeFacture.put(facture, vehiculearetirer);
             return vehiculearetirer;
         }
 
     }
 
-    public void etatParking(){
+    public String etatParking(){
+        String etatParking = "";
         for(int i = 0; i < NOMBREDEPLACES; ++i){
             Place place = listeDesPlaces.get(i);
-            System.out.println("Numero de la place : " + i);
-            System.out.println("Type de la place : " + place.getType());
+            etatParking +="Numero de la place : " + i + "\n";
+            etatParking +="Type de la place : " + place.getType()+ "\n";
             if(place.getVehiculeparke() != null)
-                System.out.println("Informations sur le vehicule garé : " + place.getVehiculeparke());
+                etatParking +="Informations sur le vehicule garé : " + place.getVehiculeparke()+ "\n";
             else if (place.getReservation() != null)
-                System.out.println("Cette place est reservé");
+                etatParking +="Cette place est reservé" + "\n";
             else
-                System.out.println("Cette place est disponible");
+            etatParking +="Cette place est disponible" + "\n";
 
-            System.out.println("\n");
+            etatParking +="\n";
         }
+        return etatParking;
     }
 
     public boolean vehiculeExiste(Vehicule vehicule) {
@@ -186,7 +187,7 @@ public class Parking {
         return instance;
     }
 
-    public Stack getListeFacture() {
+    public Map<Facture, Vehicule> getListeFacture() {
         return this.listeFacture;
     }
 
