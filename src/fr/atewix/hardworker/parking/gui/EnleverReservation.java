@@ -5,6 +5,7 @@ import fr.atewix.hardworker.parking.business.Client;
 import fr.atewix.hardworker.parking.business.Parking;
 import fr.atewix.hardworker.parking.business.Reservation;
 import fr.atewix.hardworker.parking.exception.PlaceDisponibleException;
+import fr.atewix.hardworker.parking.gui.ihm.Fenetre;
 
 import javax.swing.*;
 import javax.swing.event.PopupMenuEvent;
@@ -15,7 +16,7 @@ import java.awt.event.ActionListener;
 import java.util.ArrayList;
 
 
-public class EnleverReservation extends JFrame{
+public class EnleverReservation extends Fenetre implements ActionListener{
 
     private Parking parking 		= Parking.getInstance();
     private JComboBox lclient 		= new JComboBox();
@@ -23,13 +24,12 @@ public class EnleverReservation extends JFrame{
     private JComboBox lreservation	= new JComboBox();
     
     public EnleverReservation(){
-        super("Enlever Reservation");
+        super("Enlever Reservation", new Dimension(400, 200));
         JPanel main = new JPanel();
         main.setLayout(new BorderLayout());
         main.add(HautPanel(),BorderLayout.NORTH);
         main.add(Center(),BorderLayout.CENTER);
-        setContentPane(main);
-        pack();
+        add(main);
         setVisible(true);
     }
     
@@ -106,31 +106,32 @@ public class EnleverReservation extends JFrame{
     	JButton Valider = new JButton();
         Valider.setText("Valider");
         Valider.setPreferredSize(new Dimension(140, 40));
-        Valider.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent e) {
-                Reservation reservationselectionnee = (Reservation) lreservation.getSelectedItem();
-                parking.enleveruneReservation(reservationselectionnee);
-                int numPlace = reservationselectionnee.getPlace().getNumPlace();
-
-                try {
-                    parking.freePlace(numPlace);
-                    AffichageParking.getInstance().mettreAJour();
-                } catch (PlaceDisponibleException e1) {}
-                dispose();
-            }
-        });
+        Valider.addActionListener(this);
         
         JButton Annuler = new JButton();
         Annuler.setText("Annuler");
         Annuler.setPreferredSize(new Dimension(140, 40));
-        Annuler.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent e) {
-                dispose();
-            }
-        });
+        Annuler.addActionListener(this);
         validerannuler.add(Valider,BorderLayout.EAST);
         validerannuler.add(Annuler,BorderLayout.WEST);
         return validerannuler;
     }
-    
+
+    @Override
+    public void actionPerformed(ActionEvent e) {
+        String commande = e.getActionCommand();
+        if(commande.equals("Valider")) {
+            Reservation reservationselectionnee = (Reservation) lreservation.getSelectedItem();
+            parking.enleveruneReservation(reservationselectionnee);
+            int numPlace = reservationselectionnee.getPlace().getNumPlace();
+
+            try {
+                parking.freePlace(numPlace);
+                AffichageParking.getInstance().mettreAJour();
+            } catch (PlaceDisponibleException e1) {}
+            dispose();
+        } else if (commande.equals("Annuler")) {
+            dispose();
+        }
+    }
 }

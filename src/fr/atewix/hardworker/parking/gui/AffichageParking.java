@@ -74,6 +74,7 @@ public class AffichageParking extends JFrame{
 
 	public void mettreAJour(){
 		parking.removeAll();
+		parking.add(new MenuRapide());
 		AffichagedesPlaces();
 		parking.revalidate();
 	}
