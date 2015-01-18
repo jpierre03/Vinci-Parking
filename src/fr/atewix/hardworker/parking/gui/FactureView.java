@@ -25,6 +25,7 @@ public class FactureView extends JFrame {
 		courant = (Facture) parking.getListeFacture().peek();
 	    //setResizable(false);
 	    JTextArea facturecourant = new JTextArea(courant.toString());
+	    facturecourant.setEditable(false);
 	    add(facturecourant,BorderLayout.CENTER);
 		add(ImprimerQuiter(),BorderLayout.SOUTH);
 		pack();
