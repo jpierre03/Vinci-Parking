@@ -5,12 +5,7 @@ import fr.atewix.hardworker.parking.place.Place;
 
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 
-/**
- * Created by Kevin on 16/01/2015.
- */
 public class InfosPlace extends JFrame{
 
     JPanel panel = new JPanel();
@@ -23,6 +18,7 @@ public class InfosPlace extends JFrame{
         Labelinfo.setText(this.getTextInfo());
         panel.add(Labelinfo, BorderLayout.CENTER);
         setContentPane(panel);
+        setLocation(300, 400);
         pack();
         setVisible(true);
     }

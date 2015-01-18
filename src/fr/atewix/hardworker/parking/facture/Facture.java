@@ -4,15 +4,12 @@ package fr.atewix.hardworker.parking.facture;
 import fr.atewix.hardworker.parking.Vehicule.Vehicule;
 
 import java.util.Calendar;
-import java.util.Date;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.util.GregorianCalendar;
 
-/**
- * Created by Kevin on 23/12/2014.
- */
+
 public class Facture {
 	private static int numero = 0;
 	private int numeroFacture;

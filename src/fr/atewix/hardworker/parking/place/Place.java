@@ -8,9 +8,6 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.GregorianCalendar;
 
-/**
- * Created by Kevin on 23/12/2014.
- */
 public abstract class Place {
 
     private static int numPlaceCree = 0;

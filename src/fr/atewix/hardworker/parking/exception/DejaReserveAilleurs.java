@@ -2,9 +2,6 @@ package fr.atewix.hardworker.parking.exception;
 
 import javax.swing.*;
 
-/**
- * Created by Kevin on 18/01/2015.
- */
 public class DejaReserveAilleurs extends Exception {
     public DejaReserveAilleurs(){
         String message = " Vous avez déjà reserve une place pour ce vehicule";

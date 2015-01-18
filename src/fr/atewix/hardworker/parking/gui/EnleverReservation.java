@@ -4,10 +4,7 @@ import fr.atewix.hardworker.parking.Vehicule.Vehicule;
 import fr.atewix.hardworker.parking.business.Client;
 import fr.atewix.hardworker.parking.business.Parking;
 import fr.atewix.hardworker.parking.business.Reservation;
-import fr.atewix.hardworker.parking.exception.DejasGarerAilleur;
 import fr.atewix.hardworker.parking.exception.PlaceDisponibleException;
-import fr.atewix.hardworker.parking.exception.PlaceOccupeeException;
-import fr.atewix.hardworker.parking.place.Place;
 
 import javax.swing.*;
 import javax.swing.event.PopupMenuEvent;
@@ -15,12 +12,9 @@ import javax.swing.event.PopupMenuListener;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.awt.image.renderable.ParameterBlock;
 import java.util.ArrayList;
 
-/**
- * Created by Kevin on 18/01/2015.
- */
+
 public class EnleverReservation extends JFrame{
 
     private Parking parking = Parking.getInstance();
@@ -105,7 +99,7 @@ public class EnleverReservation extends JFrame{
                 dispose();
             }
         });
-
+        setLocation(300, 400);
         panel.add(Valider);
         panel.add(Annuler);
         setContentPane(panel);

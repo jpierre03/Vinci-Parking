@@ -6,10 +6,7 @@ import fr.atewix.hardworker.parking.facture.Facture;
 import fr.atewix.hardworker.parking.place.Particulier;
 import fr.atewix.hardworker.parking.place.Place;
 import fr.atewix.hardworker.parking.place.Transporteur;
-
-import java.lang.System;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.Stack;
 
 

@@ -8,6 +8,7 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
+
 public class AjouterClient extends JFrame {
 
     private Parking parking = Parking.getInstance();
@@ -59,6 +60,7 @@ public class AjouterClient extends JFrame {
         panel.add(boutonannuler);
         setContentPane(panel);
         setSize(new Dimension(350, 300));
+        setLocation(300, 400);
         setVisible(true);
     }
 

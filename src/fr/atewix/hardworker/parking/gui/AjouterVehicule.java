@@ -14,9 +14,7 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-/**
- * Created by Kevin on 17/01/2015.
- */
+
 public class AjouterVehicule extends JFrame{
 
     private Parking parking = Parking.getInstance();
@@ -162,6 +160,7 @@ public class AjouterVehicule extends JFrame{
         main.add(center, BorderLayout.CENTER);
         main.add(bottom, BorderLayout.SOUTH);
         setContentPane(main);
+        setLocation(300, 400);
         pack();
         setResizable(false);
         setVisible(true);

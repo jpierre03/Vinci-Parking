@@ -7,9 +7,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.*;
 
-/**
- * Created by Kevin on 18/01/2015.
- */
+
 public class EtatParking extends JFrame {
     public EtatParking(){
         super("Etat du Parking");

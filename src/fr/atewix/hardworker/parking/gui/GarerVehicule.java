@@ -1,14 +1,11 @@
 package fr.atewix.hardworker.parking.gui;
 
-import fr.atewix.hardworker.parking.Vehicule.Camion;
-import fr.atewix.hardworker.parking.Vehicule.Moto;
+
 import fr.atewix.hardworker.parking.Vehicule.Vehicule;
-import fr.atewix.hardworker.parking.Vehicule.Voiture;
 import fr.atewix.hardworker.parking.business.Client;
 import fr.atewix.hardworker.parking.business.Parking;
 import fr.atewix.hardworker.parking.business.Reservation;
 import fr.atewix.hardworker.parking.exception.DejasGarerAilleur;
-import fr.atewix.hardworker.parking.exception.DonneesNonValides;
 import fr.atewix.hardworker.parking.exception.PlaceOccupeeException;
 import fr.atewix.hardworker.parking.place.Place;
 
@@ -21,9 +18,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
 
-/**
- * Created by Kevin on 17/01/2015.
- */
+
 public class GarerVehicule extends JFrame{
 
     private  Parking parking= Parking.getInstance();
@@ -40,7 +35,7 @@ public class GarerVehicule extends JFrame{
         main.add(CenterPanel(),BorderLayout.CENTER);
         setContentPane(main);
         pack();
-        setLocation(400,500);
+        setLocation(300, 400);
         setSize(new Dimension(350, 300));
         setVisible(true);
     }

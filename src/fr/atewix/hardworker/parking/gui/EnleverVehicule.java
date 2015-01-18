@@ -1,25 +1,15 @@
 package fr.atewix.hardworker.parking.gui;
 
-import fr.atewix.hardworker.parking.Vehicule.Camion;
-import fr.atewix.hardworker.parking.Vehicule.Moto;
-import fr.atewix.hardworker.parking.Vehicule.Vehicule;
-import fr.atewix.hardworker.parking.Vehicule.Voiture;
-import fr.atewix.hardworker.parking.business.Client;
-import fr.atewix.hardworker.parking.business.Parking;
-import fr.atewix.hardworker.parking.exception.DejasGarerAilleur;
-import fr.atewix.hardworker.parking.exception.PlaceLibreException;
-import fr.atewix.hardworker.parking.exception.PlaceOccupeeException;
 
+import fr.atewix.hardworker.parking.business.Parking;
+import fr.atewix.hardworker.parking.exception.PlaceLibreException;
 import javax.swing.*;
 
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.util.ArrayList;
 
-/**
- * Created by Kevin on 17/01/2015.
- */
+
 public class EnleverVehicule extends JFrame{
 
     private Parking parking = Parking.getInstance();
@@ -30,7 +20,7 @@ public class EnleverVehicule extends JFrame{
         add(MainPannel());
         pack();
         setResizable(false);
-        setLocation(400,500);
+		setLocation(300, 400);
         setVisible(true);
     }
     

@@ -2,9 +2,7 @@ package fr.atewix.hardworker.parking.exception;
 
 import javax.swing.*;
 
-/**
- * Created by Kevin on 18/01/2015.
- */
+
 public class ImmatriculationDejaUtilise extends Exception{
 
     public ImmatriculationDejaUtilise(){

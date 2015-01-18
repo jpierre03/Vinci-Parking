@@ -1,20 +1,12 @@
 package fr.atewix.hardworker.parking.gui;
 
-import fr.atewix.hardworker.parking.Vehicule.Vehicule;
 import fr.atewix.hardworker.parking.Vehicule.Voiture;
 import fr.atewix.hardworker.parking.business.Client;
 import fr.atewix.hardworker.parking.business.Parking;
-import fr.atewix.hardworker.parking.exception.PlaceLibreException;
-import fr.atewix.hardworker.parking.exception.PlaceOccupeeException;
-import fr.atewix.hardworker.parking.exception.PlusAucunePlaceException;
-import fr.atewix.hardworker.parking.facture.Facture;
 import fr.atewix.hardworker.parking.place.Place;
 
 import javax.swing.*;
 import java.awt.*;
-import java.util.Calendar;
-import java.util.Date;
-import java.util.GregorianCalendar;
 
 
 public class AffichageParking extends JFrame{
@@ -52,15 +44,15 @@ public class AffichageParking extends JFrame{
 			placebutton.setPreferredSize(new Dimension(200, 50));
 
 			if (place.getVehiculeparke() != null) {
-				placebutton.setText(place.getVehiculeparke().getType() + " : " + place.getVehiculeparke().getImmatriculation());
+				placebutton.setText(i + " : " + place.getVehiculeparke().getType() + " : " + place.getVehiculeparke().getImmatriculation());
 				placebutton.setBackground(Color.red);
 			}
 			else if (place.getReservation() != null) {
-				placebutton.setText(place.getType());
+				placebutton.setText(i + " : " + place.getType());
 				placebutton.setBackground(Color.orange);
 			}
 			else {
-				placebutton.setText(place.getType());
+				placebutton.setText(i + " : " + place.getType());
 				placebutton.setBackground(Color.green);
 			}
 			parking.add(placebutton);

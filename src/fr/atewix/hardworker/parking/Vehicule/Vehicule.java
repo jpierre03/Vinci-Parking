@@ -5,9 +5,7 @@ import fr.atewix.hardworker.parking.business.Client;
 import java.lang.Override;
 import java.lang.String;
 
-/**
- * Created by Kevin on 23/12/2014.
- */
+
 public abstract class Vehicule {
 
     protected String immatriculation;

@@ -2,7 +2,6 @@ package fr.atewix.hardworker.parking.business;
 
 import fr.atewix.hardworker.parking.Vehicule.Vehicule;
 import java.util.ArrayList;
-import java.util.HashMap;
 
 public class Client {
 	private String prenom;

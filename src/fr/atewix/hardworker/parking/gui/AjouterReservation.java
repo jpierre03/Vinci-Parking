@@ -4,7 +4,6 @@ import fr.atewix.hardworker.parking.Vehicule.Vehicule;
 import fr.atewix.hardworker.parking.business.Client;
 import fr.atewix.hardworker.parking.business.Parking;
 import fr.atewix.hardworker.parking.exception.DejaReserveAilleurs;
-import fr.atewix.hardworker.parking.exception.PlaceOccupeeException;
 import fr.atewix.hardworker.parking.exception.PlusAucunePlaceException;
 import fr.atewix.hardworker.parking.place.Place;
 
@@ -15,9 +14,6 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-/**
- * Created by Kevin on 17/01/2015.
- */
 public class AjouterReservation extends JFrame{
 
     private Parking parking = Parking.getInstance();
@@ -85,6 +81,7 @@ public class AjouterReservation extends JFrame{
             }
         });
         add(Annuler, BorderLayout.EAST);
+        setLocation(300, 400);
         pack();
         setVisible(true);
 
