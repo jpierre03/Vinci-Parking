@@ -19,7 +19,12 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
 
-
+/**
+ * 
+ * Classe GarreVehicule 
+ *  @author Lucas Debiasi, Micheal Gileta, Sylvain De Barros, Kevin Duglue
+ *
+ */
 public class GarerVehicule extends Fenetre implements ActionListener{
 
     private  Parking parking= Parking.getInstance();

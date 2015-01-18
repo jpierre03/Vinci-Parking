@@ -16,19 +16,29 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
+/**
+ * Class AjouterReservation
+ */
 public class AjouterReservation extends Fenetre implements ActionListener {
+
 
     private Parking parking = Parking.getInstance();
     private JPanel panel = new JPanel();
     private JComboBox lvehicule = new JComboBox();
     private JComboBox lclient = new JComboBox();
 
+    /**
+     * Ajouter une reservation
+     */
     public AjouterReservation() {
         super("Reserver une place", new Dimension(400, 160));
         generateVue();
         setVisible(true);
     }
 
+    /**
+     * Generer Vue
+     */
     private void generateVue() {
 
         JPanel top = new JPanel();
@@ -87,6 +97,10 @@ public class AjouterReservation extends Fenetre implements ActionListener {
 
     }
 
+    /**
+     * Action Performed
+     * @param e
+     */
     @Override
     public void actionPerformed(ActionEvent e) {
         String commande = e.getActionCommand();
