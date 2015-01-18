@@ -2,13 +2,13 @@ package fr.atewix.hardworker.parking.Vehicule;
 
 import fr.atewix.hardworker.parking.business.Client;
 /**
- * Interface de fabrique de véhicules
+ * Interface de fabrique de vÃ©hicules
  *  @author Lucas Debiasi, Micheal Gileta, Sylvain De Barros, Kevin Duglue
  *
  */
 public interface IFabriqueVehicule {
 	/**
-	 * Interface de fabrique de véhicules
+	 * Interface de fabrique de vÃ©hicules
 	 * @param typeVehicule
 	 * @param immatriculation
 	 * @param proprietaire

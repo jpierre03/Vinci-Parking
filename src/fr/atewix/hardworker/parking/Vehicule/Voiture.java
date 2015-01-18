@@ -2,13 +2,13 @@ package fr.atewix.hardworker.parking.Vehicule;
 
 import fr.atewix.hardworker.parking.business.Client;
 /**
- * Classe voiture, permettant la création d'un véhicule de type voiture
+ * Classe voiture, permettant la crÃ©ation d'un vÃ©hicule de type voiture
  *  @author Lucas Debiasi, Micheal Gileta, Sylvain De Barros, Kevin Duglue
  *
  */
 public class Voiture extends Vehicule {
 	/**
-	 * Création d'un véhicule de type voiture
+	 * CrÃ©ation d'un vÃ©hicule de type voiture
 	 * @param immatriculation
 	 * @param proprietaire
 	 * @param marque

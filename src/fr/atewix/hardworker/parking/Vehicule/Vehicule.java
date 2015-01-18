@@ -6,7 +6,7 @@ import java.lang.Override;
 import java.lang.String;
 
 	/**
-	 * Classe abstraite qui définit ce qu'un véhicule doit contenir au minimum
+	 * Classe abstraite qui dÃ©finit ce qu'un vÃ©hicule doit contenir au minimum
 	 *  @author Lucas Debiasi, Micheal Gileta, Sylvain De Barros, Kevin Duglue
 	 *
 	 */
@@ -18,7 +18,7 @@ public abstract class Vehicule {
     protected String modele;
     protected String type;
     /**
-     * Constructeur minimum d'un véhicule
+     * Constructeur minimum d'un vÃ©hicule
      * @param immatriculation
      * @param proprietaire
      * @param marque
@@ -34,7 +34,7 @@ public abstract class Vehicule {
     }
     
     /**
-     * Méthode d'affichage
+     * MÃ©thode d'affichage
      */
     public String toString() {
         return  immatriculation +
@@ -42,28 +42,28 @@ public abstract class Vehicule {
                 " " + modele ;
     }
     /**
-     * Récupérer l'immatriculation
+     * RÃ©cupÃ©rer l'immatriculation
      * @return
      */
     public String getImmatriculation() {
         return this.immatriculation;
     }
     /**
-     * Récupérer le propriétaire
+     * RÃ©cupÃ©rer le propriÃ©taire
      * @return
      */
     public Client getProprietaire() {
         return this.proprietaire;
     }
     /**
-     * Récupérer le type de véhicule
+     * RÃ©cupÃ©rer le type de vÃ©hicule
      * @return
      */
     public String getType() {
         return type;
     }
     /**
-     * Récupérer le modèle du véhicule
+     * RÃ©cupÃ©rer le modÃ©le du vÃ©hicule
      * @return
      */
     public String getModele() {
@@ -71,7 +71,7 @@ public abstract class Vehicule {
     }
     
     /**
-     * Récupérer la marque du véhicule
+     * RÃ©cupÃ©rer la marque du vÃ©hicule
      * @return
      */
     public String getMarque(){
