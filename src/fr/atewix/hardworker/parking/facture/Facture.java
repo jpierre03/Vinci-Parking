@@ -75,10 +75,10 @@ public class Facture {
 	 * @return Montant de la facture Hors Taxes
 	 */
     private double calculMontantHT(Calendar datedebut, Calendar datefin, int tarifhoraire){
-          return (datefin.get(Calendar.DAY_OF_MONTH) - datedebut.get(Calendar.DAY_OF_MONTH))*24*3600
+          return ((datefin.get(Calendar.DAY_OF_MONTH) - datedebut.get(Calendar.DAY_OF_MONTH))*24*3600
                 + (datefin.get(Calendar.HOUR_OF_DAY)-datedebut.get(Calendar.HOUR_OF_DAY))*3600
                 + (datefin.get(Calendar.MINUTE) - datedebut.get(Calendar.MINUTE))*60
-                + (datefin.get(Calendar.SECOND) - datedebut.get(Calendar.SECOND))/3600*tarifhoraire;
+                + (datefin.get(Calendar.SECOND) - datedebut.get(Calendar.SECOND)))/3600*tarifhoraire;
     }
 
 	/**
