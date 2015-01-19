@@ -8,16 +8,20 @@ Compiler le code
 
 Windows
 ==========
+cd Vinci-Parking/src
+
 set path=%path%;"path_du_dossier_bin"
 
-javac -encoding utf8 Vinci-Parking/*.java
+javac -encoding utf8 fr/atewix/hardworker/parking/*.java
 
-java Vinci-Parking/fr/atewix/hardworker/parking/Main
+java fr/atewix/hardworker/parking/Main
 
 Linux
 ==========
-javac Vinci-Parking/*.java
+cd Vinci-Parking/src
 
-javac -encoding utf8 Vinci-Parking/*.java
+javac fr/atewix/hardworker/parking/*.java
 
-java Vinci-Parking/fr/atewix/hardworker/parking/Main
+javac -encoding utf8 fr/atewix/hardworker/parking/*.java
+
+java fr/atewix/hardworker/parking/Main
