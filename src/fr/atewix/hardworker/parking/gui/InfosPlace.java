@@ -17,7 +17,7 @@ public class InfosPlace extends JFrame{
     private int numPlace;
     
     /**
-     * Affiche les informations sur place donnée
+     * Affiche les informations sur place donnee
      * @param numPlace
      */
     public InfosPlace(int numPlace){
@@ -34,7 +34,7 @@ public class InfosPlace extends JFrame{
     
     /**
      * 
-     * Information sur le vehicule garé
+     * Information sur le vehicule gare
      * @return
      */
     public String getTextInfo(){
